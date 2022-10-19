@@ -1,5 +1,6 @@
  #include <stdint.h>
  //#include <string.h>
+ #include <video.h>
 #include <lib.h>
  #include <moduleLoader.h>
  #include <naiveConsole.h>
@@ -42,92 +43,29 @@ void * initializeKernelBinary()
 {
 	char buffer[10];
 
-	ncPrint("[x64BareBones]",WHITE,BLACK);
-	ncNewline();
-
-	ncPrint("CPU Vendor:",WHITE,BLACK );
-	ncPrint(cpuVendor(buffer),WHITE,BLACK);
-	ncNewline();
-
-	ncPrint("[Loading modules]",WHITE,BLACK);
-	ncNewline();
 	void * moduleAddresses[] = {
 		sampleCodeModuleAddress,
 		sampleDataModuleAddress
 	};
 
 	loadModules(&endOfKernelBinary, moduleAddresses);
-	ncPrint("[Done]",WHITE,BLACK);
-	ncNewline();
-	ncNewline();
-
-	ncPrint("[Initializing kernel's binary]",WHITE,BLACK);
-	ncNewline();
-
 	clearBSS(&bss, &endOfKernel - &bss);
-
-	ncPrint("  text: 0x",WHITE,BLACK);
-	ncPrintHex((uint64_t)&text);
-	ncNewline();
-	ncPrint("  rodata: 0x",WHITE,BLACK);
-	ncPrintHex((uint64_t)&rodata);
-	ncNewline();
-	ncPrint("  data: 0x",WHITE,BLACK);
-	ncPrintHex((uint64_t)&data);
-	ncNewline();
-	ncPrint("  bss: 0x",WHITE,BLACK);
-	ncPrintHex((uint64_t)&bss);
-	ncNewline();
-
-	ncPrint("[Done]",WHITE,BLACK);
-	ncNewline();
-	ncNewline();
 	return getStackBase();
 }
 
 int main()
 {	
 	load_idt();
-	// ncPrint("[Kernel Main]",WHITE);
-	// ncNewline();
-	// ncPrint("  Sample code module at 0x",WHITE);
-	// ncPrintHex((uint64_t)sampleCodeModuleAddress);
-	// ncNewline();
-	// ncPrint("  Calling the sample code module returned: ",WHITE);
-	// ncPrintHex(((EntryPoint)sampleCodeModuleAddress)());
-	// ncNewline();
-	// ncNewline();
+	// putpixel(512,768/2, 0xFFFFFF);
+	// putpixel(512,100, 0xFFFFFF);
 
-	// ncPrint("  Sample data module at 0x",WHITE);
-	// ncPrintHex((uint64_t)sampleDataModuleAddress);
-	// ncNewline();
-	// ncPrint("  Sample data module contents: ",WHITE);
-	// ncPrint((char*)sampleDataModuleAddress,WHITE);
-	// ncNewline();
-	// ncPrint("Arquitectura de computadoras",LIGHT_GREEN);
-	// ncNewline();
-	// ncPrint("tiempo: ",LIGHT_GREEN);
-	// ncPrintHex((getHours() -3 -6)); // restamos 3 pues el utc es de 3 yay. El 6 se lo restamos pues hay 6 caracteres (A B C D E F) le resto los 6 a los cuales no puedo acceder, 
-	// ncPrint(" : ", LIGHT_GREEN);
-	// ncPrintHex(getMinutes());
-	// ncPrint(" : ",LIGHT_GREEN);
-	// ncPrintHex(getSeconds());
-	// ncNewline();
-	
-	// ejercicio de la teclita omg hi;
+	fillrect(300,0, 0xFF0080, 1024, 500);
+	putpixel(1024,1024,0xFFFFFF);
 	int tecla = 0;
 	int i = 0;
 	ncPrint("la tecla va aca",GREEN,GRAY);
-	// while(1){
-	// 	tecla = getKey();
-	// 	if(tecla <= 0x79)
-	// 	ncPrintChar(keyBoardTable[tecla],WHITE,GRAY);
-	// }
 	sys_write(1,"lavida",4);
-	while(1){
-		
-	}
 
-	// ncPrint("[Finished]",WHITE);
+	while(1){}
 	return 0;
 }
