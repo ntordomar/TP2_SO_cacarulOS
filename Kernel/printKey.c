@@ -7,6 +7,6 @@ int tecla = getKey();
         if(tecla == 14){
             printBackSpace();
         }    
-		else ncPrintChar(keyBoardTable[tecla],WHITE,BLACK);
+		//else ncPrintChar(keyBoardTable[tecla],WHITE,BLACK);
 }
  }

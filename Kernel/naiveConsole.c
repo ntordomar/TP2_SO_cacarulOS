@@ -31,7 +31,7 @@ void ncNewline()
 {
 	do
 	{
-		ncPrintChar(' ',BLACK,BLACK);
+		//ncPrintChar(' ',BLACK,BLACK);
 	}
 	while((uint64_t)(currentVideo - video) % (width * 2) != 0);
 }
@@ -54,7 +54,7 @@ void ncPrintBin(uint64_t value)
 void ncPrintBase(uint64_t value, uint32_t base)
 {
     uintToBase(value, buffer, base);
-    ncPrint(buffer, WHITE,GREEN);
+    //ncPrint(buffer, WHITE,GREEN);
 }
 
 void ncClear()
@@ -101,11 +101,11 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)
 
 void printBackSpace(){
 	currentVideo-=2;
-	ncPrint(" ",BLACK,BLACK);
+	//ncPrint(" ",BLACK,BLACK);
 	currentVideo -=2;
 }
 void ncPrintBytes(const char* string, int bytes, char color) {
 	for (int i =0; i<bytes; i++){
-		ncPrintChar(string[i], color,BLACK);
+		//ncPrintChar(string[i], color,BLACK);
 	}
 }
