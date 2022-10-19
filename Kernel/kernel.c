@@ -66,6 +66,7 @@ int main()
 	// ncPrint("la tecla va aca",GREEN,GRAY);
 	// sys_write(1,"lavida",4);
 	clearScreen();
+	draw_char(120,700,"z",WHITE);
 
 	while(1){}
 	return 0;

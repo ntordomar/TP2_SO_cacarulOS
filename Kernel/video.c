@@ -71,5 +71,30 @@ void fillrect(int x, int y, int color, int w, int h) {
 
 }
 void clearScreen(){
-    fillrect(0, 0, BLACK, SCREEN_W, SCREEN_H);
+        fillrect(0, 0, BLACK, SCREEN_W, SCREEN_H);
+
+}
+
+
+void draw_string( int x, int y, char* input, int color) {
+    int where = x;
+    while(*input) {
+        draw_char(x,y,letterInPixel[*input], color);
+        where += 13; // chat width
+        input++; 
+    }
+}
+void draw_char(int x, int y, char * letter, int color) {
+    int l ,i;
+    int j =x;
+    for (l = 0; l <13 ; l++) {
+        for (i = 16; i > 0; i--) {
+            j++;
+            if ((letter[l] & (1 << i))) {
+                putpixel(j, y, color);
+            }
+        }
+        y++;
+        j = x;
+    }
 }
