@@ -46,23 +46,23 @@ int getYPos(int y){
 
 void fillrect(int x, int y, int color, int w, int h) {
     
-    // if(x > screenInformation->width || y > screenInformation->height) return;
+     if(x > screenInformation->width || y > screenInformation->height) return;
     int i, j;
-    // if(w+x  > screenInformation->width) w = screenInformation->width -x;
-    // if(h+y > screenInformation->height) h = screenInformation->height - y;
+     if(w+x  > screenInformation->width) w = screenInformation->width -x;
+     if(h+y > screenInformation->height) h = screenInformation->height - y;
     
-    char * aux = bufferAux + getPosition(x, y) ;
+    char * aux = screenInformation->framebuffer + getPosition(x, y) ;
     int blue = getBlue(color);
     int red = getRed(color);
     int green = getGreen(color);
-    *aux = getBlue(color);  // BLUE
-    *(aux+1) = getGreen(color); // GREEN
-    *(aux+2) = getRed(color); // RED
+    // *aux = getBlue(color);  // BLUE
+    // *(aux+1) = getGreen(color); // GREEN
+    // *(aux+2) = getRed(color); // RED
     
     for (i = 0; i < w; i++) {
         for (j = 0; j < h; j++) {
-           // putpixel(x + i, y + j, color);
-            *(aux + (3))) = blue;  // BLUE
+            aux = screenInformation->framebuffer + getPosition(x+i,y+j);
+            *(aux) = blue;  // BLUE
             *(aux+1) = green; // GREEN
             *(aux+2) = red; // RED
         }
@@ -71,9 +71,5 @@ void fillrect(int x, int y, int color, int w, int h) {
 
 }
 void clearScreen(){
-    for(int i = 0; i< SCREEN_W; i++){
-        for(int j = 0; j<SCREEN_H; j++){
-            putpixel(i,j,BLACK);
-        }
-    }
+    fillrect(0, 0, BLACK, SCREEN_W, SCREEN_H);
 }

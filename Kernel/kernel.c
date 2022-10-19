@@ -59,7 +59,7 @@ int main()
 	putpixel(512,768/2, 0xFFFFFF);
 	 putpixel(512,100, 0xFFFFFF);
 
-	fillrect(300,0, 0xFF0080, 1024, 500);
+	fillrect(300,0, 0xFF0080, 1024, 12);
 	putpixel(1024,1024,0xFFFFFF);
 	int tecla = 0;
 	int i = 0;
