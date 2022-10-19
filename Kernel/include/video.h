@@ -1,5 +1,10 @@
 #include <stdint.h>
-
+#define BLACK 0x000000
+#define GREEN 0x008000
+#define RED 0xFF0000
+#define WHITE 0xFFFFFF
+#define CORAL 0xFF7F50
+#define PINK 0xFF69B4
 
 struct vbe_mode_info_structure {
 	uint16_t attributes;		// deprecated, only bit 7 should be of interest to you, and it indicates the mode supports a linear frame buffer.
@@ -43,3 +48,4 @@ struct vbe_mode_info_structure {
 
 void putpixel(int x, int y, int color);
 void fillrect(int x, int y, int color, int w, int h);
+void clearScreen();

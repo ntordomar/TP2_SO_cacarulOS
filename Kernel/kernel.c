@@ -56,8 +56,8 @@ void * initializeKernelBinary()
 int main()
 {	
 	load_idt();
-	// putpixel(512,768/2, 0xFFFFFF);
-	// putpixel(512,100, 0xFFFFFF);
+	putpixel(512,768/2, 0xFFFFFF);
+	 putpixel(512,100, 0xFFFFFF);
 
 	fillrect(300,0, 0xFF0080, 1024, 500);
 	putpixel(1024,1024,0xFFFFFF);
@@ -65,6 +65,7 @@ int main()
 	int i = 0;
 	ncPrint("la tecla va aca",GREEN,GRAY);
 	sys_write(1,"lavida",4);
+	clearScreen();
 
 	while(1){}
 	return 0;

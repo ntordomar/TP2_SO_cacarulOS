@@ -7,7 +7,7 @@ static unsigned long ticks = 0;
 static int flag = 1;
 void timer_handler() {
 	ticks++;
-	putpixel(200 + ticks, 200 + ticks,0x321232);
+	putpixel(200 + ticks, 200 + ticks,GREEN);
 	if(seconds_elapsed()%5 == 0 ){
 		if(flag){
 			flag = 0;
