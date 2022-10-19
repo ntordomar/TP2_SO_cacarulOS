@@ -1,0 +1,1 @@
+void sys_write_handler(int fd, char * buff, int bytes);
