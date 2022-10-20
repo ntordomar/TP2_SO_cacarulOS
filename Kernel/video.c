@@ -51,13 +51,15 @@ void fillrect(int x, int y, int color, int w, int h) {
      if(w+x  > screenInformation->width) w = screenInformation->width -x;
      if(h+y > screenInformation->height) h = screenInformation->height - y;
     
-    char * aux = screenInformation->framebuffer + getPosition(x, y) ;
+    char * aux = screenInformation->framebuffer + getPosition(x, y);
     int blue = getBlue(color);
     int red = getRed(color);
     int green = getGreen(color);
     // *aux = getBlue(color);  // BLUE
     // *(aux+1) = getGreen(color); // GREEN
     // *(aux+2) = getRed(color); // RED
+
+
     
     for (i = 0; i < w; i++) {
         for (j = 0; j < h; j++) {
