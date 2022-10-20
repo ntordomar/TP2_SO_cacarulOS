@@ -54,18 +54,18 @@ void * initializeKernelBinary()
 }
 
 int main()
-{	
+{
 	load_idt();
 	putpixel(512,768/2, 0xFFFFFF);
 	putpixel(512,100, 0xFFFFFF);
 
 	fillrect(300,0, GREEN, 1024, 12);
 	putpixel(1024,1024,0xFFFFFF);
+	draw_char(512, 768/2, 'a', WHITE,GREEN, 3);
 	int tecla = 0;
 	int i = 0;
 	// ncPrint("la tecla va aca",GREEN,GRAY);
 	// sys_write(1,"lavida",4);
-	clearScreen();
 	// draw_char(120,700,"z",WHITE);
 
 	while(1){}

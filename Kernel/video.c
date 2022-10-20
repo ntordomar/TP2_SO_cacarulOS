@@ -3,6 +3,7 @@
 #define SCREEN_W screenInformation->width
 #define SCREEN_H screenInformation->height
 
+
 struct vbe_mode_info_structure* screenInformation = (void *)0x5C00; // la datita que nos provee la catedra esta en esta direccion de memoria (fijarse la funcion sysvar en el Bootloader)
 char bufferAux[1024*768];
 unsigned char getRed(int color){
@@ -78,25 +79,80 @@ void clearScreen(){
 }
 
 
-void draw_string( int x, int y, char* input, int color) {
+void draw_string( int x, int y, char* input, int color, int backgroundColor, int fontSize) {
     int where = x;
     while(*input) {
-        draw_char(x,y,letterInPixel[*input], color);
+        draw_char(x,y,letterInPixel[*input], color, backgroundColor, fontSize);
         where += 13; // chat width
         input++; 
     }
 }
-void draw_char(int x, int y, char * letter, int color) {
-    int l ,i;
-    int j =x;
-    for (l = 0; l <13 ; l++) {
-        for (i = 16; i > 0; i--) {
-            j++;
-            if ((letter[l] & (1 << i))) {
-                putpixel(j, y, color);
-            }
-        }
-        y++;
-        j = x;
+
+void draw_char(int x, int y, char * letter, int color, int backgroundColor, int fontSize) {
+    
+    int aux_x = x;
+	int aux_y = y;
+
+    if (aux_x + 8*fontSize > SCREEN_W) {
+        aux_x = 0;
+        aux_y += 16*fontSize;
     }
+
+	char bitIsPresent;
+
+	unsigned char* toDraw = charBitmap(letter);
+
+	for(int i = 0; i < 16; i++) { // 16 is the height of a letter
+		for(int j = 0; j < 8; j++) { // 8 is the width 
+
+        bitIsPresent = 0;
+            switch (j)
+            {
+            case 0:
+                bitIsPresent = 0x80 & *(toDraw + i); // 0x80h = 10000000b
+                break;
+                
+            case 1: 
+                bitIsPresent = 0x40 & *(toDraw + i); // 0x40h = 01000000b
+                break;
+
+            case 2: 
+                bitIsPresent =0x20 & *(toDraw + i); // 0x20h = 00100000b
+                break;
+                
+            case 3: 
+                bitIsPresent =0x10 & *(toDraw + i); // 0x10h = 00010000b
+                break;
+
+            case 4: 
+                bitIsPresent =0x08 & *(toDraw + i); // 0x08h = 00001000b
+                break; 
+
+            case 5: 
+                bitIsPresent =0x04 & *(toDraw + i); // 0x04h = 00000100b
+                break; 
+                
+            case 6: 
+                bitIsPresent =0x02 & *(toDraw + i); // 0x02h = 000000010b
+                break; 
+                
+            case 7: 
+                bitIsPresent =0x01 & *(toDraw + i); // 0x01h = 000000001b
+                break;             
+            }
+
+			if(bitIsPresent)
+				fillrect(aux_x, aux_y,  color,fontSize,fontSize);
+			else
+				fillrect(aux_x, aux_y, backgroundColor, fontSize, fontSize);
+
+			aux_x+=fontSize;
+		}
+        
+        
+
+		aux_x = x;
+		aux_y+=fontSize;
+	}
 }
+

@@ -6,6 +6,8 @@
 #define CORAL 0xFF7F50
 #define PINK 0xFF69B4
 
+#define DEFAULT_LETTER_SIZE 1
+
 struct vbe_mode_info_structure {
 	uint16_t attributes;		// deprecated, only bit 7 should be of interest to you, and it indicates the mode supports a linear frame buffer.
 	uint8_t window_a;			// deprecated
@@ -145,8 +147,10 @@ static char letterInPixel[][13] = {
 void putpixel(int x, int y, int color);
 void fillrect(int x, int y, int color, int w, int h);
 void clearScreen();
-void draw_string( int x, int y, char* input, int color);
-void draw_char(int x, int y, char * letter, int color);
+void draw_string( int x, int y, char* input, int color, int backgroundColor, int fontSize);
+void draw_char(int x, int y, char * letter, int color,int backgroundColor, int fontSize);
+int getXterminal();
+int getYterminal();
 
 
 
