@@ -5,7 +5,6 @@ GLOBAL picMasterMask
 GLOBAL picSlaveMask
 GLOBAL haltcpu
 GLOBAL _hlt
-GLOBAL _sysCallHandler
 GLOBAL _irq00Handler
 GLOBAL _irq01Handler
 GLOBAL _irq02Handler
@@ -14,7 +13,6 @@ GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 
 GLOBAL _exception0Handler
-extern sys_write_handler
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 
@@ -147,19 +145,6 @@ haltcpu:
 	cli
 	hlt
 	ret
-
-_sysCallHandler: 
-	pushState
-
-	cmp RAX, 1
-	je write
-	jmp exit
-write:
-	call sys_write_handler
-	; signal pic EOI (End of Interrupt)
-exit:
-	popState
-	iretq
 
 
 SECTION .bss

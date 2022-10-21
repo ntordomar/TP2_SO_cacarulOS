@@ -2,6 +2,8 @@
 #include <idtLoader.h>
 #include <defs.h>
 #include <interrupts.h>
+#include <syscalls.h>
+
 #pragma pack(push)		/* Push de la alineación actual */
 #pragma pack (1) 		/* Alinear las siguiente estructuras a 1 byte */
 /* Descriptor de interrupcion */
@@ -25,7 +27,7 @@ void load_idt() { // la llamo al principio del main para que me cargue la idt
   setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);
   setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
   setup_IDT_entry(0x21,  &_irq01Handler); // agrego el teclado!!! SI LE AGREGO EL CASTEO DE LOS ANTERIORES SE ME ROMPE QUE ONDAAAAA LOCO
-  setup_IDT_entry(0x80,&_sysCallHandler);
+  setup_IDT_entry(0x80, &sys_call_handler);
 	//Solo interrupcion timer tick habilitadas CAMBIARLA PARA LA DEL TECLADO (ABRIR EL CORRESPONDIENTE IRQ 1)
 	picMasterMask(0xFC); 
 	picSlaveMask(0xFF);

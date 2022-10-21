@@ -65,7 +65,7 @@ int main()
 	int tecla = 0;
 	int i = 0;
 	// ncPrint("la tecla va aca",GREEN,GRAY);
-	// sys_write(1,"lavida",4);
+	sys_write(1,"lavida",4);
 	// draw_char(120,700,"z",WHITE);
 
 	while(1){}
