@@ -1,11 +1,12 @@
 #include <video.h>
 #include <lib.h>
+#include <font.h>
 #define SCREEN_W screenInformation->width
 #define SCREEN_H screenInformation->height
 
 
 struct vbe_mode_info_structure* screenInformation = (void *)0x5C00; // la datita que nos provee la catedra esta en esta direccion de memoria (fijarse la funcion sysvar en el Bootloader)
-char bufferAux[1024*768];
+static char bufferAux[1024*768];
 unsigned char getRed(int color){
     return (color >> 16) & 255;
 }
@@ -73,22 +74,39 @@ void fillrect(int x, int y, int color, int w, int h) {
     }
 
 }
+
 void clearScreen(){
         fillrect(0, 0, BLACK, SCREEN_W, SCREEN_H);
-
 }
 
 
-void draw_string( int x, int y, char* input, int color, int backgroundColor, int fontSize) {
-    int where = x;
-    while(*input) {
-        draw_char(x,y,letterInPixel[*input], color, backgroundColor, fontSize);
-        where += 13; // chat width
-        input++; 
+void draw_string( int x, int y, char* input, int len,int color, int backgroundColor, int fontSize) {
+     int xInter = x;
+    int yInter = y;
+    for(int i = 0; i<len; i++){
+     if(input[i] == 8){
+            draw_char(xInter-DEFAULT_LETTER_SIZE*8,yInter,' ',BLACK,BLACK,DEFAULT_LETTER_SIZE);
+            if(xInter <= 0) {
+            if(yInter == 0) return;
+        
+                xInter = 1024;
+                yInter -= 16 * DEFAULT_LETTER_SIZE;
+            } else {
+                xInter -= DEFAULT_LETTER_SIZE*8;
+            }
+        }    
+		else {
+            draw_char(xInter, yInter, input[i], color, BLACK, DEFAULT_LETTER_SIZE);
+            xInter+= DEFAULT_LETTER_SIZE*8;
+            if(xInter >= 1024) {
+                yInter += 16 * DEFAULT_LETTER_SIZE;
+                xInter = 0;
+            }
+        }
     }
 }
 
-void draw_char(int x, int y, char * letter, int color, int backgroundColor, int fontSize) {
+void draw_char(int x, int y, char letter, int color, int backgroundColor, int fontSize) {
     
     int aux_x = x;
 	int aux_y = y;

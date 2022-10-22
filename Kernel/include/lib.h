@@ -7,6 +7,10 @@ void * memcpy(void * destination, const void * source, uint64_t length);
 
 char *cpuVendor(char *result);
 
+int getSeconds();
+int getMinutes();
+int getHours();
+
 #endif
 
 

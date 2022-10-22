@@ -2,8 +2,9 @@
 #include <stdint.h>
 #include <video.h>
 #include <keyBoardHandler.h>
+#include <lib.h>
 
-static void (*sysFunctions[20])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5) = {_0_empty,_1_writeChar,_2_read,_3_draw_rectangle,_4_clear_screen};
+static void (*sysFunctions[20])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5) = {_0_empty,_1_write,_2_read,_3_draw_rectangle,_4_clear_screen, _5_write_char, _6_get_seconds, _7_get_minutes, _8_get_hours};
 
 void sys_call_handler(uint64_t mode, uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5 ){ // pasamos todos ints, en el caso en el que sea un numero, se lee como un numero, en el caso de que esa una direccion de memoria, se castea a la que se necesita :)
     (*sysFunctions[mode])(r1,r2,r3,r4,r5);
@@ -14,9 +15,8 @@ void _0_empty(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5){
     ;
 } 
 
-
-void _1_writeChar(uint64_t x, uint64_t y, uint64_t c){
-    draw_char(x, y, (char *)c, WHITE, BLACK, DEFAULT_LETTER_SIZE);
+void _1_write(uint64_t x, uint64_t y, uint64_t c, uint64_t len, uint64_t fd){
+    draw_string(x, y, (char *) c, len, (fd == 1) ? WHITE : RED, BLACK, DEFAULT_LETTER_SIZE);
 } 
 
 
@@ -37,3 +37,19 @@ void _4_clear_screen(){
     clearScreen();
 }
 
+void _5_write_char(uint64_t x, uint64_t y, uint64_t c, uint64_t fd) {
+    draw_char(x, y, c, (fd == 1) ? WHITE : RED, BLACK, DEFAULT_LETTER_SIZE);
+}
+
+void _6_get_seconds(uint64_t sec) {
+    *((int *)sec) = getSeconds();
+}
+
+void _7_get_minutes(uint64_t min) {
+    *((int *)min) = getMinutes();
+}
+
+void _8_get_hours(uint64_t hour) {
+    *((int *)hour) = getHours();
+
+}

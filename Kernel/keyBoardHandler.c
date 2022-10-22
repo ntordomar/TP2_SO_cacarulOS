@@ -20,9 +20,8 @@ void keyHandler(){
     //     if(tecla == 14){
     //         draw_char(xTerminal-DEFAULT_LETTER_SIZE*8,yTerminal,' ',BLACK,BLACK,DEFAULT_LETTER_SIZE);
     //         if(xTerminal <= 0) {
-    //             if(yTerminal == 0) {
-    //                 return;
-    //             }
+    //         if(yTerminal == 0) return;
+        
     //             xTerminal = 1024;
     //             yTerminal -= 16 * DEFAULT_LETTER_SIZE;
     //         } else {

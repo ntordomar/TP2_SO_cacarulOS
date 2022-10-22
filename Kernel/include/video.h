@@ -147,8 +147,8 @@ static char letterInPixel[][13] = {
 void putpixel(int x, int y, int color);
 void fillrect(int x, int y, int color, int w, int h);
 void clearScreen();
-void draw_string( int x, int y, char* input, int color, int backgroundColor, int fontSize);
-void draw_char(int x, int y, char * letter, int color,int backgroundColor, int fontSize);
+void draw_string( int x, int y, char* input, int len,int color, int backgroundColor, int fontSize);
+void draw_char(int x, int y, char letter, int color,int backgroundColor, int fontSize);
 int getXterminal();
 int getYterminal();
 
