@@ -2,11 +2,11 @@
  #include <keyBoardHandler.h>
  #include <lib.h>
  
-static char buff[2] = {'a', 'b'};
+static char buff[2];
 static char teclaCant = 0;
 
 void getBuff(char * buffDest){
-    buffDest[0] = buff[0];
+    *buffDest = *buff;
 }
 
 char nextElement(){
@@ -18,9 +18,8 @@ void keyHandler(){
     draw_char(300, 300, 'i', GREEN, BLACK, 5);
     int tecla = getKey();
     if(tecla <= 0x79){
-        
-        buff[0] = keyBoardTable[tecla];
-    }else {return;}
+        buff[teclaCant++] = keyBoardTable[tecla];
+    }
     return; 
 
 

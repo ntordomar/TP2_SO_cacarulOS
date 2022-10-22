@@ -71,15 +71,18 @@ int main() {
         ;
     }
 
-    char c = getc();
+    
 
     sys_write(200, 200, "p", 1, 1);
-    sys_write_char(220, 200, c, 1);
+    sys_write_char(220, 200, 'a', 1);
     sys_write_char(240, 200, 'z', 1);
 
     //c = getc();
     while (1)
-    {
+    {   
+        int i = 0;
+        char c = getc();
+        sys_write_char(220 + i, 200, c, 1);
         _hlt();
     }
     
