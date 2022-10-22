@@ -1,7 +1,7 @@
 /* sampleCodeModule.c */
 // terminal
 #include <user_syscalls.h>
-#include <stdio.h>
+#include <userStdF.h>
 #include <stdint.h>
 
 char * v = (char*)0xB8000 + 79 * 2;
@@ -10,6 +10,9 @@ int getFormat(int n);
 
 static int var1 = 0;
 static int var2 = 0;
+
+static int yPos = 0;
+static int xPos = 0;
 
 
 void itoa(uint64_t value, char *buffer, uint32_t base) {
@@ -58,24 +61,18 @@ int main() {
     sys_write(12, 122, secsChar, 20, 1);
     sys_write(12, 142, minChar, 20, 1);
     sys_write(12, 162, hourChar, 20, 1);
+    sys_write(200, 200, "a", 1, 1);
+    sys_write(200, 200, "b", 1, 1);
 
-    
-    
-    // while(1){
-    //     for (int i = 0; i < count; i++)
-    //     {
-    //         /* code */
-    //     }
-        
-    //     sys_write_char(0,0,'_',1);
-    //     for(int i = 0; i<10000 ; i++){
-    //         for(int j = 0; j < 2000; j++);
-    //         }
-    //     sys_clear_screen();
-    //     char buff[10] = "hola que";
-    //     sys_read(buff, 10);
-    //     sys_write(12,122, buff, 10, 2);
-    // }
+    char c = 0;
+    c = getc();
+    sys_write(12, 200, c, 1, 1);
+
+    while(1){
+        c = getc();
+        sys_write(200, 200, c, 1, 1);
+        sys_write(200, 200, "b", 1, 1);
+    }
 }
 
 int getFormat(int n) {
