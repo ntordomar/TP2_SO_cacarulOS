@@ -10,6 +10,7 @@ char *cpuVendor(char *result);
 int getSeconds();
 int getMinutes();
 int getHours();
+char getKey();
 
 #endif
 

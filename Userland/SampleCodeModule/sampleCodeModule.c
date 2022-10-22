@@ -3,6 +3,7 @@
 #include <user_syscalls.h>
 #include <userStdF.h>
 #include <stdint.h>
+#include <userLib.h>
 
 char * v = (char*)0xB8000 + 79 * 2;
 
@@ -62,17 +63,26 @@ int main() {
     sys_write(12, 142, minChar, 20, 1);
     sys_write(12, 162, hourChar, 20, 1);
     sys_write(200, 200, "a", 1, 1);
-    sys_write(200, 200, "b", 1, 1);
 
-    char c = 0;
-    c = getc();
-    sys_write(12, 200, c, 1, 1);
+    // char c = 0;
+    // c = getc();
 
-    while(1){
-        c = getc();
-        sys_write(200, 200, c, 1, 1);
-        sys_write(200, 200, "b", 1, 1);
+    for (int i = 0; i<800000000; i++){
+        ;
     }
+
+    char c = getc();
+
+    sys_write(200, 200, "p", 1, 1);
+    sys_write_char(220, 200, c, 1);
+    sys_write_char(240, 200, 'z', 1);
+
+    //c = getc();
+    while (1)
+    {
+        _hlt();
+    }
+    
 }
 
 int getFormat(int n) {

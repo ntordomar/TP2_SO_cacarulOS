@@ -1,1 +1,1 @@
-unsigned int getc();
+char getc();

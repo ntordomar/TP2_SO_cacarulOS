@@ -9,3 +9,5 @@ static const char keyBoardTable[256] =
 void keyHandler();
 
 char nextElement();
+
+void getBuff(char * buffDest);

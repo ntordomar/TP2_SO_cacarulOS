@@ -1,14 +1,11 @@
  #include <stdint.h>
  #include <video.h>
-#include <lib.h>
+ #include <lib.h>
  #include <moduleLoader.h>
  #include <naiveConsole.h>
  #include <idtLoader.h>
  #include <syscalls.h>
-extern int getSeconds();
-extern int getMinutes();
-extern int getHours();
-extern int getKey();
+ #include <interrupts.h>
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
@@ -67,8 +64,8 @@ int main()
 	// int i = 0;
 	// ncPrint("la tecla va aca",GREEN,GRAY);
 	// draw_char(120,700,"z",WHITE);
-((EntryPoint)sampleCodeModuleAddress)();
+	((EntryPoint)sampleCodeModuleAddress)();
 
-	while(1){}
+	while(1){_hlt();}
 	return 0;
 }

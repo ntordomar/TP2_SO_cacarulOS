@@ -21,11 +21,13 @@ void _1_write(uint64_t x, uint64_t y, uint64_t c, uint64_t len, uint64_t fd){
 
 
 void _2_read(uint64_t buffer, uint64_t length){
-    for(int i = 0; i< length; i++){
-        char c;
-        if((c = nextElement()) == -1) return;
-        ((char *)buffer)[i] = c;
-    }
+    getBuff((char *)buffer); //Testeando el buffer de teclado
+    return;
+    // for(int i = 0; i< length; i++){
+    //     char c;
+    //     if((c = nextElement()) == -1) return;
+    //     ((char *)buffer)[i] = c;
+    // }
 } 
 
 

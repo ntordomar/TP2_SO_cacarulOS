@@ -1,8 +1,13 @@
  #include <video.h>
  #include <keyBoardHandler.h>
+ #include <lib.h>
  
-static char buff[256];
+static char buff[2] = {'a', 'b'};
 static char teclaCant = 0;
+
+void getBuff(char * buffDest){
+    buffDest[0] = buff[0];
+}
 
 char nextElement(){
     if(teclaCant == 0) return -1;
@@ -10,10 +15,15 @@ char nextElement(){
 }
  
 void keyHandler(){
+    draw_char(300, 300, 'i', GREEN, BLACK, 5);
+    int tecla = getKey();
+    if(tecla <= 0x79){
+        
+        buff[0] = keyBoardTable[tecla];
+    }else {return;}
+    return; 
 
-    char tecla = getKey();	
-    if(tecla <= 0x79 || teclaCant >= 256) return;
-    buff[teclaCant++] = keyBoardTable[tecla];
+
 
 
 	// 	if(tecla <= 0x79){
