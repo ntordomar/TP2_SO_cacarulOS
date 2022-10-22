@@ -1,15 +1,14 @@
  #include <stdint.h>
- //#include <string.h>
  #include <video.h>
 #include <lib.h>
  #include <moduleLoader.h>
  #include <naiveConsole.h>
  #include <idtLoader.h>
+ #include <syscalls.h>
 extern int getSeconds();
 extern int getMinutes();
 extern int getHours();
 extern int getKey();
-extern void sys_write(int fd, char * buff, int bytes);
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
@@ -56,17 +55,19 @@ void * initializeKernelBinary()
 int main()
 {
 	load_idt();
-	putpixel(512,768/2, 0xFFFFFF);
-	putpixel(512,100, 0xFFFFFF);
+		
 
-	fillrect(300,0, GREEN, 1024, 12);
-	putpixel(1024,1024,0xFFFFFF);
-	draw_char(512, 768/2, 'a', WHITE,GREEN, 3);
-	int tecla = 0;
-	int i = 0;
+	// putpixel(512,768/2, 0xFFFFFF);
+	// putpixel(512,100, 0xFFFFFF);
+
+	// fillrect(300,0, GREEN, 1024, 12);
+	// putpixel(1024,1024,0xFFFFFF);
+	 draw_char(512, 768/2, 'a', WHITE,GREEN, 3);
+	// int tecla = 0;
+	// int i = 0;
 	// ncPrint("la tecla va aca",GREEN,GRAY);
-	sys_write(1,"lavida",4);
 	// draw_char(120,700,"z",WHITE);
+((EntryPoint)sampleCodeModuleAddress)();
 
 	while(1){}
 	return 0;
