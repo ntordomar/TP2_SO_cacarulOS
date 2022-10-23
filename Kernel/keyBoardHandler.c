@@ -2,7 +2,7 @@
  #include <keyBoardHandler.h>
  #include <lib.h>
  
-static char buff[256];
+static char buff[256] = {0};
 static unsigned char front = -1;
 static unsigned char rear = -1;
 static int prevConsSize = 0;
@@ -22,7 +22,7 @@ void getBuff(char * buffDest){
 
 
 char nextElement(){
-    if(cantElems == 0) {return -1;}
+    if(cantElems == 0) {return -8;}
     if (front == -1){
         return;
     }
@@ -35,8 +35,8 @@ char nextElement(){
 void keyHandler(){
     draw_char(400, 400, 'a', RED, WHITE, 5);
     int tecla = getKey();
-    if(tecla <= 0x79){
-        cantElems++;
+    if(tecla < 0x79){
+        
         if ((front == 0 && rear == 255) || (front == rear + 1)){
             return;
         }
@@ -49,6 +49,9 @@ void keyHandler(){
             } else rear = rear +1;
         }
         buff[rear] = keyBoardTable[tecla];
+    
+
+        cantElems++;
     }
 
 	// 	if(tecla <= 0x79){

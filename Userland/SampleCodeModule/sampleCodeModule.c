@@ -84,7 +84,7 @@ int main() {
     //c = getc();
     while(1){
         char c = getc();
-        if (c!=-1){
+        if (c >= 'A' && c<='Z' || c ==' '){ // Esto esta MAL. Es un fix para que no meta las f raras pero en realidad deberian ni llegar
             sys_write_char(xPos+=10, yPos, c, 1);
         }
         _hlt();
