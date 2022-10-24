@@ -1,7 +1,8 @@
 {
     "files.associations": {
         "naiveconsole.h": "c",
-        "*.asm": "c",
-        "user_syscalls.h": "c"
+        "*.asm": "asm",
+        "user_syscalls.h": "c",
+        "userstdf.h": "c"
     }
 }

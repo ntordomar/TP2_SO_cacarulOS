@@ -31,3 +31,11 @@ void sys_get_minutes(int * min ){
 void sys_get_hours(int * hours){
     sys_int_80(8, hours, 0, 0, 0, 0);
 }
+
+void sys_change_font_size(int size) {
+    sys_int_80(9, size, 0, 0, 0, 0);
+}
+
+void sys_capture_registers() {
+    sys_int_80(10, 0, 0, 0, 0, 0);
+}

@@ -59,13 +59,13 @@ int main()
 
 	// fillrect(300,0, GREEN, 1024, 12);
 	// putpixel(1024,1024,0xFFFFFF);
-	 draw_char(512, 768/2, 'a', WHITE,GREEN, 3);
+	//draw_char(512, 768/2, 'a', WHITE,GREEN, 3);
 	// int tecla = 0;
 	// int i = 0;
 	// ncPrint("la tecla va aca",GREEN,GRAY);
 	// draw_char(120,700,"z",WHITE);
 	((EntryPoint)sampleCodeModuleAddress)();
 	
-	while(1){_hlt();}
+	// while(1){_hlt();}
 	return 0;
 }

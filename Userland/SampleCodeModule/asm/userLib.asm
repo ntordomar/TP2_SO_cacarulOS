@@ -10,11 +10,3 @@ sys_int_80:
     pop rbp
     ret
 
-_hlt:
-	;sti
-	hlt
-	ret
-
-_sti:
-    sti
-    ret

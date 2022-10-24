@@ -15,5 +15,11 @@ void _4_clear_screen();
 void _5_write_char(uint64_t x, uint64_t y, uint64_t c, uint64_t fd);
 
 void _6_get_seconds(uint64_t sec);
+
 void _7_get_minutes(uint64_t min);
+
 void _8_get_hours(uint64_t hour);
+
+void _9_set_font_size(uint64_t size);
+
+void _10_capture_registers();

@@ -7,3 +7,4 @@ void sys_write_char(int x, int y, char c, int fd);
 void sys_get_seconds(int * sec);
 void sys_get_minutes(int * min);
 void sys_get_hours(int * hours);
+void sys_change_font_size(int size);

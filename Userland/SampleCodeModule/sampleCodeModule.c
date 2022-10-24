@@ -2,107 +2,123 @@
 // terminal
 #include <user_syscalls.h>
 #include <userStdF.h>
-#include <stdint.h>
 #include <userLib.h>
+#include <stdint.h>
+void tron();
+void help();
+void newLine();
+void lettersize();
 
 char * v = (char*)0xB8000 + 79 * 2;
 
-int getFormat(int n);
-
-static int var1 = 0;
-static int var2 = 0;
-
 static int yPos = 0;
 static int xPos = 0;
+static int initialCharSize = 1;
 
+static char* commandList[] = {"HELP", "TRON", "LETTERSIZE"};
+static void (*commandFunctions[5])(void) = {help, tron, lettersize};
 
-void itoa(uint64_t value, char *buffer, uint32_t base) {
-    char *p = buffer;
-    char *p1, *p2;
-    uint32_t digits = 0;
+static int commandCount = 2;
 
-    // Calculate characters for each digit
-    do {
-        uint32_t remainder = value % base;
-        *p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
-        digits++;
-    } while (value /= base);
+static char lineBuffer[256]; //ir completando a medida que sigamos en la misma 
+static lineCantChar = 0;
 
-    // Terminate string in buffer.
-    *p = 0;
-
-    // Reverse string in buffer.
-    p1 = buffer;
-    p2 = p - 1;
-    while (p1 < p2) {
-        char tmp = *p1;
-        *p1 = *p2;
-        *p2 = tmp;
-        p1++;
-        p2--;
+void analizeCommand(){ // int strcmp 0 si si 1 sino
+    for (int i =0; i<commandCount; i++){
+        if (strcmp(lineBuffer, commandList[i]) == 0){
+            (*commandFunctions[i])();
+            lineCantChar = 0;
+            return;
+        } 
     }
-
+    sys_write(xPos, yPos, "command not found", 17, 1);
+    lineCantChar = 0;
+    newLine();
 }
+
+int myAtoi(char* str)
+{
+    int res = 0;
+    for (int i = 0; str[i] != '\0'; ++i)
+        res = res * 10 + str[i] - '0';
+
+    return res;
+}
+
+void help(){
+    sys_write(xPos, yPos, "Ingrese un numerito", 19, 1);
+    newLine();
+    
+    char buff[50] = {0};
+    int buffPos = 0;
+    char c;
+
+    while(1){
+        c = getc();   
+        for(int i = 0; i< 9000; i++){;}
+
+        if (c!=-1 && c!=0){
+
+            if(c = '\n'){
+                sys_change_font_size(myAtoi(buff));
+                return;
+            }else{
+                buff[buffPos++] = c;
+                sys_write_char(xPos, yPos, c, 1);
+            }
+        }
+    }
+    // sys_write_char(xPos, yPos, c, 1);
+    // sys_change_font_size(myAtoi(c));
+}
+
+void tron(){
+    ;
+}
+
+void lettersize() {
+    ;
+}
+
+void newLine(){
+    xPos = 0;
+    yPos = yPos + initialCharSize * 16;
+}
+
 
 
 int main() {
-    // char buff[1];
-    // int  seconds, minutes, hours;
-    // sys_get_seconds(&seconds);
-    // sys_get_minutes(&minutes);
-    // sys_get_hours(&hours); 
-    
-    // char  secsChar[12] = {0};
-    // itoa(seconds, secsChar, 16) ;
-    // char  minChar[12] =  {0};
-    // itoa(minutes,minChar,16);
-    // char hourChar[12] = {0};  
-    // itoa(hours-3, hourChar, 16);
-    
-    // sys_write(12, 122, secsChar, 20, 1);
-    // sys_write(12, 142, minChar, 20, 1);
-    // sys_write(12, 162, hourChar, 20, 1);
-    // sys_write(200, 200, "a", 1, 1);
-
-    // // char c = 0;
-    // // c = getc();
-
-    // // for (int i = 0; i<800000000; i++){
-    // //      _hlt();
-    // // }
-
-    // char a = getc();
-    // char b = getc();
-    // char c = getc();
-    // char d = getc();
-
-    // sys_write_char(200, 200, a, 1);
-    // sys_write_char(220, 200, b, 1);
-    // sys_write_char(240, 200, c, 1);
-    // sys_write_char(260, 200, d, 1);
-
-
-    //c = getc();
-    // _sti();
+ 
     while(1){
-        // _hlt();
-        char c = getc();
-     // Esto esta MAL. Es un fix para que no meta las f raras pero en realidad deberian ni llegar
-        if (c != -1){
-            sys_write_char(xPos+=10, yPos, c, 1);
+        char c  = getc();
+        for(int i = 0; i< 9000; i++){;}
+
+        if (xPos == 1024){
+            newLine();
         }
-        //checkeo si hay algo ***nuevo***. Como se consume de a 1. Con que haya algo es nuevo 
-        //Si hay algo lo imprimo
-        //Si no hay nada --> repeat
+
+        if (c != -1 && c!= 0){
+            if(c == 8){
+                if(lineCantChar != 0){ 
+                    //backSpace();
+                    lineCantChar--;
+                }
+            } else if(c == '\n'){
+                newLine();
+                lineBuffer[lineCantChar] = 0;
+                analizeCommand();
+                
+            }
+            else{
+                lineBuffer[lineCantChar++] = c;
+             
+               sys_write_char(xPos+=initialCharSize*8, yPos, c, 1);
+            }
         
+        }
     }
     
 }
 
-int getFormat(int n) {
-	int dec = n & 240;
-	dec = dec >> 4;
-	int units = n & 15;
-	return dec * 10 + units;
-}
+
 

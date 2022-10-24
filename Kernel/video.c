@@ -60,8 +60,6 @@ void fillrect(int x, int y, int color, int w, int h) {
     // *aux = getBlue(color);  // BLUE
     // *(aux+1) = getGreen(color); // GREEN
     // *(aux+2) = getRed(color); // RED
-
-
     
     for (i = 0; i < w; i++) {
         for (j = 0; j < h; j++) {
@@ -70,9 +68,7 @@ void fillrect(int x, int y, int color, int w, int h) {
             *(aux+1) = green; // GREEN
             *(aux+2) = red; // RED
         }
-        
     }
-
 }
 
 void clearScreen(){
@@ -80,40 +76,29 @@ void clearScreen(){
 }
 
 
-void draw_string( int x, int y, char* input, int len,int color, int backgroundColor, int fontSize) {
+void draw_string( int x, int y, char* input, int len,int color, int backgroundColor) {
      int xInter = x;
     int yInter = y;
     for(int i = 0; i<len; i++){
-     if(input[i] == 8){
-            draw_char(xInter-DEFAULT_LETTER_SIZE*8,yInter,' ',BLACK,BLACK,DEFAULT_LETTER_SIZE);
-            if(xInter <= 0) {
-            if(yInter == 0) return;
-        
-                xInter = 1024;
-                yInter -= 16 * DEFAULT_LETTER_SIZE;
-            } else {
-                xInter -= DEFAULT_LETTER_SIZE*8;
-            }
-        }    
-		else {
-            draw_char(xInter, yInter, input[i], color, BLACK, DEFAULT_LETTER_SIZE);
+    
+            draw_char(xInter, yInter, input[i], color, BLACK);
             xInter+= DEFAULT_LETTER_SIZE*8;
             if(xInter >= 1024) {
                 yInter += 16 * DEFAULT_LETTER_SIZE;
                 xInter = 0;
             }
-        }
+        
     }
 }
 
-void draw_char(int x, int y, char letter, int color, int backgroundColor, int fontSize) {
+void draw_char(int x, int y, char letter, int color, int backgroundColor) {
     
     int aux_x = x;
 	int aux_y = y;
 
-    if (aux_x + 8*fontSize > SCREEN_W) {
+    if (aux_x + 8*DEFAULT_LETTER_SIZE > SCREEN_W) {
         aux_x = 0;
-        aux_y += 16*fontSize;
+        aux_y += 16*DEFAULT_LETTER_SIZE;
     }
 
 	char bitIsPresent;
@@ -160,17 +145,20 @@ void draw_char(int x, int y, char letter, int color, int backgroundColor, int fo
             }
 
 			if(bitIsPresent)
-				fillrect(aux_x, aux_y,  color,fontSize,fontSize);
+				fillrect(aux_x, aux_y,  color,DEFAULT_LETTER_SIZE,DEFAULT_LETTER_SIZE);
 			else
-				fillrect(aux_x, aux_y, backgroundColor, fontSize, fontSize);
+				fillrect(aux_x, aux_y, backgroundColor, DEFAULT_LETTER_SIZE, DEFAULT_LETTER_SIZE);
 
-			aux_x+=fontSize;
+			aux_x+=DEFAULT_LETTER_SIZE;
 		}
         
         
 
 		aux_x = x;
-		aux_y+=fontSize;
+		aux_y+=DEFAULT_LETTER_SIZE;
 	}
 }
 
+void set_default_fontSize(int size) {
+    DEFAULT_LETTER_SIZE = size;
+}

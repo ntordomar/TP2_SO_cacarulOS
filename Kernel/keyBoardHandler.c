@@ -2,30 +2,19 @@
  #include <keyBoardHandler.h>
  #include <lib.h>
  
-static char buff[256] = {0};
-static unsigned char front = -1;
-static unsigned char rear = -1;
+static char buff[256];
+
+static int front = 0;
+static int rear = 0;
 static int prevConsSize = 0;
 static int cantElems = 0;
+static xPos = 0;
 
-void getBuff(char * buffDest){
-    *buffDest = *buff;
-}
 
-// int getCantElems(){
-//     if (rear >= front){
-//         return rear - front + 1;
-//     } else {
-//         return (256 - (front - rear - 1));
-//     }
-// }
 
 
 char nextElement(){
-    if(cantElems == 0) {return -1;}
-    if (front == -1){
-        return;
-    }
+    if(cantElems <= 0 ) {return -1;} //PARCHE MEDIO PELO
     char toRet = buff[front];
     front++;
     cantElems--;
@@ -33,22 +22,15 @@ char nextElement(){
 }
  
 void keyHandler(){
-    // draw_char(400, 400, 'a', RED, WHITE, 5);
     int tecla = getKey();
-    if(tecla < 0x79){
+    if(tecla <=0x79){
         
-        if ((front == 0 && rear == 255) || (front == rear + 1)){
+        if (cantElems == 256){
             return;
         }
-        if (front == -1){
-            front = 0;
-            rear = 0;
-        } else {
-            if (rear == 255){
-                rear = 0;
-            } else rear = rear +1;
-        }
-        buff[rear] = keyBoardTable[tecla];
+        if(rear == 256) rear = 0;
+        if(front == 256) front  = 0;
+        buff[rear++] = keyBoardTable[tecla];
     
         // draw_char(200, 400, 'a', WHITE, BLACK, 3);
         cantElems++;
