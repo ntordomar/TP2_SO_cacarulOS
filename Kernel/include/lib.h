@@ -11,6 +11,7 @@ int getSeconds();
 int getMinutes();
 int getHours();
 char getKey();
+// void _sti();
 
 #endif
 

@@ -25,9 +25,9 @@ static void setup_IDT_entry (int index, uint64_t offset); // index es EN QUE POS
 void load_idt() { // la llamo al principio del main para que me cargue la idt 
   _cli();
   setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);
+  setup_IDT_entry(0x21,  (uint64_t)&_irq01Handler); // agrego el teclado!!! SI LE AGREGO EL CASTEO DE LOS ANTERIORES SE ME ROMPE QUE ONDAAAAA LOCO
+  setup_IDT_entry(0x80, (uint64_t)&sys_call_handler);
   setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
-  setup_IDT_entry(0x21,  &_irq01Handler); // agrego el teclado!!! SI LE AGREGO EL CASTEO DE LOS ANTERIORES SE ME ROMPE QUE ONDAAAAA LOCO
-  setup_IDT_entry(0x80, &sys_call_handler);
 	//Solo interrupcion timer tick habilitadas CAMBIARLA PARA LA DEL TECLADO (ABRIR EL CORRESPONDIENTE IRQ 1)
 	picMasterMask(0xFC); 
 	picSlaveMask(0xFF);

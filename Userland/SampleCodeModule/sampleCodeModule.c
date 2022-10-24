@@ -46,51 +46,55 @@ void itoa(uint64_t value, char *buffer, uint32_t base) {
 
 
 int main() {
-    char buff[1];
-    int  seconds, minutes, hours;
-    sys_get_seconds(&seconds);
-    sys_get_minutes(&minutes);
-    sys_get_hours(&hours); 
+    // char buff[1];
+    // int  seconds, minutes, hours;
+    // sys_get_seconds(&seconds);
+    // sys_get_minutes(&minutes);
+    // sys_get_hours(&hours); 
     
-    char  secsChar[12] = {0};
-    itoa(seconds, secsChar, 16) ;
-    char  minChar[12] =  {0};
-    itoa(minutes,minChar,16);
-    char hourChar[12] = {0};  
-    itoa(hours-3, hourChar, 16);
+    // char  secsChar[12] = {0};
+    // itoa(seconds, secsChar, 16) ;
+    // char  minChar[12] =  {0};
+    // itoa(minutes,minChar,16);
+    // char hourChar[12] = {0};  
+    // itoa(hours-3, hourChar, 16);
     
-    sys_write(12, 122, secsChar, 20, 1);
-    sys_write(12, 142, minChar, 20, 1);
-    sys_write(12, 162, hourChar, 20, 1);
-    sys_write(200, 200, "a", 1, 1);
+    // sys_write(12, 122, secsChar, 20, 1);
+    // sys_write(12, 142, minChar, 20, 1);
+    // sys_write(12, 162, hourChar, 20, 1);
+    // sys_write(200, 200, "a", 1, 1);
 
-    // char c = 0;
-    // c = getc();
+    // // char c = 0;
+    // // c = getc();
 
-    // for (int i = 0; i<800000000; i++){
-    //      _hlt();
-    // }
+    // // for (int i = 0; i<800000000; i++){
+    // //      _hlt();
+    // // }
 
-    char a = getc();
-    char b = getc();
-    char c = getc();
-    char d = getc();
+    // char a = getc();
+    // char b = getc();
+    // char c = getc();
+    // char d = getc();
 
-    sys_write_char(200, 200, a, 1);
-    sys_write_char(220, 200, b, 1);
-    sys_write_char(240, 200, c, 1);
-    sys_write_char(260, 200, d, 1);
+    // sys_write_char(200, 200, a, 1);
+    // sys_write_char(220, 200, b, 1);
+    // sys_write_char(240, 200, c, 1);
+    // sys_write_char(260, 200, d, 1);
+
 
     //c = getc();
+    // _sti();
     while(1){
+        // _hlt();
         char c = getc();
-        if (c >= 'A' && c<='Z' || c ==' '){ // Esto esta MAL. Es un fix para que no meta las f raras pero en realidad deberian ni llegar
+     // Esto esta MAL. Es un fix para que no meta las f raras pero en realidad deberian ni llegar
+        if (c != -1){
             sys_write_char(xPos+=10, yPos, c, 1);
         }
-        _hlt();
         //checkeo si hay algo ***nuevo***. Como se consume de a 1. Con que haya algo es nuevo 
         //Si hay algo lo imprimo
         //Si no hay nada --> repeat
+        
     }
     
 }

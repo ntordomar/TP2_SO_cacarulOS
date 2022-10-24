@@ -22,7 +22,7 @@ void getBuff(char * buffDest){
 
 
 char nextElement(){
-    if(cantElems == 0) {return -8;}
+    if(cantElems == 0) {return -1;}
     if (front == -1){
         return;
     }
@@ -33,7 +33,7 @@ char nextElement(){
 }
  
 void keyHandler(){
-    draw_char(400, 400, 'a', RED, WHITE, 5);
+    // draw_char(400, 400, 'a', RED, WHITE, 5);
     int tecla = getKey();
     if(tecla < 0x79){
         
@@ -50,7 +50,7 @@ void keyHandler(){
         }
         buff[rear] = keyBoardTable[tecla];
     
-
+        // draw_char(200, 400, 'a', WHITE, BLACK, 3);
         cantElems++;
     }
 

@@ -1,5 +1,6 @@
 GLOBAL sys_int_80
 GLOBAL _hlt
+GLOBAL _sti
 
 sys_int_80:
     push rbp
@@ -10,6 +11,10 @@ sys_int_80:
     ret
 
 _hlt:
-	sti
+	;sti
 	hlt
 	ret
+
+_sti:
+    sti
+    ret
