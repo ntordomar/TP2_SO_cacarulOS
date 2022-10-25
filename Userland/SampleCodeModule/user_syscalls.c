@@ -5,8 +5,8 @@ void sys_read( char * buff, int length){
     sys_int_80(2,buff,length, 0, 0, 0);
 }
 
-void sys_write(int x, int y, char * c, int len, int fd) {
-    sys_int_80(1, x, y, c, len, fd);
+void sys_write(int x, int y, char * c, int len, int color) {
+    sys_int_80(1, x, y, c, len, color);
 }
 
 void sys_draw_rectangle(int x, int y, int width, int height, int color) {
@@ -16,8 +16,8 @@ void sys_draw_rectangle(int x, int y, int width, int height, int color) {
 void sys_clear_screen() {
     sys_int_80(4, 0, 0, 0, 0, 0);
 }
-void sys_write_char(int x, int y, char c, int fd){
-    sys_int_80(5,x,y,c,fd,0);
+void sys_write_char(int x, int y, char c, int color){
+    sys_int_80(5,x,y,c,color,0);
 }
 
 
@@ -38,4 +38,8 @@ void sys_change_font_size(int size) {
 
 void sys_capture_registers() {
     sys_int_80(10, 0, 0, 0, 0, 0);
+}
+
+void sys_get_ticks(int * ticks) {
+    sys_int_80(11, ticks, 0, 0, 0, 0);
 }

@@ -23,3 +23,5 @@ void _8_get_hours(uint64_t hour);
 void _9_set_font_size(uint64_t size);
 
 void _10_capture_registers();
+
+void _11_get_ticks(uint64_t ticks);

@@ -4,22 +4,24 @@
 #include <userStdF.h>
 #include <userLib.h>
 #include <stdint.h>
-void tron();
+#include<tron.h>
 void help();
 void lettersize();
 void clear();
 void backspace();
 void newLine();
+void time();
+void tron();
 char * v = (char*)0xB8000 + 79 * 2;
 
 static int yPos = 0;
 static int xPos = 0;
 static int initialCharSize = 1;
 
-static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR"};
-static void (*commandFunctions[5])(void) = {help, tron, lettersize,clear};
+static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME"};
+static void (*commandFunctions[5])(void) = {help, tron, lettersize,clear, time};
 
-static int commandCount = 4;
+static int commandCount = 5;
 
 static char lineBuffer[256]; //ir completando a medida que sigamos en la misma 
 static lineCantChar = 0;
@@ -36,11 +38,18 @@ void analizeCommand(){ // int strcmp 0 si si 1 sino
             return;
         } 
     }
-    print(xPos, yPos, "COMMAND NOT FOUND");
+    print(xPos, yPos, "COMMAND NOT FOUND", WHITE);
     newLine();
     lineCantChar = 0;
     
 }
+
+void time(){
+    print(xPos, yPos, "TIEMPO ACTUAL:", WHITE);
+    newLine();
+    printCurrentTime(xPos, yPos);
+    newLine();
+} 
 
 int myAtoi(char* str)
 {
@@ -52,28 +61,38 @@ int myAtoi(char* str)
 }
 
 void help(){
-   ;
-    
+    print(xPos,yPos,"BIENVENIDOS A LA TERMINAL.", WHITE);
+    newLine();
+    print(xPos, yPos, "Los comandos disponibles son:", WHITE);
+    newLine();
+    print(xPos, yPos, "HELP, TRON, LETTERSIZE, CLEAR, TIME", WHITE);
+    newLine();
+    print(xPos, yPos, "LETTERSIZE: ", WHITE);
+
 }
 
 void tron(){
-    ;
+    tronGame();
+    sys_clear_screen();
+    xPos = 0;
+    yPos = 0;
 }
+
 void backspace(){
-    sys_write_char(xPos,yPos,' ',1);
-            if(xPos <= 0) {
-            if(yPos == 0) return;
-        
-                xPos = 1024;
-                yPos -= 16 * initialCharSize;
-            } else {
-                xPos -= initialCharSize*8;
-            }
-        }    
+    if(xPos <= 0) {
+    if(yPos == 0) return;
+
+        xPos = 1024;
+        yPos -= 16 * initialCharSize;
+    } else {
+        xPos -= initialCharSize*8;
+    }
+    sys_write_char(xPos,yPos,' ',WHITE);
+}    
 
 
 void lettersize() {
-     sys_write(xPos, yPos, "Ingrese un numerito", 19, 1);
+     sys_write(xPos, yPos, "Ingrese un numerito", 19, WHITE);
      xPos+=initialCharSize*8;
     newLine();
     char buff[50];
@@ -91,19 +110,18 @@ void lettersize() {
                 buff[buffPos] = 0;
                 sys_change_font_size(myAtoi(buff));
                 initialCharSize = myAtoi(buff);
-                sys_write(xPos,yPos,"SE HA CAMBIADO EL NUMERITO",26,1);
+                sys_write(xPos,yPos,"SE HA CAMBIADO EL NUMERITO",26,WHITE);
                 xPos += initialCharSize*8;
                 newLine();
                 return;
             }else{
                 if(!isDigit(c)){
-                    sys_write(xPos,yPos,"lo ingresado no es un numero taradooo!",30,2);
-                   xPos +=initialCharSize*8;
+                    print(xPos,yPos,"lo ingresado no es un numero taradooo!", WHITE);
                     newLine();
                     return;
                 }
                 buff[buffPos++] = c;
-                sys_write_char(xPos, yPos, c, 1);
+                sys_write_char(xPos, yPos, c, WHITE);
                 xPos+=initialCharSize*8;
 
             }
@@ -134,7 +152,7 @@ int main() {
         }
 
         if (c != -1 && c!= 0){
-            if(c == 8){
+            if(c == 8){ // 8 es el ascii del basckspace
                 if(lineCantChar != 0){ 
                     backspace();
                     lineCantChar--;
@@ -148,7 +166,7 @@ int main() {
             else{
                 lineBuffer[lineCantChar++] = c;
              
-               sys_write_char(xPos, yPos, c, 1);
+               sys_write_char(xPos, yPos, c, WHITE);
                xPos +=initialCharSize*8;
             }
         

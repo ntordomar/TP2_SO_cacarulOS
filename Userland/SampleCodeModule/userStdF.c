@@ -2,6 +2,8 @@
 #include <userStdF.h>
 #include <stdint.h>
 
+
+extern _hlt();
 static int buffPos = 0;
 static int getCCount = 0;
 char getc(){
@@ -55,7 +57,33 @@ int strlen(char * s){
     return counter;
 }
 
-void print(int xPos, int yPos, char * buffer){
-int len = strlen(buffer);
-sys_write(xPos,yPos,buffer,len,1);
+void print(int xPos, int yPos, char * buffer, int color){
+    int len = strlen(buffer);
+    sys_write(xPos,yPos,buffer,len,color);
+}
+
+void printCurrentTime(int xPos, int yPos) {
+    int  seconds, minutes, hours;
+    sys_get_seconds(&seconds);
+    sys_get_minutes(&minutes);
+    sys_get_hours(&hours); 
+    char  res[30] = {0};
+    itoa(hours-3, res, 16) ;
+    res[2] = ':';
+    itoa(minutes,res+3,16);
+    res[5] = ':'; 
+    itoa(seconds, res+6, 16);
+
+    print(xPos, yPos, res, WHITE);
+}
+
+void hold(int delta){
+    _hlt();
+    long startTicks;
+    sys_get_ticks(&startTicks);
+    long ticks = startTicks;
+    while(ticks <= startTicks + delta){
+        sys_get_ticks(&ticks);
+    }
+    print(10,10,"me fui for good",WHITE);
 }
