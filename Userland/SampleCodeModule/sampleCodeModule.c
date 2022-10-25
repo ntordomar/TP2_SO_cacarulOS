@@ -6,22 +6,27 @@
 #include <stdint.h>
 void tron();
 void help();
-void newLine();
 void lettersize();
-
+void clear();
+void backspace();
+void newLine();
 char * v = (char*)0xB8000 + 79 * 2;
 
 static int yPos = 0;
 static int xPos = 0;
 static int initialCharSize = 1;
 
-static char* commandList[] = {"HELP", "TRON", "LETTERSIZE"};
-static void (*commandFunctions[5])(void) = {help, tron, lettersize};
+static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR"};
+static void (*commandFunctions[5])(void) = {help, tron, lettersize,clear};
 
-static int commandCount = 2;
+static int commandCount = 4;
 
 static char lineBuffer[256]; //ir completando a medida que sigamos en la misma 
 static lineCantChar = 0;
+
+int isDigit(char c){
+    return c >= '0' && c<= '9';
+}
 
 void analizeCommand(){ // int strcmp 0 si si 1 sino
     for (int i =0; i<commandCount; i++){
@@ -31,9 +36,10 @@ void analizeCommand(){ // int strcmp 0 si si 1 sino
             return;
         } 
     }
-    sys_write(xPos, yPos, "command not found", 17, 1);
-    lineCantChar = 0;
+    print(xPos, yPos, "COMMAND NOT FOUND");
     newLine();
+    lineCantChar = 0;
+    
 }
 
 int myAtoi(char* str)
@@ -46,44 +52,74 @@ int myAtoi(char* str)
 }
 
 void help(){
-    sys_write(xPos, yPos, "Ingrese un numerito", 19, 1);
-    newLine();
+   ;
     
-    char buff[50] = {0};
-    int buffPos = 0;
-    char c;
-
-    while(1){
-        c = getc();   
-        for(int i = 0; i< 9000; i++){;}
-
-        if (c!=-1 && c!=0){
-
-            if(c = '\n'){
-                sys_change_font_size(myAtoi(buff));
-                return;
-            }else{
-                buff[buffPos++] = c;
-                sys_write_char(xPos, yPos, c, 1);
-            }
-        }
-    }
-    // sys_write_char(xPos, yPos, c, 1);
-    // sys_change_font_size(myAtoi(c));
 }
 
 void tron(){
     ;
 }
+void backspace(){
+    sys_write_char(xPos,yPos,' ',1);
+            if(xPos <= 0) {
+            if(yPos == 0) return;
+        
+                xPos = 1024;
+                yPos -= 16 * initialCharSize;
+            } else {
+                xPos -= initialCharSize*8;
+            }
+        }    
+
 
 void lettersize() {
-    ;
-}
+     sys_write(xPos, yPos, "Ingrese un numerito", 19, 1);
+     xPos+=initialCharSize*8;
+    newLine();
+    char buff[50];
+    int buffPos = 0;
+    char c;
 
+    while(1){
+         
+        c = getc();  
+        if (c!=-1 && c!=0){
+    for(int i = 0; i<9000; i++);
+
+            if(c == '\n'){
+                newLine();
+                buff[buffPos] = 0;
+                sys_change_font_size(myAtoi(buff));
+                initialCharSize = myAtoi(buff);
+                sys_write(xPos,yPos,"SE HA CAMBIADO EL NUMERITO",26,1);
+                xPos += initialCharSize*8;
+                newLine();
+                return;
+            }else{
+                if(!isDigit(c)){
+                    sys_write(xPos,yPos,"lo ingresado no es un numero taradooo!",30,2);
+                   xPos +=initialCharSize*8;
+                    newLine();
+                    return;
+                }
+                buff[buffPos++] = c;
+                sys_write_char(xPos, yPos, c, 1);
+                xPos+=initialCharSize*8;
+
+            }
+        }
+    }
+}
+void clear(){
+    sys_clear_screen();
+    xPos = 0;
+    yPos = 0;
+}
 void newLine(){
     xPos = 0;
     yPos = yPos + initialCharSize * 16;
 }
+
 
 
 
@@ -100,7 +136,7 @@ int main() {
         if (c != -1 && c!= 0){
             if(c == 8){
                 if(lineCantChar != 0){ 
-                    //backSpace();
+                    backspace();
                     lineCantChar--;
                 }
             } else if(c == '\n'){
@@ -112,7 +148,8 @@ int main() {
             else{
                 lineBuffer[lineCantChar++] = c;
              
-               sys_write_char(xPos+=initialCharSize*8, yPos, c, 1);
+               sys_write_char(xPos, yPos, c, 1);
+               xPos +=initialCharSize*8;
             }
         
         }

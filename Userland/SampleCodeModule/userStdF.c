@@ -54,3 +54,8 @@ int strlen(char * s){
     while(s[counter] != 0) counter ++;
     return counter;
 }
+
+void print(int xPos, int yPos, char * buffer){
+int len = strlen(buffer);
+sys_write(xPos,yPos,buffer,len,1);
+}
