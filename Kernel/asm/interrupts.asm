@@ -11,12 +11,22 @@ GLOBAL _irq02Handler
 GLOBAL _irq03Handler
 GLOBAL _irq04Handler
 GLOBAL _irq05Handler
+GLOBAL int80Handler
 
 GLOBAL _exception0Handler
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
+EXTERN sys_call_handler
+
 
 SECTION .text
+
+int80Handler:
+	pushState
+	call sys_call_handler
+	popState
+	iretq
+
 
 %macro pushState 0
 	push rax

@@ -26,8 +26,8 @@ void load_idt() { // la llamo al principio del main para que me cargue la idt
   _cli();
   setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);
   setup_IDT_entry(0x21,  (uint64_t)&_irq01Handler); // agrego el teclado!!! SI LE AGREGO EL CASTEO DE LOS ANTERIORES SE ME ROMPE QUE ONDAAAAA LOCO
-  setup_IDT_entry(0x80, (uint64_t)&sys_call_handler);
-  setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
+  setup_IDT_entry(0x80, (uint64_t)&int80Handler);
+  setup_IDT_entry (0x00, (uint64_t)&_exception0Handler); // Aca se tiene que llamar a la funcion de asm y esa llamar a esta 
 	//Solo interrupcion timer tick habilitadas CAMBIARLA PARA LA DEL TECLADO (ABRIR EL CORRESPONDIENTE IRQ 1)
 	picMasterMask(0xFC); 
 	picSlaveMask(0xFF);

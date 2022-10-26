@@ -3,7 +3,7 @@
 
 void sys_read( char * buff, int length){
     sys_int_80(2,buff,length, 0, 0, 0);
-}
+} 
 
 void sys_write(int x, int y, char * c, int len, int color) {
     sys_int_80(1, x, y, c, len, color);

@@ -6,6 +6,7 @@
 extern _hlt();
 static int buffPos = 0;
 static int getCCount = 0;
+
 char getc(){
     getCCount++;
     char localBuff[1];
