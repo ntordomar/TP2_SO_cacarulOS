@@ -12,3 +12,4 @@ int strlen(char * s);
 void print(int xPos, int yPos,char * buffer, int color);
 void printCurrentTime(int xPos, int yPos);
 void hold(int num);
+void divideString(char * command, char * param, char delim);

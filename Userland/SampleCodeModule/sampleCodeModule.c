@@ -12,16 +12,19 @@ void backspace();
 void newLine();
 void time();
 void tron();
+void inforeg();
+void memory(char * param);
+
 char * v = (char*)0xB8000 + 79 * 2;
 
 static int yPos = 0;
 static int xPos = 0;
 static int initialCharSize = 1;
 
-static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME"};
-static void (*commandFunctions[5])(void) = {help, tron, lettersize,clear, time};
+static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME", "INFOREG", "MEMORY"};
+static void (*commandFunctions[7])(char * param) = {help, tron, lettersize, clear, time, inforeg, memory};
 
-static int commandCount = 5;
+static int commandCount = 7;
 
 static char lineBuffer[256]; //ir completando a medida que sigamos en la misma 
 static lineCantChar = 0;
@@ -31,14 +34,18 @@ int isDigit(char c){
 }
 
 void analizeCommand(){ // int strcmp 0 si si 1 sino
+    //Aca la linea seria comando 2
+    char argument[50];
+    divideString(lineBuffer,argument,' ');
     for (int i =0; i<commandCount; i++){
         if (strcmp(lineBuffer, commandList[i]) == 0){
-            (*commandFunctions[i])();
+            (*commandFunctions[i])(argument);
             lineCantChar = 0;
             return;
         } 
     }
-    print(xPos, yPos, "COMMAND NOT FOUND", WHITE);
+    print(xPos, yPos, lineBuffer, WHITE);
+    print(xPos+strlen(lineBuffer), yPos, "COMMAND NOT FOUND", WHITE);
     newLine();
     lineCantChar = 0;
     
@@ -71,6 +78,22 @@ void help(){
 
 }
 
+void inforeg(int xPos, int yPos){
+    int regs[15];
+    getRegisters(regs);
+   
+    for (int i = 0; i<15; i++){
+        char r[256] = {0};
+        itoa(regs[i], r, 10);
+        print(500, 500 + i*15, r, WHITE);
+    }
+    char r2[256] = {0};
+    itoa(getRDI(), r2, 10);
+    print(500, 800, r2, WHITE);
+
+}
+
+
 void tron(){
     tronGame();
     sys_clear_screen();
@@ -88,7 +111,8 @@ void backspace(){
         xPos -= initialCharSize*8;
     }
     sys_write_char(xPos,yPos,' ',WHITE);
-}    
+}
+    
 
 
 void lettersize() {
@@ -138,7 +162,25 @@ void newLine(){
     yPos = yPos + initialCharSize * 16;
 }
 
+void memory(char * param) {
+    if (strlen(param) == 0) {
+        print(xPos, yPos, "Error: mising a parameter. Must indicate memory direction.", WHITE);
+        newLine();
+        return;
+    }
 
+    int memoryPos = myAtoi(param);
+    unsigned char mem[32];
+   
+    getMemory(memoryPos, mem);
+    for(int i = 0; i< 32; i++){
+        char rta[256] = {0};
+        itoa(mem[i],rta,10);
+        
+       print(xPos,yPos + 12*i,rta,WHITE);
+    }
+    
+}
 
 
 int main() {

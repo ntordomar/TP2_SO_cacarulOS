@@ -87,3 +87,22 @@ void hold(int delta){
     }
     print(10,10,"me fui for good",WHITE);
 }
+
+void divideString(char * command, char * param, char delim){
+    int i = 0;
+    int dimParam=0;
+    for ( ; command[i] != 0 && command[i] != delim; i++){
+        ;
+    }
+    if(command[i] == 0) {
+        param[0] = 0;
+        return;
+    }
+    command[i++] = 0;
+    
+    for (; command[i] != 0; i++)
+    {
+        param[dimParam++] = command[i];
+    }
+    param[dimParam] = 0;
+}
