@@ -44,15 +44,15 @@ void analizeCommand(){ // int strcmp 0 si si 1 sino
             return;
         } 
     }
-    print(xPos, yPos, lineBuffer, WHITE);
-    print(xPos+strlen(lineBuffer), yPos, "COMMAND NOT FOUND", WHITE);
+    print(lineBuffer, WHITE);
+    print(" COMMAND NOT FOUND", WHITE);
     newLine();
     lineCantChar = 0;
     
 }
 
 void time(){
-    print(xPos, yPos, "TIEMPO ACTUAL:", WHITE);
+    print("TIEMPO ACTUAL:", WHITE);
     newLine();
     printCurrentTime(xPos, yPos);
     newLine();
@@ -68,13 +68,14 @@ int myAtoi(char* str)
 }
 
 void help(){
-    print(xPos,yPos,"BIENVENIDOS A LA TERMINAL.", WHITE);
+    print("BIENVENIDOS A LA TERMINAL.", WHITE);
     newLine();
-    print(xPos, yPos, "Los comandos disponibles son:", WHITE);
+    print("Los comandos disponibles son:", WHITE);
     newLine();
-    print(xPos, yPos, "HELP, TRON, LETTERSIZE, CLEAR, TIME", WHITE);
+    print("HELP, TRON, LETTERSIZE, CLEAR, TIME", WHITE);
     newLine();
-    print(xPos, yPos, "LETTERSIZE: ", WHITE);
+    print("LETTERSIZE: ", WHITE);
+    newLine();
 
 }
 
@@ -85,11 +86,11 @@ void inforeg(int xPos, int yPos){
     for (int i = 0; i<15; i++){
         char r[256] = {0};
         itoa(regs[i], r, 10);
-        print(500, 500 + i*15, r, WHITE);
+        print(r, WHITE);
     }
     char r2[256] = {0};
     itoa(getRDI(), r2, 10);
-    print(500, 800, r2, WHITE);
+    print(r2, WHITE);
 
 }
 
@@ -101,23 +102,23 @@ void tron(){
     yPos = 0;
 }
 
-void backspace(){
-    if(xPos <= 0) {
-    if(yPos == 0) return;
+// void backspace(){
+//     if(xPos <= 0) {
+//     if(yPos == 0) return;
 
-        xPos = 1024;
-        yPos -= 16 * initialCharSize;
-    } else {
-        xPos -= initialCharSize*8;
-    }
-    sys_write_char(xPos,yPos,' ',WHITE);
-}
+//         xPos = 1024;
+//         yPos -= 16 * initialCharSize;
+//     } else {
+//         xPos -= initialCharSize*8;
+//     }
+//     sys_write_char(xPos,yPos,' ',WHITE);
+// }
     
 
 
 void lettersize() {
-     sys_write(xPos, yPos, "Ingrese un numerito", 19, WHITE);
-     xPos+=initialCharSize*8;
+    sys_write(xPos, yPos, "Ingrese un numerito", 19, WHITE);
+    xPos+=initialCharSize*8;
     newLine();
     char buff[50];
     int buffPos = 0;
@@ -140,7 +141,7 @@ void lettersize() {
                 return;
             }else{
                 if(!isDigit(c)){
-                    print(xPos,yPos,"lo ingresado no es un numero taradooo!", WHITE);
+                    print("lo ingresado no es un numero taradooo!", WHITE);
                     newLine();
                     return;
                 }
@@ -152,19 +153,19 @@ void lettersize() {
         }
     }
 }
-void clear(){
-    sys_clear_screen();
-    xPos = 0;
-    yPos = 0;
-}
-void newLine(){
-    xPos = 0;
-    yPos = yPos + initialCharSize * 16;
-}
+// void clear(){
+//     sys_clear_screen();
+//     xPos = 0;
+//     yPos = 0;
+// }
+// void newLine(){
+//     xPos = 0;
+//     yPos = yPos + initialCharSize * 16;
+// }
 
 void memory(char * param) {
     if (strlen(param) == 0) {
-        print(xPos, yPos, "Error: mising a parameter. Must indicate memory direction.", WHITE);
+        print("Error: mising a parameter. Must indicate memory direction.", WHITE);
         newLine();
         return;
     }
@@ -177,21 +178,20 @@ void memory(char * param) {
         char rta[256] = {0};
         itoa(mem[i],rta,10);
         
-       print(xPos,yPos + 12*i,rta,WHITE);
+       print(rta,WHITE);
     }
     
 }
 
 
 int main() {
- 
+    sys_write_char(20, 20, 'A', WHITE);
     while(1){
+        
         char c  = getc();
         for(int i = 0; i< 9000; i++){;}
 
-        if (xPos == 1024){
-            newLine();
-        }
+
 
         if (c != -1 && c!= 0){
             if(c == 8){ // 8 es el ascii del basckspace
@@ -207,9 +207,9 @@ int main() {
             }
             else{
                 lineBuffer[lineCantChar++] = c;
-             
-               sys_write_char(xPos, yPos, c, WHITE);
-               xPos +=initialCharSize*8;
+                printChar(c, WHITE);
+            //    sys_write_char(xPos, yPos, c, WHITE);
+            //    xPos +=initialCharSize*8;
             }
         
         }

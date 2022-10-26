@@ -77,7 +77,7 @@ void clearScreen(){
 
 
 void draw_string( int x, int y, char* input, int len,int color, int backgroundColor) {
-     int xInter = x;
+    int xInter = x;
     int yInter = y;
     for(int i = 0; i<len; i++){
     
@@ -96,10 +96,10 @@ void draw_char(int x, int y, char letter, int color, int backgroundColor) {
     int aux_x = x;
 	int aux_y = y;
 
-    if (aux_x + 8*DEFAULT_LETTER_SIZE > SCREEN_W) {
-        aux_x = 0;
-        aux_y += 16*DEFAULT_LETTER_SIZE;
-    }
+    // if (aux_x + 8*DEFAULT_LETTER_SIZE > SCREEN_W) {
+    //     aux_x = 0;
+    //     aux_y += 16*DEFAULT_LETTER_SIZE;
+    // }
 
 	char bitIsPresent;
 

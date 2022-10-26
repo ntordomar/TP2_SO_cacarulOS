@@ -2,6 +2,8 @@
 #include <userStdF.h>
 #include <stdint.h>
 
+static int Ypos = 0;
+static int Xpos = 0;
 
 static int buffPos = 0;
 static int getCCount = 0;
@@ -57,12 +59,47 @@ int strlen(char * s){
     return counter;
 }
 
-void print(int xPos, int yPos, char * buffer, int color){
+void print(char * buffer, int color){
     int len = strlen(buffer);
-    sys_write(xPos,yPos,buffer,len,color);
+    for (int i = 0; i<len; i++){
+        if (Xpos >= 1024){
+            Xpos = 0;
+            Ypos += 1 * 16; // el 1 es el size falta getter
+        }
+        sys_write_char(Xpos, Ypos, buffer[i], color);
+        Xpos += 8;
+        //Checkear si hay que saltar de linea
+    }
 }
 
-void printCurrentTime(int xPos, int yPos) {
+void backspace(){
+    if(Xpos <= 0) {
+    if(Ypos == 0) return;
+
+        Xpos = 1024;
+        Ypos -= 16 * 1; // el 1 es el size
+    } else {
+        Xpos -= 1*8; // El 1 es el size
+    }
+    sys_write_char(Xpos,Ypos,' ',WHITE);
+}
+
+void clear(){
+    sys_clear_screen();
+    Xpos = 0;
+    Ypos = 0;
+}
+
+void newLine(){
+    Xpos = 0;
+    Ypos += 16;
+}
+
+void printChar(char c, int color){
+     print(&c, color);
+}
+
+void printCurrentTime() {
     int  seconds, minutes, hours;
     sys_get_seconds(&seconds);
     sys_get_minutes(&minutes);
@@ -74,7 +111,8 @@ void printCurrentTime(int xPos, int yPos) {
     res[5] = ':'; 
     itoa(seconds, res+6, 16);
 
-    print(xPos, yPos, res, WHITE);
+    // print(xPos, yPos, res, WHITE);
+    print(res, WHITE);
 }
 
 void hold(int delta){
@@ -84,7 +122,7 @@ void hold(int delta){
     while(ticks <= startTicks + delta){
         sys_get_ticks(&ticks);
     }
-    print(10,10,"me fui for good",WHITE);
+    print("me fui for good",WHITE);
 }
 
 void divideString(char * command, char * param, char delim){

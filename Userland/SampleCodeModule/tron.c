@@ -6,7 +6,7 @@
 
 void exit() {
     sys_clear_screen();
-    print(500, 384, "Thank you for playing :)", PINK);
+    print("Thank you for playing :)", PINK);
     int tick =0; 
    
     hold(50);
@@ -15,8 +15,8 @@ void exit() {
 
 void youLoose(char * player){
     sys_clear_screen();
-    print(300, 250, "Perdiste loco", RED);
-    print(100,500,player,WHITE);
+    print("Perdiste loco", RED);
+    print(player,WHITE);
     hold(20);
     exit();
     return;
@@ -24,11 +24,11 @@ void youLoose(char * player){
 
 void tronGame(){
     sys_clear_screen();
-    print(350,50,"Welcome to tron!!!     :) <3",GREEN);
-    print(310, 200, "Player 1: use the arrows to move", GREEN);
-    print(300, 250, "Player 2: use the WASD keys to move", GREEN);
-    print(200, 500, "Press 1 to start", GREEN);
-    print(550, 500, "Press ESC to exit", GREEN);
+    print("Welcome to tron!!!     :) <3",GREEN);
+    print("Player 1: use the arrows to move", GREEN);
+    print("Player 2: use the WASD keys to move", GREEN);
+    print("Press 1 to start", GREEN);
+    print("Press ESC to exit", GREEN);
     char info;
     while((info=getc()) != '1') {
         if(info == 27) {
