@@ -9,7 +9,7 @@ void exit() {
     print(500, 384, "Thank you for playing :)", PINK);
     int tick =0; 
    
-    hold(10);
+    hold(50);
     return;
 }
 
@@ -17,7 +17,7 @@ void youLoose(char * player){
     sys_clear_screen();
     print(300, 250, "Perdiste loco", RED);
     print(100,500,player,WHITE);
-    hold(10);
+    hold(20);
     exit();
     return;
 }
@@ -58,8 +58,8 @@ void tronGame(){
     int xP = SQUARE_UNIT;
     char c;
     while(1){
-        //hold(1);
-        for(int i = 0; i< 9000000; i++){for(int j = 0; i< 10; i++){}}
+        hold(1);
+        //for(int i = 0; i< 9000000; i++){for(int j = 0; i< 10; i++){}}
         c = getc();
         switch (c)
         {

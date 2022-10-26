@@ -3,7 +3,6 @@
 #include <stdint.h>
 
 
-extern _hlt();
 static int buffPos = 0;
 static int getCCount = 0;
 
@@ -79,7 +78,6 @@ void printCurrentTime(int xPos, int yPos) {
 }
 
 void hold(int delta){
-    _hlt();
     long startTicks;
     sys_get_ticks(&startTicks);
     long ticks = startTicks;
