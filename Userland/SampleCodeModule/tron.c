@@ -64,36 +64,52 @@ void tronGame(){
         switch (c)
         {
         case 'W':
-            j2Yincrement = -1;
-            j2Xincrement = 0;
+            if (j2Yincrement != 1){
+                j2Yincrement = -1;
+                j2Xincrement = 0;
+            }
             break;
         case 'A':
-            j2Yincrement = 0;
-            j2Xincrement = -1;
+            if (j2Xincrement != 1){
+                j2Yincrement = 0;
+                j2Xincrement = -1;
+            }
             break;
         case 'S':
-            j2Yincrement = 1;
-            j2Xincrement = 0;
+            if (j2Yincrement != -1){
+                j2Yincrement = 1;
+                j2Xincrement = 0;
+            }
             break;        
         case 'D':
-            j2Yincrement = 0;
-            j2Xincrement = 1;
+            if (j2Xincrement != -1){
+                j2Yincrement = 0;
+                j2Xincrement = 1;
+            }
             break;
         case 2: // izquierda
-            j1Xincrement = -1;
-            j1Yincrement = 0;
+            if (j1Xincrement != 1){
+                j1Xincrement = -1;
+                j1Yincrement = 0;
+            }
             break;
         case 3: // derecha
-            j1Xincrement = 1;
-            j1Yincrement = 0;
+            if (j1Xincrement != -1){
+                j1Xincrement = 1;
+                j1Yincrement = 0;
+            }
             break;
         case 4: // arriba
-            j1Xincrement = 0;
-            j1Yincrement = -1;
+            if (j1Yincrement != 1){
+                j1Xincrement = 0;
+                j1Yincrement = -1;
+            }
             break;        
         case 5: // abajo
-            j1Xincrement = 0;
-            j1Yincrement = 1;
+            if (j1Yincrement != -1){
+                j1Xincrement = 0;
+                j1Yincrement = 1;
+            }
             break;    
         case 27:
             exit();
