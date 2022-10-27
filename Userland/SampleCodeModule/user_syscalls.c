@@ -40,6 +40,6 @@ void sys_capture_registers() {
     sys_int_80(10, 0, 0, 0, 0, 0);
 }
 
-void sys_get_ticks(int * ticks) {
+void sys_get_ticks(long ticks) {
     sys_int_80(11, ticks, 0, 0, 0, 0);
 }

@@ -1,6 +1,7 @@
 #include <user_syscalls.h>
 #include <tron.h>
 #include <userStdF.h>
+
 #define SQUARE_UNIT 8
 #define OUT_OF_BOUNDS(x, y) ((x) > 1024 || (x) < 0 || (y) > 768 || (y) < 0) 
 
@@ -39,8 +40,8 @@ void tronGame(){
     
   
     char matrix[1024/SQUARE_UNIT][768/SQUARE_UNIT];
-    for(int i = 0; i< 128; i++){
-        for(int j = 0; j<96; j++){
+    for(int i = 0; i< 1024/SQUARE_UNIT; i++){
+        for(int j = 0; j<768/SQUARE_UNIT; j++){
             matrix[i][j] = 0;
         }
     }
@@ -59,7 +60,7 @@ void tronGame(){
     char c;
     while(1){
         hold(1);
-        //for(int i = 0; i< 9000000; i++){for(int j = 0; i< 10; i++){}}
+        // for(int i = 0; i< 9000000; i++){for(int j = 0; i< 10; i++){}}
         c = getc();
         switch (c)
         {

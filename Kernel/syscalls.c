@@ -70,6 +70,6 @@ void _10_capture_registers() {
 
 }
 
-void _11_get_ticks(uint64_t  ticks) {
-    *((int *)ticks) = ticks_elapsed();
+void _11_get_ticks(uint64_t  delta) {
+    hold((int) delta);
 }

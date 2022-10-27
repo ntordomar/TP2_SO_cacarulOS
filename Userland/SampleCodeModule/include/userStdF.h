@@ -20,7 +20,8 @@ void clear();
 void setCharSize(int size);
 void resetTerminal();
 void setCursorPosition(int x, int y);
-void printf(char * str, ...);
+void printf(int color, char * str, ...);
+
 
 //https://www.techiedelight.com/implement-strcpy-function-c/
 char * strcpy(char* destination, const char* source);

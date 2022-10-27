@@ -4,6 +4,7 @@ GLOBAL getMinutes
 GLOBAL getHours
 GLOBAL getKey
 GLOBAL sys_write
+GLOBAL hlt
 extern sysInterruptions
 section .text
 	
@@ -89,3 +90,7 @@ sys_write:
 	ret
 
 
+hlt:
+	sti
+	hlt
+	ret

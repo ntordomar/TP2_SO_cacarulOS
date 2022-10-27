@@ -146,13 +146,7 @@ char * strcpy(char* destination, const char* source){
 }
 
 void hold(int delta){
-    long startTicks;
-    sys_get_ticks(&startTicks);
-    long ticks = startTicks;
-    while(ticks <= startTicks + delta){
-        sys_get_ticks(&ticks);
-    }
-    //print("me fui for good",WHITE);
+    sys_get_ticks(delta);
 }
 
 void divideString(char * command, char * param, char delim){
@@ -190,7 +184,7 @@ void setCursorPosition(int x, int y){
 }
 
 // https://www.equestionanswers.com/c/c-printf-scanf-working-principle.php
-void printf(char * str, ...) {  
+void printf(int color, char * str, ...) {  
     va_list vl;
     int i = 0, j=0;
     char buff[100]={0}, tmp[20];
@@ -237,13 +231,20 @@ void printf(char * str, ...) {
                     break;
                 }
             }
-        } else {
+        }else if(str[i] == '\n'){
+            j = 0;
+            print(buff, color); 
+            buff[j]=0; // arreglamos el caso de \n encadenados
+            newLine();
+        } 
+        else {
             buff[j] =str[i];
             j++;
         }
         i++;
     } 
-    print(buff, WHITE); 
+    buff[j] = 0;
+    print(buff, color); 
     va_end(vl);
     return j; 
 }

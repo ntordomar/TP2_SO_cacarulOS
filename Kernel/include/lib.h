@@ -12,6 +12,7 @@ int getMinutes();
 int getHours();
 char getKey();
 // void _sti();
+void hlt();
 
 #endif
 

@@ -8,4 +8,4 @@ void sys_get_seconds(int * sec);
 void sys_get_minutes(int * min);
 void sys_get_hours(int * hours);
 void sys_change_font_size(int size);
-void sys_get_ticks(int * ticks);
+void sys_get_ticks(long ticks);

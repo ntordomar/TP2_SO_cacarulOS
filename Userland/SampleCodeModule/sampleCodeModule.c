@@ -66,32 +66,33 @@ int myAtoi(char* str)
 }
 
 void help(){
-    print("BIENVENIDOS A LA TERMINAL.", WHITE);
-    newLine();
-    print("Los comandos disponibles son:", WHITE);
-    newLine();
-    print("HELP, TRON, LETTERSIZE, CLEAR, TIME", WHITE);
-    newLine();
-    print("LETTERSIZE: ", WHITE);
-    newLine();
+ printf(GREEN,"Welcome to cacaHELP The following available commands are:\n\n\n\n\n\n");
+ printf(GREEN,  "COMMAND name:   USE:\n");
+ printf(WHITE,"HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
+printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
+ printf(WHITE,"LETTERSIZE: CHANGES LETTER FONT \n");
+ printf(WHITE,"CLEAR:      ERRASE THE TERMINAL :(\n");
+ printf(WHITE,"TIME:       PRINTS CURRENT TIME IN ARGENTINA\n");
+ printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
+ printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
+printf(GREEN,"\nHope you\n enjoy cacaTerminal!!");
 
 }
 
 void inforeg(int xPos, int yPos){
-       char r2[256] = {0};
+    char r2[256] = {0};
     itoa(getRDI(), r2, 10);
     print("RDI: ", WHITE);
     print(r2, WHITE);
     newLine();
     int regs[15];
     getRegisters(regs);
-    char * registersName[] = {"RBX","RCX","RDX","RSI","RBP","RSP","R8","R9","R10","R11","R12","R13","R14","R15"};
+    char * registersName[] = {"RAX","RBX","RCX","RDX","RSI","RBP","RSP","R8","R9","R10","R11"
+                                ,"R12","R13","R14","R15"};
     for (int i = 0; i<15; i++){
         char r[256] = {0};
         itoa(regs[i], r, 10);
-        print(registersName[i],WHITE);
-        print(r, WHITE);
-        newLine();
+        printf(WHITE, "%s: %s \n" ,registersName[i],r);
     }
  
 
@@ -105,19 +106,6 @@ void tron(){
     // xPos = 0;
     // yPos = 0;
 }
-
-// void backspace(){
-//     if(xPos <= 0) {
-//     if(yPos == 0) return;
-
-//         xPos = 1024;
-//         yPos -= 16 * initialCharSize;
-//     } else {
-//         xPos -= initialCharSize*8;
-//     }
-//     sys_write_char(xPos,yPos,' ',WHITE);
-// }
-    
 
 
 void lettersize() {
@@ -161,15 +149,6 @@ void lettersize() {
         }
     }
 }
-// void clear(){
-//     sys_clear_screen();
-//     xPos = 0;
-//     yPos = 0;
-// }
-// void newLine(){
-//     xPos = 0;
-//     yPos = yPos + initialCharSize * 16;
-// }
 
 void memory(char * param) {
     if (strlen(param) == 0) {
@@ -185,14 +164,15 @@ void memory(char * param) {
     for(int i = 0; i< 32; i++){
         char rta[256] = {0};
         itoa(mem[i],rta,10);
-        
-       print(rta,WHITE);
+        printf(WHITE, "Direccion %d: %c \n", memoryPos + i, rta);
     }
     
 }
 
 
 int main() {
+    setCursorPosition(20, 20);
+    printf("Hola %d \n %d", 20, 10);
     resetTerminal();
     //sys_write_char(20, 20, 'A', WHITE);
     // newLine();
