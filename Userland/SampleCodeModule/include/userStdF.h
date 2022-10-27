@@ -17,3 +17,5 @@ void newLine();
 void divideString(char * command, char * param, char delim);
 void backspace();
 void clear();
+void setCharSize(int size);
+void resetTerminal();

@@ -5,6 +5,8 @@
 static int Ypos = 0;
 static int Xpos = 0;
 
+static int charSize = 1;
+
 static int buffPos = 0;
 static int getCCount = 0;
 
@@ -42,6 +44,7 @@ void itoa(uint64_t value, char *buffer, uint32_t base) {
     }
 
 }
+
 int strcmp(char * s1, char * s2){ // returns 0 if there are the same string. ambos strings null terminated
 int i = 0; 
 while (s1[i] != 0 && s2[i] != 0){
@@ -64,10 +67,10 @@ void print(char * buffer, int color){
     for (int i = 0; i<len; i++){
         if (Xpos >= 1024){
             Xpos = 0;
-            Ypos += 1 * 16; // el 1 es el size falta getter
+            Ypos += charSize * 16; // el 1 es el size falta getter
         }
         sys_write_char(Xpos, Ypos, buffer[i], color);
-        Xpos += 8;
+        Xpos += 8 * charSize;
         //Checkear si hay que saltar de linea
     }
 }
@@ -77,9 +80,9 @@ void backspace(){
     if(Ypos == 0) return;
 
         Xpos = 1024;
-        Ypos -= 16 * 1; // el 1 es el size
+        Ypos -= 16 * charSize; // el 1 es el size
     } else {
-        Xpos -= 1*8; // El 1 es el size
+        Xpos -= charSize*8; // El 1 es el size
     }
     sys_write_char(Xpos,Ypos,' ',WHITE);
 }
@@ -92,11 +95,11 @@ void clear(){
 
 void newLine(){
     Xpos = 0;
-    Ypos += 16;
+    Ypos += 16 * charSize;
 }
 
 void printChar(char c, int color){
-     print(&c, color);
+    print(&c, color);
 }
 
 void printCurrentTime() {
@@ -122,7 +125,7 @@ void hold(int delta){
     while(ticks <= startTicks + delta){
         sys_get_ticks(&ticks);
     }
-    print("me fui for good",WHITE);
+    //print("me fui for good",WHITE);
 }
 
 void divideString(char * command, char * param, char delim){
@@ -142,4 +145,14 @@ void divideString(char * command, char * param, char delim){
         param[dimParam++] = command[i];
     }
     param[dimParam] = 0;
+}
+
+void setCharSize(int size) {
+    charSize = size;
+    sys_change_font_size(size);
+}
+
+void resetTerminal() {
+    Xpos = 0;
+    Ypos = 0;
 }

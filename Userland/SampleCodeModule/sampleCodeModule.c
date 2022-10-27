@@ -1,6 +1,5 @@
 /* sampleCodeModule.c */
 // terminal
-#include <user_syscalls.h>
 #include <userStdF.h>
 #include <userLib.h>
 #include <stdint.h>
@@ -17,9 +16,8 @@ void memory(char * param);
 
 char * v = (char*)0xB8000 + 79 * 2;
 
-static int yPos = 0;
-static int xPos = 0;
-static int initialCharSize = 1;
+// static int yPos = 0;
+// static int xPos = 0;
 
 static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME", "INFOREG", "MEMORY"};
 static void (*commandFunctions[7])(char * param) = {help, tron, lettersize, clear, time, inforeg, memory};
@@ -54,7 +52,7 @@ void analizeCommand(){ // int strcmp 0 si si 1 sino
 void time(){
     print("TIEMPO ACTUAL:", WHITE);
     newLine();
-    printCurrentTime(xPos, yPos);
+    printCurrentTime();
     newLine();
 } 
 
@@ -97,9 +95,10 @@ void inforeg(int xPos, int yPos){
 
 void tron(){
     tronGame();
-    sys_clear_screen();
-    xPos = 0;
-    yPos = 0;
+    clear();
+    resetTerminal();
+    // xPos = 0;
+    // yPos = 0;
 }
 
 // void backspace(){
@@ -117,8 +116,9 @@ void tron(){
 
 
 void lettersize() {
-    sys_write(xPos, yPos, "Ingrese un numerito", 19, WHITE);
-    xPos+=initialCharSize*8;
+    print("Write a number", WHITE);
+    // sys_write(xPos, yPos, "Ingrese un numerito", 19, WHITE);
+    // xPos+=initialCharSize*8;
     newLine();
     char buff[50];
     int buffPos = 0;
@@ -128,26 +128,29 @@ void lettersize() {
          
         c = getc();  
         if (c!=-1 && c!=0){
-    for(int i = 0; i<9000; i++);
-
+    //for(int i = 0; i<9000; i++);
+            hold(1);
             if(c == '\n'){
                 newLine();
                 buff[buffPos] = 0;
-                sys_change_font_size(myAtoi(buff));
-                initialCharSize = myAtoi(buff);
-                sys_write(xPos,yPos,"SE HA CAMBIADO EL NUMERITO",26,WHITE);
-                xPos += initialCharSize*8;
+                setCharSize(myAtoi(buff));
+                // sys_change_font_size(myAtoi(buff));
+                // initialCharSize = myAtoi(buff);
+                // sys_write(xPos,yPos,"SE HA CAMBIADO EL NUMERITO",26,WHITE);
+                print("SIZE WAS CHANGED", WHITE);
+                //xPos += initialCharSize*8;
                 newLine();
                 return;
-            }else{
+            } else {
                 if(!isDigit(c)){
                     print("lo ingresado no es un numero taradooo!", WHITE);
                     newLine();
                     return;
                 }
                 buff[buffPos++] = c;
-                sys_write_char(xPos, yPos, c, WHITE);
-                xPos+=initialCharSize*8;
+                // sys_write_char(xPos, yPos, c, WHITE);
+                // xPos+=initialCharSize*8;
+                printChar(c, WHITE);
 
             }
         }
@@ -185,14 +188,13 @@ void memory(char * param) {
 
 
 int main() {
-    sys_write_char(20, 20, 'A', WHITE);
+    //sys_write_char(20, 20, 'A', WHITE);
     while(1){
         
         char c  = getc();
+        // hold(1); //NO FUNCIONA CON HOLD ?
         for(int i = 0; i< 9000; i++){;}
-
-
-
+        
         if (c != -1 && c!= 0){
             if(c == 8){ // 8 es el ascii del basckspace
                 if(lineCantChar != 0){ 
