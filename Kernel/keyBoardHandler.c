@@ -2,7 +2,7 @@
  #include <keyBoardHandler.h>
  #include <lib.h>
  
-static char buff[256];
+static char buff[256] = {0};
 
 static int front = 0;
 static int rear = 0;

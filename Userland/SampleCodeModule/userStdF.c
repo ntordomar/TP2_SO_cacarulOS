@@ -1,6 +1,7 @@
 #include <user_syscalls.h>
 #include <userStdF.h>
 #include <stdint.h>
+#include <stdarg.h>
 
 static int Ypos = 0;
 static int Xpos = 0;
@@ -118,6 +119,32 @@ void printCurrentTime() {
     print(res, WHITE);
 }
 
+//https://www.techiedelight.com/implement-strcpy-function-c/
+char * strcpy(char* destination, const char* source){
+    // return if no memory is allocated to the destination
+    if (destination == 0) {
+        return 0;
+    }
+ 
+    // take a pointer pointing to the beginning of the destination string
+    char *ptr = destination;
+ 
+    // copy the C-string pointed by source into the array
+    // pointed by destination
+    while (*source != '\0')
+    {
+        *destination = *source;
+        destination++;
+        source++;
+    }
+ 
+    // include the terminating null character
+    *destination = '\0';
+ 
+    // the destination is returned by standard `strcpy()`
+    return ptr;
+}
+
 void hold(int delta){
     long startTicks;
     sys_get_ticks(&startTicks);
@@ -155,4 +182,68 @@ void setCharSize(int size) {
 void resetTerminal() {
     Xpos = 0;
     Ypos = 0;
+}
+
+void setCursorPosition(int x, int y){
+    Xpos = x;
+    Ypos = y;
+}
+
+// https://www.equestionanswers.com/c/c-printf-scanf-working-principle.php
+void printf(char * str, ...) {  
+    va_list vl;
+    int i = 0, j=0;
+    char buff[100]={0}, tmp[20];
+    char * str_arg;
+    
+    va_start( vl, str );
+    while (str && str[i])
+    {
+        if(str[i] == '%'){
+            i++;
+            switch (str[i]) {
+            /* Convert char */
+                case 'c': {
+                    buff[j] = (char)va_arg( vl, int );
+                    j++;
+                    break;
+                }
+                /* Convert decimal */
+                case 'd': {
+                    itoa(va_arg( vl, int ), tmp, 10);
+                    strcpy(&buff[j], tmp);
+                    j += strlen(tmp);
+                    break;
+                }
+                /* Convert hex */
+                case 'x': {
+                    itoa(va_arg( vl, int ), tmp, 16);
+                    strcpy(&buff[j], tmp);
+                    j += strlen(tmp);
+                    break;
+                }
+                /* Convert octal */
+                case 'o': {
+                    itoa(va_arg( vl, int ), tmp, 8);
+                    strcpy(&buff[j], tmp);
+                    j += strlen(tmp);
+                    break;
+                }
+                /* copy string */
+                case 's': {
+                    str_arg = va_arg( vl, char* );
+                    strcpy(&buff[j], str_arg);
+                    j += strlen(str_arg);
+                    break;
+                }
+            }
+        } else {
+            buff[j] =str[i];
+            j++;
+        }
+        i++;
+    } 
+    print(buff, WHITE); 
+    va_end(vl);
+    return j; 
 }

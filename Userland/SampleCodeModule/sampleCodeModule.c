@@ -24,7 +24,7 @@ static void (*commandFunctions[7])(char * param) = {help, tron, lettersize, clea
 
 static int commandCount = 7;
 
-static char lineBuffer[256]; //ir completando a medida que sigamos en la misma 
+static char lineBuffer[256] = {0}; //ir completando a medida que sigamos en la misma 
 static lineCantChar = 0;
 
 int isDigit(char c){
@@ -78,17 +78,22 @@ void help(){
 }
 
 void inforeg(int xPos, int yPos){
+       char r2[256] = {0};
+    itoa(getRDI(), r2, 10);
+    print("RDI: ", WHITE);
+    print(r2, WHITE);
+    newLine();
     int regs[15];
     getRegisters(regs);
-   
+    char * registersName[] = {"RBX","RCX","RDX","RSI","RBP","RSP","R8","R9","R10","R11","R12","R13","R14","R15"};
     for (int i = 0; i<15; i++){
         char r[256] = {0};
         itoa(regs[i], r, 10);
+        print(registersName[i],WHITE);
         print(r, WHITE);
+        newLine();
     }
-    char r2[256] = {0};
-    itoa(getRDI(), r2, 10);
-    print(r2, WHITE);
+ 
 
 }
 
@@ -188,11 +193,13 @@ void memory(char * param) {
 
 
 int main() {
+    resetTerminal();
     //sys_write_char(20, 20, 'A', WHITE);
+    // newLine();
+    // lineBuffer[lineCantChar] = 0;
     while(1){
-        
-        char c  = getc();
         // hold(1); //NO FUNCIONA CON HOLD ?
+        char c  = getc();
         for(int i = 0; i< 9000; i++){;}
         
         if (c != -1 && c!= 0){
