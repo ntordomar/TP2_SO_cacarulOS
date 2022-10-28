@@ -9,4 +9,4 @@ void sys_get_minutes(int * min);
 void sys_get_hours(int * hours);
 void sys_change_font_size(int size);
 void sys_get_ticks(int ticks);
-void sys_beep(int freq);
+void sys_beep(int freq, int time);

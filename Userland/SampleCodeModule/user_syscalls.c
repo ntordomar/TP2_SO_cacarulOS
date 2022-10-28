@@ -36,14 +36,11 @@ void sys_change_font_size(int size) {
     sys_int_80(9, size, 0, 0, 0, 0);
 }
 
-void sys_capture_registers() {
-    sys_int_80(10, 0, 0, 0, 0, 0);
+void sys_beep(int freq, int time){
+    sys_int_80(10,freq,time,0,0,0);
 }
 
 void sys_get_ticks(int ticks) {
     sys_int_80(11, ticks, 0, 0, 0, 0);
 }
 
-void sys_beep(int freq){
-    sys_int_80(10,freq,0,0,0,0);
-}

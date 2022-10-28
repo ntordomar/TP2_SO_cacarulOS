@@ -5,6 +5,7 @@ GLOBAL getRegisters
 global getRDI
 global prueba
 global getMemory
+global divideZero
 sys_int_80:
     push rbp
     mov rbp, rsp
@@ -72,3 +73,10 @@ exit:
     mov rsp, rbp
     pop rbp
     ret
+
+divideZero:
+
+mov rax,0
+div rax
+
+ret

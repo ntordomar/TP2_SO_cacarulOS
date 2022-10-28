@@ -53,15 +53,7 @@ void * initializeKernelBinary()
 int main()
 {
 	load_idt();
-<<<<<<< HEAD
-	play_sound(860);
-	stopSound();
-	
-=======
-		play_sound(840);
-		nosound();
->>>>>>> b95920a (beep working git add *git add *)
-		
+
 
 	// putpixel(512,768/2, 0xFFFFFF);
 	// putpixel(512,100, 0xFFFFFF);

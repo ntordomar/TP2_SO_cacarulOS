@@ -16,6 +16,7 @@ void exit() {
 
 void youLoose(char * player){
     sys_clear_screen();
+    sys_beep(300, 1);
     print("Perdiste loco", RED);
     print(player,WHITE);
     hold(20);
@@ -24,12 +25,9 @@ void youLoose(char * player){
 }
 
 void tronGame(){
-<<<<<<< HEAD
     
-=======
-    sys_beep(860);
->>>>>>> b95920a (beep working git add *git add *)
     sys_clear_screen();
+    divideZero();
     setCursorPosition(400, 768/2);
     printf(GREEN, "Welcome to tron!!!     :) <3 \n");
     print("Player 1: use the arrows to move", GREEN);
@@ -65,7 +63,6 @@ void tronGame(){
     int xP = SQUARE_UNIT;
     char c;
     while(1){
-        sys_beep(860);
         hold(1);
         // for(int i = 0; i< 9000000; i++){for(int j = 0; i< 10; i++){}}
         c = getc();

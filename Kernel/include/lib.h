@@ -15,8 +15,7 @@ char getKey();
 void hlt();
 void outb(int memoryMap, int output); // cambiar los ombres cuando lo entendamos
 int inb(int memoryMap);
-void playSound(int frec);
-void stopSound();
+
 
 #endif
 

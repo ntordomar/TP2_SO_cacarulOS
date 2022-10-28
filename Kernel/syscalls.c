@@ -6,6 +6,7 @@
 #include <time.h>
 #include <speaker.h>
 
+
 // #include <interrupts.h>
 
 static void (*sysFunctions[20])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5) = {_0_empty,
@@ -68,10 +69,11 @@ void _9_set_font_size(uint64_t size) {
     set_default_fontSize(size);
 }
 
-void _10_beep(uint64_t frequency){
-    beep((int)frequency);
+void _10_beep(uint64_t frequency, uint64_t time){
+    beep((int)frequency, (int)time);
 }
 
 void _11_get_ticks(uint64_t  delta) {
     hold((int) delta);
 }
+
