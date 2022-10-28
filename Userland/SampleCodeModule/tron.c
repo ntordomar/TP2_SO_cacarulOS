@@ -25,7 +25,8 @@ void youLoose(char * player){
 
 void tronGame(){
     sys_clear_screen();
-    print("Welcome to tron!!!     :) <3",GREEN);
+    setCursorPosition(400, 768/2);
+    printf(GREEN, "Welcome to tron!!!     :) <3 \n");
     print("Player 1: use the arrows to move", GREEN);
     print("Player 2: use the WASD keys to move", GREEN);
     print("Press 1 to start", GREEN);

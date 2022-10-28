@@ -39,6 +39,7 @@ void analizeCommand(){ // int strcmp 0 si si 1 sino
         if (strcmp(lineBuffer, commandList[i]) == 0){
             (*commandFunctions[i])(argument);
             lineCantChar = 0;
+        
             return;
         } 
     }
@@ -75,7 +76,7 @@ printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
  printf(WHITE,"TIME:       PRINTS CURRENT TIME IN ARGENTINA\n");
  printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
  printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
-printf(GREEN,"\nHope you\n enjoy cacaTerminal!!");
+printf(GREEN,"\nHope you\n enjoy cacaTerminal!! \n");
 
 }
 
