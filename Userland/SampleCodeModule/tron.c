@@ -24,7 +24,7 @@ void youLoose(char * player){
 }
 
 void tronGame(){
-    sys_beep(1000);
+    
     sys_clear_screen();
     setCursorPosition(400, 768/2);
     printf(GREEN, "Welcome to tron!!!     :) <3 \n");
@@ -61,6 +61,7 @@ void tronGame(){
     int xP = SQUARE_UNIT;
     char c;
     while(1){
+        sys_beep(860);
         hold(1);
         // for(int i = 0; i< 9000000; i++){for(int j = 0; i< 10; i++){}}
         c = getc();

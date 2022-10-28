@@ -3,6 +3,9 @@
         "naiveconsole.h": "c",
         "*.asm": "asm",
         "user_syscalls.h": "c",
-        "userstdf.h": "c"
+        "userstdf.h": "c",
+        "speaker.h": "c",
+        "time.h": "c",
+        "lib.h": "c"
     }
 }

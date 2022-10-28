@@ -1,3 +1,3 @@
-static void play_sound(uint32_t nFrequence);
-static void nosound();
-void beep();
+ void play_sound(int nFrequence);
+ void nosound();
+void beep(int frec);
