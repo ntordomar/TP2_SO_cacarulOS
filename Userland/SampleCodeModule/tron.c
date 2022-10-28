@@ -8,8 +8,8 @@
 void exit() {
     sys_clear_screen();
     print("Thank you for playing :)", PINK);
-    int tick =0; 
-   
+    char c; 
+    while((c = getc()) != -1){;} // clears buffer
     hold(50);
     return;
 }
@@ -24,6 +24,7 @@ void youLoose(char * player){
 }
 
 void tronGame(){
+    sys_beep(1000);
     sys_clear_screen();
     setCursorPosition(400, 768/2);
     printf(GREEN, "Welcome to tron!!!     :) <3 \n");
@@ -119,7 +120,7 @@ void tronGame(){
         default:
             break;
         } 
-
+        
         if (matrix[j1X/SQUARE_UNIT][j1Y/SQUARE_UNIT] == 1 || OUT_OF_BOUNDS(j1X,j1Y)){
             youLoose("Jugador 1");
             return; 
@@ -130,6 +131,10 @@ void tronGame(){
          else {
             matrix[j1X/SQUARE_UNIT][j1Y/SQUARE_UNIT] = 1;
             matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] = 1;
+        }
+        if(j1X == j2X && j1Y == j2Y){
+            youLoose("its a tie!");
+            return;
         }
         j1X += SQUARE_UNIT*j1Xincrement;
         j2X += SQUARE_UNIT*j2Xincrement;

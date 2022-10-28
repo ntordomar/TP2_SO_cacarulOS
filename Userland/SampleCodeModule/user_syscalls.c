@@ -40,6 +40,10 @@ void sys_capture_registers() {
     sys_int_80(10, 0, 0, 0, 0, 0);
 }
 
-void sys_get_ticks(long ticks) {
+void sys_get_ticks(int ticks) {
     sys_int_80(11, ticks, 0, 0, 0, 0);
+}
+
+void sys_beep(int freq){
+    sys_int_80(10,freq,0,0,0,0);
 }

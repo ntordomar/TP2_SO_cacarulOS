@@ -17,7 +17,7 @@ int seconds_elapsed() {
 
 void hold(int delta){
 	int currentTicks = ticks;
-	while(ticks - currentTicks != delta){
+	while(ticks - currentTicks < delta){
 		hlt();
 	}
 }

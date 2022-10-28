@@ -13,6 +13,8 @@ int getHours();
 char getKey();
 // void _sti();
 void hlt();
+void outb(int memoryMap, int output); // cambiar los ombres cuando lo entendamos
+int inb(int memoryMap);
 
 #endif
 

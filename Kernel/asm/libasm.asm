@@ -4,6 +4,8 @@ GLOBAL getMinutes
 GLOBAL getHours
 GLOBAL getKey
 GLOBAL sys_write
+GLOBAL outb
+GLOBAL inb
 GLOBAL hlt
 extern sysInterruptions
 section .text
@@ -89,6 +91,25 @@ sys_write:
 	pop rbp
 	ret
 
+inb:
+	push rbp
+	mov rbp, rsp
+	mov rdx, rdi
+	mov rax, 0
+    in al, dx
+	mov rsp, rbp
+	pop rbp
+	ret
+
+outb:
+	push rbp
+	mov rbp, rsp
+	mov rax, rsi
+	mov rdx, rdi
+	out dx, al
+	mov rsp, rbp
+	pop rbp
+	ret
 
 hlt:
 	sti
