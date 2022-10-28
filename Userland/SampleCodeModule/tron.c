@@ -24,7 +24,11 @@ void youLoose(char * player){
 }
 
 void tronGame(){
+<<<<<<< HEAD
     
+=======
+    sys_beep(860);
+>>>>>>> b95920a (beep working git add *git add *)
     sys_clear_screen();
     setCursorPosition(400, 768/2);
     printf(GREEN, "Welcome to tron!!!     :) <3 \n");

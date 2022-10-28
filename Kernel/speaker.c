@@ -6,9 +6,15 @@
 #include <lib.h>
 #include <speaker.h>
  
+<<<<<<< HEAD
  void play_sound(int nFrequence) {
  	// uint32_t Div;
  	// uint8_t tmp;
+=======
+ void play_sound(uint32_t nFrequence) {
+ 	uint32_t Div;
+ 	uint8_t tmp;
+>>>>>>> b95920a (beep working git add *git add *)
  
     //     //Set the PIT to the desired frequency
  	// Div = 1193180 / nFrequence;
@@ -26,7 +32,11 @@
  
 //make it shutup
  void nosound() {
+<<<<<<< HEAD
     // uint8_t tmp = inb(0x61) & 0xFC;
+=======
+    uint8_t tmp = inb(0x61) & 0xFC;
+>>>>>>> b95920a (beep working git add *git add *)
 
     // outb(0x61, tmp);
 	stopSound();
