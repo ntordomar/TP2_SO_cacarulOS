@@ -59,9 +59,10 @@ getMemory:
     push rbp
     mov rbp, rsp
     mov R8, 0
+    mov rax,0
     loop:
-    mov r9, [RDI] 
-    mov [RSI], r9
+    mov  al, [RDI] 
+    mov  [RSI], al
     inc RDI
     inc RSI
     inc R8
@@ -75,8 +76,8 @@ exit:
     ret
 
 divideZero:
-
 mov rax,0
-div rax
+mov rbx,9
+div rbx
 
 ret

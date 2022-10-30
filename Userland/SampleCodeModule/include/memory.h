@@ -1,0 +1,1 @@
+void memory(char * param);

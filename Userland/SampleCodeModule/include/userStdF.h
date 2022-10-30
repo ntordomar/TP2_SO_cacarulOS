@@ -5,12 +5,11 @@
 #define CORAL 0xFF7F50
 #define PINK 0xFF69B4
 #include <stdint.h>
-char getc();
+char getChar();
 void itoa(uint64_t value, char *buffer, uint32_t base);
 int strcmp(char * s1, char * s2);
 int strlen(char * s);
 void print(char * buffer, int color);
-void printCurrentTime();
 void hold(int num);
 void printChar(char c, int color);
 void newLine();
@@ -21,6 +20,7 @@ void setCharSize(int size);
 void resetTerminal();
 void setCursorPosition(int x, int y);
 void printf(int color, char * str, ...);
+int atoi(char* str);
 
 
 //https://www.techiedelight.com/implement-strcpy-function-c/

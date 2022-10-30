@@ -11,7 +11,7 @@ static int charSize = 1;
 static int buffPos = 0;
 static int getCCount = 0;
 
-char getc(){
+char getChar(){
     getCCount++;
     char localBuff[1];
     sys_read(&localBuff, 1);
@@ -44,6 +44,15 @@ void itoa(uint64_t value, char *buffer, uint32_t base) {
         p2--;
     }
 
+}
+
+int atoi(char* str)
+{
+    int res = 0;
+    for (int i = 0; str[i] != '\0'; ++i)
+        res = res * 10 + str[i] - '0';
+
+    return res;
 }
 
 int strcmp(char * s1, char * s2){ // returns 0 if there are the same string. ambos strings null terminated
@@ -92,8 +101,7 @@ void backspace(){
 
 void clear(){
     sys_clear_screen();
-    Xpos = 0;
-    Ypos = 0;
+    resetTerminal();
 }
 
 void newLine(){
@@ -105,21 +113,7 @@ void printChar(char c, int color){
     print(&c, color);
 }
 
-void printCurrentTime() {
-    int  seconds, minutes, hours;
-    sys_get_seconds(&seconds);
-    sys_get_minutes(&minutes);
-    sys_get_hours(&hours); 
-    char  res[30] = {0};
-    itoa(hours-3, res, 16) ;
-    res[2] = ':';
-    itoa(minutes,res+3,16);
-    res[5] = ':'; 
-    itoa(seconds, res+6, 16);
 
-    // print(xPos, yPos, res, WHITE);
-    print(res, WHITE);
-}
 
 //https://www.techiedelight.com/implement-strcpy-function-c/
 char * strcpy(char* destination, const char* source){
@@ -250,3 +244,60 @@ void printf(int color, char * str, ...) {
     va_end(vl);
     return j; 
 }
+
+// int scan (char * str, ...)
+// {
+//     va_list vl;
+//     int i = 0, j=0, ret = 0;
+//     char buff[100] = {0}, tmp[20], c;
+//     char *out_loc;
+//     while(c != '\n') 
+//     {
+//         if ((c == getChar()) != -1) 
+//         {
+//  	       buff[i] = c;
+//  	       i++;
+//  	    }
+//  	}
+//  	va_start( vl, str );
+//  	i = 0;
+//  	while (str && str[i])
+//  	{
+//  	    if (str[i] == '%') 
+//  	    {
+//  	       i++;
+//  	       switch (str[i]) 
+//  	       {
+//  	           case 'c': 
+//  	           {
+// 	 	           *(char *)va_arg( vl, char* ) = buff[j];
+// 	 	           j++;
+// 	 	           ret ++;
+// 	 	           break;
+//  	           }
+//  	           case 'd': 
+//  	           {
+// 	 	           *(int *)va_arg( vl, int* ) =atoi(&buff[j]);
+// 	 	           j+=out_loc -&buff[j];
+// 	 	           ret++;
+// 	 	           break;
+//  	            }
+//  	            case 'x': 
+//  	            {
+// 	 	           *(int *)va_arg( vl, int* ) =strtol(&buff[j], &out_loc, 16);
+// 	 	           j+=out_loc -&buff[j];
+// 	 	           ret++;
+// 	 	           break;
+//  	            }
+//  	        }
+//  	    } 
+//  	    else 
+//  	    {
+//  	        buff[j] =str[i];
+//             j++;
+//         }
+//         i++;
+//     }
+//     va_end(vl);
+//     return ret;
+// }
