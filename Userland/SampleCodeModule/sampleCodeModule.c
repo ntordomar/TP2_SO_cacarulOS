@@ -52,17 +52,20 @@ void analizeCommand(){ // int strcmp 0 si si 1 sino
 
 
 void help(){
- printf(GREEN,"Welcome to cacaHELP The following available commands are:\n\n\n\n\n\n");
- printf(GREEN,  "COMMAND name:   USE:\n");
- printf(WHITE,"HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
-printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
- printf(WHITE,"LETTERSIZE: CHANGES LETTER FONT \n");
- printf(WHITE,"CLEAR:      ERRASE THE TERMINAL :(\n");
- printf(WHITE,"TIME:       PRINTS CURRENT TIME IN ARGENTINA\n");
- printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
- printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
-printf(GREEN,"\nHope you\n enjoy cacaTerminal!! \n");
-
+    printf(GREEN,"Welcome to cacaHELP The following available commands are:\n\n\n\n\n\n");
+    printf(GREEN,  "COMMAND name:   USE:\n");
+    printf(WHITE,"HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
+    printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
+    printf(WHITE,"LETTERSIZE: CHANGES LETTER FONT \n");
+    printf(WHITE,"CLEAR:      ERRASE THE TERMINAL :(\n");
+    printf(WHITE,"TIME:       PRINTS CURRENT TIME IN ARGENTINA\n");
+    printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
+    printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
+    printf(GREEN,"\nHope you\n enjoy cacaTerminal!! \n");
+    // char letra;
+    // int nro;
+    // scanf("%d\n", &nro);
+    // printChar(letra, CORAL);
 }
 
 

@@ -21,6 +21,7 @@ void resetTerminal();
 void setCursorPosition(int x, int y);
 void printf(int color, char * str, ...);
 int atoi(char* str);
+int scanf(char * str, ...);
 
 
 //https://www.techiedelight.com/implement-strcpy-function-c/
