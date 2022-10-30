@@ -9,7 +9,7 @@ void printCurrentTime() {
     printf(WHITE, "%x : %x : %x",hours-6-3,minutes,seconds);
 }
 void time(){
-    printf(WHITE,"TIEMPO ACTUAL: \n");
+    printf(WHITE,"CURRENT TIME: \n");
     printCurrentTime();
     printf(WHITE,"\n");
 } 

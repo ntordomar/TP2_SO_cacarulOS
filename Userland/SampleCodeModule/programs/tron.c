@@ -28,11 +28,15 @@ void tronGame(){
     
     sys_clear_screen();
     
-    setCursorPosition(400, 768/2);
-    printf(GREEN, "Welcome to tron!!!     :) <3 \n");
+    setCursorPosition(375, 100);
+    printf(GREEN, "WELCOME TO TRON LIGHT CYCLES\n");
+    setCursorPosition(350, 400);
     print("Player 1: use the arrows to move", GREEN);
+    setCursorPosition(345, 450);
     print("Player 2: use the WASD keys to move", GREEN);
+    setCursorPosition(175, 600);
     print("Press 1 to start", GREEN);
+    setCursorPosition(700, 600);
     print("Press ESC to exit", GREEN);
     char info;
     while((info=getChar()) != '1') {
