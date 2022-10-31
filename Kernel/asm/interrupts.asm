@@ -12,6 +12,7 @@ GLOBAL _irq03Handler
 GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 GLOBAL int80Handler
+GLOBAL _exception6Handler
 
 GLOBAL _exception0Handler
 EXTERN irqDispatcher
@@ -150,6 +151,9 @@ _irq05Handler:
 ;Zero Division Exception
 _exception0Handler:
 	exceptionHandler 0
+
+_exception6Handler
+	exceptionHandler 6
 
 haltcpu:
 	cli

@@ -6,7 +6,7 @@
 
 extern clearStackAndMain();
 
- void zero_division();
+void zero_division();
 void invalid_op_code();
 
 
@@ -32,7 +32,7 @@ void exceptionDispatcher(int exception) {
 
  void invalid_op_code() {
 	clearScreen();
-	draw_string(300, 300, "TUVISTE UNA OP-CODE", 25, RED, BLACK);
+	draw_string(300, 300, "TUVISTE UNA OP-CODE", 19, RED, BLACK);
 	hold(40);
 	clearScreen();
 	draw_string(300, 300, "Reiniciando terminal...", 23, RED, BLACK);

@@ -4,7 +4,7 @@ GLOBAL getRegisters
 global getRDI
 global getMemory
 global divideZero
-global opCode
+global opCodeEx
 sys_int_80:
     push rbp
     mov rbp, rsp
@@ -80,6 +80,10 @@ divideZero:
     div rbx
     ret
 
-opCode:
-    ;
-    ;
+opCodeEx:
+    push rbp
+    mov rbp, rsp
+    UD2
+    mov rsp, rbp
+    pop rbp
+    ret

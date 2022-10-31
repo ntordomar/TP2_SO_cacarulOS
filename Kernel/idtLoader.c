@@ -29,6 +29,7 @@ void load_idt() { // la llamo al principio del main para que me cargue la idt
   setup_IDT_entry(0x80, (uint64_t)&int80Handler);
   setup_IDT_entry (0x00, (uint64_t)&_exception0Handler); // Aca se tiene que llamar a la funcion de asm y esa llamar a esta 
 	//Solo interrupcion timer tick habilitadas CAMBIARLA PARA LA DEL TECLADO (ABRIR EL CORRESPONDIENTE IRQ 1)
+  setup_IDT_entry (0x06, (uint64_t)&_exception6Handler);
 	picMasterMask(0xFC); 
 	picSlaveMask(0xFF);
         

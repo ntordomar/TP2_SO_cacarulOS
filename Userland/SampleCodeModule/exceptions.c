@@ -1,5 +1,9 @@
 #include <exceptions.h>
 #include <userLib.h>
-divideByZero(){
+void divideByZero(){
     divideZero();
+}
+
+void opCode(){
+    opCodeEx();
 }

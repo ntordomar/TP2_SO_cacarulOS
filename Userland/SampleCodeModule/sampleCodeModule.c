@@ -17,10 +17,10 @@ void tron();
 char * v = (char*)0xB8000 + 79 * 2; // sirve?
 
 
-static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO"};
-static void (*commandFunctions[])(char * param) = {help, tron, lettersize, clear, time, inforeg, memory,divideByZero};
+static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE"};
+static void (*commandFunctions[])(char * param) = {help, tron, lettersize, clear, time, inforeg, memory,divideByZero, opCode};
 
-static int commandCount = 8;
+static int commandCount = 9;
 
 static char lineBuffer[256] = {0}; 
 static lineCantChar = 0;
@@ -62,12 +62,12 @@ void help(){
     printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
     printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
     printf(WHITE,"DIVIDEBYZERO: WANT TO KNOW WHAT HAPPENS WHEN YOU DIVIDE BY ZERO?\n");
+    printf(WHITE,"OPCODE:     WANT TO KNOW WHAT HAPPENS WHEN YOU OP CODE?\n");
     printf(GREEN,"Hope you enjoy cacaTerminal!! \n");
     
       
    
 }
-
 
 
 

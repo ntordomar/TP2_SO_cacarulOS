@@ -1,1 +1,2 @@
 void divideByZero();
+void opCode();

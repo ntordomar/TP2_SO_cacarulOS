@@ -4,3 +4,4 @@ int getRDI();
 void getRegister(int * regs);
 void getMemory(int memoryPos, unsigned char * res);
 void divideZero();
+void opCodeEx();
