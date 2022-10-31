@@ -9,26 +9,29 @@ void painoPlay(){
         switch (c)
         {
         case 'S':
-            sys_beep(130, 1);
+            printf(RED,"HOLA");
+            sys_beep(130, 10);
             break;
         case 'D':
-            sys_beep(146, 1);
+            sys_beep(146, 10);
             break;
         case 'F':
-            sys_beep(164, 1);
+            sys_beep(164, 10);
             break;
         case 'G':
-            sys_beep(174, 1);
+            sys_beep(174, 10);
             break;
         case 'H':
-            sys_beep(196, 1);
+            sys_beep(196, 10);
             break;
         case 'J':
-            sys_beep(220, 1);
+            sys_beep(220, 10);
             break;
         case 'K':
-            sys_beep(246.9, 1);
+            sys_beep(246, 10);
             break;
+        case 'X':
+            return;
     }
 }
 }

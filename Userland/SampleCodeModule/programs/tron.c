@@ -5,16 +5,51 @@
 #define SQUARE_UNIT 8
 #define OUT_OF_BOUNDS(x, y) ((x) > SCREEN_WIDTH || (x) < 0 || (y) > SCREEN_HEIGHT || (y) < 0) 
 
-
+void printAux(int xP, int yP){
+ for(int i = 0; i<15; i++){
+        sys_draw_rectangle(xP,yP,5,5,RED);
+        xP +=5;
+    }
+}
 void fireworks(){
     int xP = 250;
     int yP = 250;
+    // primera linea
     for(int i = 0; i< 4; i++){
      sys_draw_rectangle(xP,yP,5,5,RED);
      xP +=5;
     }
     xP+=10;
-    //for(int i = 0; i<)
+   printAux(xP,yP);
+   xP+=5*15;
+    xP+=10;
+    for(int i = 0; i< 4; i++){
+        sys_draw_rectangle(xP,yP,5,5,RED);
+        xP +=5;
+    }
+    // segunda linea
+    yP+=5;
+    xP = 250;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=10;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=10;
+    printAux(xP,yP);
+    xP+=5*15;
+    xP+=10;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=10;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    // tercera linea
+    yP+=5;
+    xP = 250;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=10;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+
+
 }
 void exit() {
     clear();
@@ -28,7 +63,7 @@ void exit() {
 
 void youWin(int color, char * player){
     clear();
-    sys_beep(300, 1);
+    sys_beep(300, 18);
     setCursorPosition(390,SCREEN_HEIGHT/2);
     printf(color,"%s wins!!\n",player);
     fireworks();

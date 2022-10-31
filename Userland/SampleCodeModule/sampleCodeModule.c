@@ -4,6 +4,7 @@
 #include <userLib.h>
 #include <stdint.h>
 #include<tron.h>
+#include <piano.h>
 #include <inforeg.h>
 #include <time.h>
 #include <memory.h>
@@ -14,13 +15,14 @@ void clear();
 void backspace();
 void newLine();
 void tron();
+void piano();
 char * v = (char*)0xB8000 + 79 * 2; // sirve?
 
 
-static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE"};
-static void (*commandFunctions[])(char * param) = {help, tron, lettersize, clear, time, inforeg, memory,divideByZero, opCode};
+static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PIANO"};
+static void (*commandFunctions[])(char * param) = {help, tron, lettersize, clear, time, inforeg, memory,divideByZero, opCode, piano};
 
-static int commandCount = 9;
+static int commandCount = 10;
 
 static char lineBuffer[256] = {0}; 
 static lineCantChar = 0;
@@ -69,12 +71,14 @@ void help(){
    
 }
 
-
+void piano(){
+    painoPlay();
+    clear();
+}
 
 void tron(){
     tronGame();
     clear();
-    
 }
 
 

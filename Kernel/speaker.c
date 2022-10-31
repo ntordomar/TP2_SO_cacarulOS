@@ -34,7 +34,7 @@
  //Make a beep
  void beep(int frec, int time) {
  	 play_sound(frec);
- 	 hold(18 * time);
+ 	 hold(time);
  	 nosound();
           //set_PIT_2(old_frequency);
  }
