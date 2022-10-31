@@ -4,9 +4,10 @@
 #define SCREEN_W screenInformation->width
 #define SCREEN_H screenInformation->height
 
+static int DEFAULT_LETTER_SIZE = 1;
 
 struct vbe_mode_info_structure* screenInformation = (void *)0x5C00; // Information loaded in function sysvar in Bootloader
-static char bufferAux[1024*768];
+
 unsigned char getRed(int color){
     return (color >> 16) & 255;
 }
@@ -39,7 +40,7 @@ int getYPos(int y){
 
  void putpixel(int x, int y, int color) {
     int where = getPosition(x, y);
-    char * aux = screenInformation->framebuffer + where ;
+    uint8_t * aux = (screenInformation->framebuffer + where);
     *aux = getBlue(color);  // BLUE
     *(aux+1) = getGreen(color); // GREEN
     *(aux+2) = getRed(color); // RED
@@ -53,7 +54,7 @@ void fillrect(int x, int y, int color, int w, int h) {
      if(w+x  > screenInformation->width) w = screenInformation->width -x;
      if(h+y > screenInformation->height) h = screenInformation->height - y;
     
-    char * aux = screenInformation->framebuffer + getPosition(x, y);
+    uint8_t * aux = (screenInformation->framebuffer + getPosition(x, y));
     int blue = getBlue(color);
     int red = getRed(color);
     int green = getGreen(color);
@@ -61,7 +62,7 @@ void fillrect(int x, int y, int color, int w, int h) {
     
     for (i = 0; i < w; i++) {
         for (j = 0; j < h; j++) {
-            aux = screenInformation->framebuffer + getPosition(x+i,y+j);
+            aux = (screenInformation->framebuffer + getPosition(x+i,y+j));
             *(aux) = blue;  // BLUE
             *(aux+1) = green; // GREEN
             *(aux+2) = red; // RED
@@ -154,4 +155,8 @@ void draw_char(int x, int y, char letter, int color, int backgroundColor) {
 
 void set_default_fontSize(int size) {
     DEFAULT_LETTER_SIZE = size;
+}
+
+int get_default_fontSize() {
+    return DEFAULT_LETTER_SIZE;
 }

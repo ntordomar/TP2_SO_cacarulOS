@@ -1,7 +1,8 @@
 #include <time.h>
+#include <lib.h>
 
 static unsigned long ticks = 0;
-static int flag = 1;
+
 void timer_handler() {
 	ticks++;
 }

@@ -54,7 +54,7 @@ void analizeCommand(){
 
 
 void help(){
-    printf(GREEN,"Welcome to cacaHELP The following available commands are:\n\n\n\n\n\n");
+    printf(GREEN,"Welcome to cacaHELP The following available commands are:\n\n\n");
     printf(GREEN,  "COMMAND name:   USE:\n");
     printf(WHITE,"HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
     printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
@@ -65,14 +65,16 @@ void help(){
     printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
     printf(WHITE,"DIVIDEBYZERO: WANT TO KNOW WHAT HAPPENS WHEN YOU DIVIDE BY ZERO?\n");
     printf(WHITE,"OPCODE:     WANT TO KNOW WHAT HAPPENS WHEN YOU OP CODE?\n");
+    printf(WHITE,"PIANO:      PLAY A PIANO WITH YOUR KEYBOARD!\n");
     printf(GREEN,"Hope you enjoy cacaTerminal!! \n");
+
     
       
    
 }
 
 void piano(){
-    painoPlay();
+    pianoPlay();
     clear();
 }
 

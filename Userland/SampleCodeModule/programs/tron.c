@@ -31,23 +31,46 @@ void fireworks(){
     yP+=5;
     xP = 250;
     sys_draw_rectangle(xP,yP,5,5,RED);
-    xP+=10;
+    xP+=15;
     sys_draw_rectangle(xP,yP,5,5,RED);
-    xP+=10;
+    xP+=15;
     printAux(xP,yP);
     xP+=5*15;
     xP+=10;
     sys_draw_rectangle(xP,yP,5,5,RED);
-    xP+=10;
+    xP+=15;
     sys_draw_rectangle(xP,yP,5,5,RED);
     // tercera linea
     yP+=5;
     xP = 250;
     sys_draw_rectangle(xP,yP,5,5,RED);
-    xP+=10;
+    xP+=15;
     sys_draw_rectangle(xP,yP,5,5,RED);
     xP+=5;
     sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=10;
+    for(int i = 0; i<8 ; i++){
+        sys_draw_rectangle(xP,yP,5,5,RED);
+        xP+=5;
+    }
+    sys_draw_rectangle(xP,yP,5,5,WHITE);
+    xP+=5;
+    for(int i = 0; i<5; i++){
+        sys_draw_rectangle(xP,yP,5,5,RED);
+        xP+=5;
+    }
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP+=15;
+    sys_draw_rectangle(xP,yP,5,5,RED);
+    // cuarta linea
+    yP+=5;
+    xP = 250;
+
+
+    
 
 
 }

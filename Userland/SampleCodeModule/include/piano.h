@@ -1,1 +1,1 @@
-void painoPlay();
+void pianoPlay();

@@ -9,7 +9,7 @@
 
 // #include <interrupts.h>
 
-static void (*sysFunctions[20])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5) = {_0_empty,
+static void (*sysFunctions[12])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5) = {_0_empty,
 _1_write,_2_read,_3_draw_rectangle,_4_clear_screen, _5_write_char, _6_get_seconds, _7_get_minutes, _8_get_hours,
 _9_set_font_size, _10_beep, _11_get_ticks};
 
@@ -28,7 +28,7 @@ void _1_write(uint64_t x, uint64_t y, uint64_t c, uint64_t len, uint64_t color){
 } 
 
 
-void _2_read(uint64_t buffer, uint64_t length){
+void _2_read(uint64_t buffer, uint64_t length, uint64_t r3, uint64_t r4, uint64_t r5){
     ((char*) buffer)[0] = nextElement();
     // for(int i = 0; i< length; i++){
     //     char c;
@@ -43,37 +43,37 @@ void _3_draw_rectangle (uint64_t x, uint64_t y, uint64_t w, uint64_t h, uint64_t
     fillrect(x, y, color, w, h);    
 }
 
-void _4_clear_screen(){
+void _4_clear_screen(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5){
     clearScreen();
 
 }
 
-void _5_write_char(uint64_t x, uint64_t y, uint64_t c, uint64_t color) {
+void _5_write_char(uint64_t x, uint64_t y, uint64_t c, uint64_t color, uint64_t r5) {
     draw_char(x, y, c, color, BLACK);
 }
 
-void _6_get_seconds(uint64_t sec) {
+void _6_get_seconds(uint64_t sec, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
     *((int *)sec) = getSeconds();
 }
 
-void _7_get_minutes(uint64_t min) {
+void _7_get_minutes(uint64_t min, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
     *((int *)min) = getMinutes();
 }
 
-void _8_get_hours(uint64_t hour) {
+void _8_get_hours(uint64_t hour, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
     *((int *)hour) = getHours();
 
 }
 
-void _9_set_font_size(uint64_t size) {
+void _9_set_font_size(uint64_t size, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
     set_default_fontSize(size);
 }
 
-void _10_beep(uint64_t frequency, uint64_t time){
+void _10_beep(uint64_t frequency, uint64_t time, uint64_t r3, uint64_t r4, uint64_t r5){
     beep((int)frequency, (int)time);
 }
 
-void _11_get_ticks(uint64_t  delta) {
+void _11_get_ticks(uint64_t  delta, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
     hold((int) delta);
 }
 

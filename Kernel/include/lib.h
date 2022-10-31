@@ -2,19 +2,25 @@
 #define LIB_H
 #include <stdint.h>
 
+//from lib.c
 void * memset(void * destination, int32_t character, uint64_t length);
 void * memcpy(void * destination, const void * source, uint64_t length);
+void itoa(uint64_t value, char* buffer, uint16_t base);
+int strlen(char * s);
 
 char *cpuVendor(char *result);
 
-int getSeconds();
+//from libasm.asm
+int getSeconds(); 
 int getMinutes();
 int getHours();
 char getKey();
-// void _sti();
+void _sti();
 void hlt();
-void outb(int memoryMap, int output); // cambiar los ombres cuando lo entendamos
-int inb(int memoryMap);
+void outb(int memoryMap, int output); // cambiar los nombres cuando lo entendamos
+int inb(int memoryMap); //
+int getRDI();
+void getRegister(int * regs);
 
 
 #endif
