@@ -1,9 +1,7 @@
 GLOBAL sys_int_80
 GLOBAL _hlt
-GLOBAL _sti
 GLOBAL getRegisters
 global getRDI
-global prueba
 global getMemory
 global divideZero
 sys_int_80:
@@ -76,8 +74,7 @@ exit:
     ret
 
 divideZero:
-mov rax,0
-mov rbx,9
-div rbx
-
-ret
+    mov rax,0
+    mov rbx,9
+    div rbx
+    ret

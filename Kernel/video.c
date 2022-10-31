@@ -5,7 +5,7 @@
 #define SCREEN_H screenInformation->height
 
 
-struct vbe_mode_info_structure* screenInformation = (void *)0x5C00; // la datita que nos provee la catedra esta en esta direccion de memoria (fijarse la funcion sysvar en el Bootloader)
+struct vbe_mode_info_structure* screenInformation = (void *)0x5C00; // Information loaded in function sysvar in Bootloader
 static char bufferAux[1024*768];
 unsigned char getRed(int color){
     return (color >> 16) & 255;
@@ -57,9 +57,7 @@ void fillrect(int x, int y, int color, int w, int h) {
     int blue = getBlue(color);
     int red = getRed(color);
     int green = getGreen(color);
-    // *aux = getBlue(color);  // BLUE
-    // *(aux+1) = getGreen(color); // GREEN
-    // *(aux+2) = getRed(color); // RED
+ 
     
     for (i = 0; i < w; i++) {
         for (j = 0; j < h; j++) {
@@ -80,10 +78,9 @@ void draw_string( int x, int y, char* input, int len,int color, int backgroundCo
     int xInter = x;
     int yInter = y;
     for(int i = 0; i<len; i++){
-    
             draw_char(xInter, yInter, input[i], color, BLACK);
             xInter+= DEFAULT_LETTER_SIZE*8;
-            if(xInter >= 1024) {
+            if((xInter + (DEFAULT_LETTER_SIZE * 8)) >= 1024) {
                 yInter += 16 * DEFAULT_LETTER_SIZE;
                 xInter = 0;
             }
@@ -95,11 +92,7 @@ void draw_char(int x, int y, char letter, int color, int backgroundColor) {
     
     int aux_x = x;
 	int aux_y = y;
-
-    // if (aux_x + 8*DEFAULT_LETTER_SIZE > SCREEN_W) {
-    //     aux_x = 0;
-    //     aux_y += 16*DEFAULT_LETTER_SIZE;
-    // }
+   
 
 	char bitIsPresent;
 

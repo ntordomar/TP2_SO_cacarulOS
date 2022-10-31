@@ -4,6 +4,8 @@
 #define WHITE 0xFFFFFF
 #define CORAL 0xFF7F50
 #define PINK 0xFF69B4
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
 #include <stdint.h>
 char getChar();
 void itoa(uint64_t value, char *buffer, uint32_t base);

@@ -1,5 +1,5 @@
 #include <video.h>
-
+#include <time.h>
 
 #define ZERO_EXCEPTION_ID 0
 #define INVALID_OP_CODE_ID 6
@@ -21,7 +21,12 @@ void exceptionDispatcher(int exception) {
 
  void zero_division() {
 	clearScreen();
-	draw_string(300, 300, "TUVISTE UNA ZERO DIVISION", 26, RED, BLACK);
+	draw_string(300, 300, "TUVISTE UNA ZERO DIVISION", 25, RED, BLACK);
+	hold(40);
+	clearScreen();
+	draw_string(300, 300, "Reiniciando terminal...", 23, RED, BLACK);
+	hold(40);
+	clearScreen();
 	clearStackAndMain();
 }
 

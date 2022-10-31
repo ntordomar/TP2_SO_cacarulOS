@@ -75,10 +75,10 @@ int strlen(char * s){
 void print(char * buffer, int color){
     int len = strlen(buffer);
     for (int i = 0; i<len; i++){
-        if (Xpos >= 1024){
+        if ((Xpos + (charSize * 8)) >= 1024){
             Xpos = 0;
             Ypos += charSize * 16; // el 1 es el size falta getter
-        } if (Ypos >= 768){
+        } if ((Ypos + (charSize * 16)) >= 768){
             clear();
         }
         sys_write_char(Xpos, Ypos, buffer[i], color);

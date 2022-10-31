@@ -22,15 +22,15 @@ static void (*commandFunctions[])(char * param) = {help, tron, lettersize, clear
 
 static int commandCount = 8;
 
-static char lineBuffer[256] = {0}; //ir completando a medida que sigamos en la misma 
+static char lineBuffer[256] = {0}; 
 static lineCantChar = 0;
 
 int isDigit(char c){
     return c >= '0' && c<= '9';
 }
 
-void analizeCommand(){ // int strcmp 0 si si 1 sino
-    //Aca la linea seria comando 2
+void analizeCommand(){
+    
     char argument[50];
     divideString(lineBuffer,argument,' ');
     for (int i =0; i<commandCount; i++){
@@ -57,15 +57,15 @@ void help(){
     printf(WHITE,"HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
     printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
     printf(WHITE,"LETTERSIZE: CHANGES LETTER FONT \n");
-    printf(WHITE,"CLEAR:      ERRASE THE TERMINAL :(\n");
+    printf(WHITE,"CLEAR:      ERRASES THE TERMINAL :(\n");
     printf(WHITE,"TIME:       PRINTS CURRENT TIME IN ARGENTINA\n");
     printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
     printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
-    printf(GREEN,"\nHope you\n enjoy cacaTerminal!! \n");
-    // char letra;
-    // int nro;
-    // scanf("%d\n", &nro);
-    // printChar(letra, CORAL);
+    printf(WHITE,"DIVIDEBYZERO: WANT TO KNOW WHAT HAPPENS WHEN YOU DIVIDE BY ZERO?\n");
+    printf(GREEN,"Hope you enjoy cacaTerminal!! \n");
+    
+      
+   
 }
 
 
@@ -74,21 +74,22 @@ void help(){
 void tron(){
     tronGame();
     clear();
-    resetTerminal();
     
 }
 
 
 int main() {
-    setCursorPosition(20, 20);
-    resetTerminal();
+    printf(WHITE,"Welcome to cacaTerminal");
+    hold(20);
+    clear();
+
 
     while(1){
         hold(1);
         char c  = getChar();
         
         if (c != -1 && c!= 0){
-            if(c == 8){ // 8 es el ascii del basckspace
+            if(c == 8){ // 8 is ascii's basckspace  
                 if(lineCantChar != 0){ 
                     backspace();
                     lineCantChar--;

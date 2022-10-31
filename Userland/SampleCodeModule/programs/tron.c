@@ -3,31 +3,43 @@
 #include <userStdF.h>
 
 #define SQUARE_UNIT 8
-#define OUT_OF_BOUNDS(x, y) ((x) > 1024 || (x) < 0 || (y) > 768 || (y) < 0) 
+#define OUT_OF_BOUNDS(x, y) ((x) > SCREEN_WIDTH || (x) < 0 || (y) > SCREEN_HEIGHT || (y) < 0) 
 
+
+void fireworks(){
+    int xP = 250;
+    int yP = 250;
+    for(int i = 0; i< 4; i++){
+     sys_draw_rectangle(xP,yP,5,5,RED);
+     xP +=5;
+    }
+    xP+=10;
+    //for(int i = 0; i<)
+}
 void exit() {
-    sys_clear_screen();
-    print("Thank you for playing :)", PINK);
+    clear();
+    setCursorPosition(390,SCREEN_HEIGHT/2);
+    printf(PINK,"THANK YOU FOR PLAYING :)");
+     hold(50);
     char c; 
     while((c = getChar()) != -1){;} // clears buffer
-    hold(50);
     return;
 }
 
-void youLoose(char * player){
-    sys_clear_screen();
+void youWin(int color, char * player){
+    clear();
     sys_beep(300, 1);
-    print("Perdiste loco", RED);
-    print(player,WHITE);
-    hold(20);
+    setCursorPosition(390,SCREEN_HEIGHT/2);
+    printf(color,"%s wins!!\n",player);
+    fireworks();
+    hold(50);
     exit();
     return;
 }
 
 void tronGame(){
     
-    sys_clear_screen();
-    
+    clear();    
     setCursorPosition(375, 100);
     printf(GREEN, "WELCOME TO TRON LIGHT CYCLES\n");
     setCursorPosition(350, 400);
@@ -47,9 +59,9 @@ void tronGame(){
     sys_clear_screen();
     
   
-    char matrix[1024/SQUARE_UNIT][768/SQUARE_UNIT];
-    for(int i = 0; i< 1024/SQUARE_UNIT; i++){
-        for(int j = 0; j<768/SQUARE_UNIT; j++){
+    char matrix[SCREEN_WIDTH/SQUARE_UNIT][SCREEN_HEIGHT/SQUARE_UNIT];
+    for(int i = 0; i< SCREEN_WIDTH/SQUARE_UNIT; i++){
+        for(int j = 0; j<SCREEN_HEIGHT/SQUARE_UNIT; j++){
             matrix[i][j] = 0;
         }
     }
@@ -68,7 +80,6 @@ void tronGame(){
     char c;
     while(1){
         hold(1);
-        // for(int i = 0; i< 9000000; i++){for(int j = 0; i< 10; i++){}}
         c = getChar();
         switch (c)
         {
@@ -128,10 +139,10 @@ void tronGame(){
         } 
         
         if (matrix[j1X/SQUARE_UNIT][j1Y/SQUARE_UNIT] == 1 || OUT_OF_BOUNDS(j1X,j1Y)){
-            youLoose("Jugador 1");
+            youWin(RED,"PLAYER 2");
             return; 
         } else if (matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] == 1 || OUT_OF_BOUNDS(j2X,j2Y)){
-            youLoose("Jugador 2");
+            youWin(GREEN,"PLAYER 1");
             return;
         }
          else {
@@ -139,7 +150,7 @@ void tronGame(){
             matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] = 1;
         }
         if(j1X == j2X && j1Y == j2Y){
-            youLoose("its a tie!");
+            youWin(WHITE,"its a tie!");
             return;
         }
         j1X += SQUARE_UNIT*j1Xincrement;
