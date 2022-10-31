@@ -31,6 +31,12 @@ void exceptionDispatcher(int exception) {
 }
 
  void invalid_op_code() {
-	// draw_string();
-	;
+	clearScreen();
+	draw_string(300, 300, "TUVISTE UNA OP-CODE", 25, RED, BLACK);
+	hold(40);
+	clearScreen();
+	draw_string(300, 300, "Reiniciando terminal...", 23, RED, BLACK);
+	hold(40);
+	clearScreen();
+	clearStackAndMain();
  }
