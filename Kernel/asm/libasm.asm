@@ -146,6 +146,8 @@ getRegisters:
     mov [rdi + 48], r13
     mov [rdi + 52], r14
     mov [rdi + 56], r15
+	mov rax, $
+	mov [rdi + 60], rax
 ret
 
 
