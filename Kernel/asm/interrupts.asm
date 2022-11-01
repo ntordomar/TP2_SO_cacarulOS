@@ -88,10 +88,10 @@ SECTION .text
 
 
 int80Handler:
-	_pushState
-	 call sys_call_handler
-	_popState
-	 iretq	
+	pushState
+	call sys_call_handler
+	popState
+	iretq	
 
 _hlt:
 	sti
