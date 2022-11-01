@@ -3,7 +3,7 @@
  #include <lib.h>
  #include <moduleLoader.h>
  #include <naiveConsole.h>
- //#include <idtLoader.h>
+ #include <idtLoader.h>
  #include <syscalls.h>
  #include <interrupts.h>
  #include <speaker.h>

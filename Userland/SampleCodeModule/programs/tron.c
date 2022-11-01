@@ -316,9 +316,6 @@ sys_draw_rectangle(xP,yP,5,5,GOLD);
 
 
 
-
-
-
 void exit() {
     clear();
     setCursorPosition(390,SCREEN_HEIGHT/2);

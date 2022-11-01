@@ -9,7 +9,7 @@
 #define SCREEN_HEIGHT 768
 #include <stdint.h>
 char getChar();
-void itoa(uint64_t value, char *buffer, uint32_t base);
+void itoa(int value, char *buffer, int base);
 int strcmp(char * s1, char * s2);
 int strlen(char * s);
 void print(char * buffer, int color);

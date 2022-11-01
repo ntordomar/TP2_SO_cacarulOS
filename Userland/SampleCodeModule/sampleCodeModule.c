@@ -48,11 +48,8 @@ void analizeCommand(){
 }
 
 
-
-
-
 void help(){
-    printf(GREEN,"Welcome to cacaHELP The following available commands are:\n\n\n");
+    printf(GREEN,"Welcome to cacarulOS help. The following available commands are:\n\n\n");
     printf(GREEN,  "COMMAND name:   USE:\n");
     printf(WHITE,"HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
     printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
@@ -64,11 +61,8 @@ void help(){
     printf(WHITE,"DIVIDEBYZERO: WANT TO KNOW WHAT HAPPENS WHEN YOU DIVIDE BY ZERO?\n");
     printf(WHITE,"OPCODE:     WANT TO KNOW WHAT HAPPENS WHEN YOU OP CODE?\n");
     printf(WHITE,"PIANO:      PLAY A PIANO WITH YOUR KEYBOARD!\n");
-    printf(GREEN,"Hope you enjoy cacaTerminal!! \n");
+    printf(GREEN,"Hope you enjoy the cacarulOS!! \n");
 
-    
-      
-   
 }
 
 void piano(){
@@ -87,14 +81,22 @@ int main() {
     printf(WHITE,"Welcome to cacaTerminal");
     hold(20);
     clear();
-
-
+    printf(WHITE,"root@cacarulOS $ ");
+    //int flagOmg = 1;
     while(1){
+        // if(flagOmg){
+        //     printChar('_',WHITE);
+        //     flagOmg = 0;
+        //     }else{
+        //         backspace();
+        //         flagOmg = 1;
+        //     }
         hold(1);
         char c  = getChar();
         
         if (c != -1 && c!= 0){
             if(c == 8){ // 8 is ascii's basckspace  
+                //if(!flagOmg)backspace();
                 if(lineCantChar != 0){ 
                     backspace();
                     lineCantChar--;
@@ -103,10 +105,14 @@ int main() {
                 printf(WHITE,"\n");
                 lineBuffer[lineCantChar] = 0;
                 analizeCommand();
+                printf(WHITE,"root@cacarulOS $ ");
                 
+            } else if (c<=5 && c>=2){
+                capture();
             }
             else{
                 lineBuffer[lineCantChar++] = c;
+               // if(!flagOmg) backspace();
                 printChar(c, WHITE);
            
             }

@@ -22,11 +22,6 @@ EXTERN sys_call_handler
 
 SECTION .text
 
-int80Handler:
-	pushState
-	call sys_call_handler
-	popState
-	iretq
 
 
 %macro pushState 0
@@ -92,6 +87,12 @@ int80Handler:
 %endmacro
 
 
+int80Handler:
+	_pushState
+	 call sys_call_handler
+	_popState
+	 iretq	
+
 _hlt:
 	sti
 	hlt
@@ -152,7 +153,7 @@ _irq05Handler:
 _exception0Handler:
 	exceptionHandler 0
 
-_exception6Handler
+_exception6Handler:
 	exceptionHandler 6
 
 haltcpu:

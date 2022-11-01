@@ -11,38 +11,49 @@ static int charSize = 1;
 
 char getChar(){
     char localBuff[1];
-    sys_read(&localBuff, 1);
+    sys_read(localBuff, 1);
     return localBuff[0];
 }
 
-void itoa(uint64_t value, char *buffer, uint32_t base) {
-    char *p = buffer;
-    char *p1, *p2;
-    uint32_t digits = 0;
 
-    // Calculate characters for each digit
-    do {
-        uint32_t remainder = value % base;
-        *p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
-        digits++;
-    } while (value /= base);
 
-    // Terminate string in buffer.
-    *p = 0;
 
-    // Reverse string in buffer.
-    p1 = buffer;
-    p2 = p - 1;
-    while (p1 < p2) {
-        char tmp = *p1;
-        *p1 = *p2;
-        *p2 = tmp;
-        p1++;
-        p2--;
+
+void itoa(int value, char *buffer, int base) {
+    char *myBuff = buffer;
+    int digits = 0;
+
+    if (value == 0) {
+        *myBuff++ = '0';
     }
 
+    while (value) {
+       
+        int resto = value % base;
+        if (resto < 10) {
+            *myBuff++ = resto + '0';
+        } else {
+            *myBuff++ = resto + 'A' - 10;
+        }
+        digits++;
+        value /= base;
+    }
+    
+    *myBuff = 0;
+    
+    char *aux1, *aux2;
+    aux1 = buffer;
+    aux2 = myBuff - 1;
+    while (aux1 < aux2) {
+        char tmp = *aux1;
+        *aux1 = *aux2;
+        *aux2 = tmp;
+        aux1++;
+        aux2--;
+    }
 }
 
+ 
 int atoi(char* str)
 {
     int res = 0;
@@ -242,69 +253,6 @@ void printf(int color, char * str, ...) {
     
 }
 
-int scanf(char * str, ...)
-{
-    va_list vl;
-    int i = 0, j=0, ret = 0;
-    char buff[100] = {0}, tmp[20], c = 0;
-    char *out_loc;
-    while(c != '\n') 
-    {
-        if ((c == getChar()) != -1) 
-        {
- 	       buff[i] = c;
- 	       i++;
- 	    }
- 	}
- 	va_start( vl, str );
- 	i = 0;
- 	while (str && str[i])
- 	{
- 	    if (str[i] == '%') 
- 	    {
- 	       i++;
- 	       switch (str[i]) 
- 	       {
- 	           case 'c': 
- 	           {
-	 	           *(char *)va_arg( vl, char* ) = buff[j];
-	 	           j++;
-	 	           ret ++;
-	 	           break;
- 	           }
- 	           case 'd': 
- 	           {
-                    char aux[100], trash[100];
-                    strcpy(aux, buff + j);
-                    divideString(aux, trash, ' ');
-                    printf(GREEN, aux);
-	 	           *(int *)va_arg( vl, int* ) = atoi(aux);
-	 	           j+=out_loc -&buff[j];
-	 	           ret++;
-	 	           break;
- 	            }
- 	            case 'x': 
- 	            {
-                    char aux[100], trash[100];
-                    strcpy(aux, buff + j);
-                    divideString(aux, trash, ' ');
-	 	           *(int *)va_arg( vl, int* ) = atoi(aux);
-	 	           j+=out_loc -&buff[j];
-	 	           ret++;
-	 	           break;
- 	            }
- 	        }
- 	    } 
- 	    else 
- 	    {
- 	        buff[j] =str[i];
-            j++;
-        }
-        i++;
-    }
-    va_end(vl);
-    return ret;
-}
 
 int isDigit(char c){
     return c >= '0' && c<= '9';

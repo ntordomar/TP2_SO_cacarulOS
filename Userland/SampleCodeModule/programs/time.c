@@ -6,10 +6,10 @@ void printCurrentTime() {
     sys_get_seconds(&seconds);
     sys_get_minutes(&minutes);
     sys_get_hours(&hours); 
-    printf(WHITE, "%x : %x : %x",hours-6-3,minutes,seconds);
+    printf(WHITE, "%x : %x : %x",hours,minutes,seconds);
 }
 void time(){
-    printf(WHITE,"CURRENT TIME: \n");
+    printf(WHITE,"CURRENT TIME (GMT): \n");
     printCurrentTime();
     printf(WHITE,"\n");
 } 
