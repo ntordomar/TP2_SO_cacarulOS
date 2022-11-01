@@ -21,6 +21,7 @@ void exceptionDispatcher(int exception) {
 }
 
 void printRegs() {
+	
 	int letterSize = get_default_fontSize();
 	char r2[256] = {0};
     itoa(getRDI(), r2, 10);
@@ -40,24 +41,26 @@ void printRegs() {
 }
 
  void zero_division() {
+	set_default_fontSize(INITIAL_FONT_SIZE);
 	clearScreen();
-	draw_string(300, 50, "TUVISTE UNA ZERO DIVISION", 25, RED, BLACK);
+	draw_string(400, 50, "TUVISTE UNA ZERO DIVISION", 25, RED, BLACK);
 	printRegs();
 	hold(100);
 	clearScreen();
-	draw_string(300, 50, "Reiniciando terminal...", 23, RED, BLACK);
+	draw_string(400, 50, "Reiniciando terminal...", 23, RED, BLACK);
 	hold(40);
 	clearScreen();
 	clearStackAndMain();
 }
 
  void invalid_op_code() {
+	set_default_fontSize(INITIAL_FONT_SIZE);
 	clearScreen();
-	draw_string(300, 50, "TUVISTE UNA OP-CODE", 19, RED, BLACK);
+	draw_string(400, 50, "TUVISTE UNA OP-CODE", 19, RED, BLACK);
 	printRegs();
 	hold(100);
 	clearScreen();
-	draw_string(300, 50, "Reiniciando terminal...", 23, RED, BLACK);
+	draw_string(400, 50, "Reiniciando terminal...", 23, RED, BLACK);
 	hold(40);
 	clearScreen();
 	clearStackAndMain();

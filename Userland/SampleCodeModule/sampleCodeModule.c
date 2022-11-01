@@ -85,6 +85,7 @@ void tron(){
 
 
 int main() {
+    setCharSize(1);
     printf(WHITE,"Welcome to cacaTerminal");
     hold(20);
     clear();
