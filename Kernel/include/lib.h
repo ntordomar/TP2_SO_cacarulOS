@@ -20,7 +20,7 @@ void hlt();
 void outb(int memoryMap, int output); // cambiar los nombres cuando lo entendamos
 int inb(int memoryMap); //
 int getRDI();
-void getRegister(int * regs);
+void getRegisters(int * regs);
 
 
 #endif

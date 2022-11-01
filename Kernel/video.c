@@ -40,7 +40,7 @@ int getYPos(int y){
 
  void putpixel(int x, int y, int color) {
     int where = getPosition(x, y);
-    uint8_t * aux = (screenInformation->framebuffer + where);
+    uint8_t * aux = (int *)screenInformation->framebuffer + where;
     *aux = getBlue(color);  // BLUE
     *(aux+1) = getGreen(color); // GREEN
     *(aux+2) = getRed(color); // RED

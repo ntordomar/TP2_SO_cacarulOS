@@ -8,11 +8,8 @@ static int Xpos = 0;
 
 static int charSize = 1;
 
-static int buffPos = 0;
-static int getCCount = 0;
 
 char getChar(){
-    getCCount++;
     char localBuff[1];
     sys_read(&localBuff, 1);
     return localBuff[0];
@@ -242,14 +239,14 @@ void printf(int color, char * str, ...) {
     buff[j] = 0;
     print(buff, color); 
     va_end(vl);
-    return j; 
+    
 }
 
 int scanf(char * str, ...)
 {
     va_list vl;
     int i = 0, j=0, ret = 0;
-    char buff[100] = {0}, tmp[20], c;
+    char buff[100] = {0}, tmp[20], c = 0;
     char *out_loc;
     while(c != '\n') 
     {
@@ -307,4 +304,8 @@ int scanf(char * str, ...)
     }
     va_end(vl);
     return ret;
+}
+
+int isDigit(char c){
+    return c >= '0' && c<= '9';
 }

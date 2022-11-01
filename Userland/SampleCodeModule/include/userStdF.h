@@ -4,6 +4,7 @@
 #define WHITE 0xFFFFFF
 #define CORAL 0xFF7F50
 #define PINK 0xFF69B4
+#define GOLD 0XAE8625
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
 #include <stdint.h>
@@ -24,6 +25,7 @@ void setCursorPosition(int x, int y);
 void printf(int color, char * str, ...);
 int atoi(char* str);
 int scanf(char * str, ...);
+int isDigit(char c);
 
 
 //https://www.techiedelight.com/implement-strcpy-function-c/

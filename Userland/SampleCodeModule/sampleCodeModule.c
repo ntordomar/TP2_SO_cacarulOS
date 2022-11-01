@@ -25,11 +25,9 @@ static void (*commandFunctions[])(char * param) = {help, tron, lettersize, clear
 static int commandCount = 10;
 
 static char lineBuffer[256] = {0}; 
-static lineCantChar = 0;
+static int lineCantChar = 0;
 
-int isDigit(char c){
-    return c >= '0' && c<= '9';
-}
+
 
 void analizeCommand(){
     

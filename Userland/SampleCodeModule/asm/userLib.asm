@@ -1,6 +1,6 @@
 GLOBAL sys_int_80
 GLOBAL _hlt
-GLOBAL getRegisters
+GLOBAL getRegister
 global getRDI
 global getMemory
 global divideZero
@@ -33,7 +33,7 @@ getRDI:
     ret
 
 ;void getRegister(int * regs);
-getRegisters:
+getRegister:
 ; no realizamos el armado del stackframe pues necesitamos los registros del rbp y rsp
     mov [rdi], rax
     mov [rdi + 4],rbx

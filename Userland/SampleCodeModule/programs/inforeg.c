@@ -1,5 +1,5 @@
 #include <userStdF.h>
-
+#include <userLib.h>
 void inforeg(){
     char r2[256] = {0};
     itoa(getRDI(), r2, 10);
@@ -7,7 +7,7 @@ void inforeg(){
     print(r2, WHITE);
     newLine();
     int regs[15];
-    getRegisters(regs);
+    getRegister(regs);
     char * registersName[] = {"RAX","RBX","RCX","RDX","RSI","RBP","RSP","R8","R9","R10","R11"
                                 ,"R12","R13","R14","R15"};
     for (int i = 0; i<15; i++){

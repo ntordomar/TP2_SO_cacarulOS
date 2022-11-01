@@ -7,16 +7,16 @@
 
 void printAux(int xP, int yP){
  for(int i = 0; i<15; i++){
-        sys_draw_rectangle(xP,yP,5,5,RED);
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
         xP +=5;
     }
 }
-void fireworks(){
-    int xP = 250;
-    int yP = 250;
+void cup(int xpos, int ypos){
+    int xP = xpos;
+    int yP = ypos;
     // primera linea
     for(int i = 0; i< 4; i++){
-     sys_draw_rectangle(xP,yP,5,5,RED);
+     sys_draw_rectangle(xP,yP,5,5,GOLD);
      xP +=5;
     }
     xP+=10;
@@ -24,56 +24,301 @@ void fireworks(){
    xP+=5*15;
     xP+=10;
     for(int i = 0; i< 4; i++){
-        sys_draw_rectangle(xP,yP,5,5,RED);
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
         xP +=5;
     }
     // segunda linea
     yP+=5;
-    xP = 250;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP = xpos;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=15;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=15;
     printAux(xP,yP);
     xP+=5*15;
     xP+=10;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=15;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     // tercera linea
     yP+=5;
-    xP = 250;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    xP = xpos;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=15;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=5;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=10;
     for(int i = 0; i<8 ; i++){
-        sys_draw_rectangle(xP,yP,5,5,RED);
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
         xP+=5;
     }
-    sys_draw_rectangle(xP,yP,5,5,WHITE);
+    sys_draw_rectangle(xP,yP,5,5,BLACK);
     xP+=5;
-    for(int i = 0; i<5; i++){
-        sys_draw_rectangle(xP,yP,5,5,RED);
+    for(int i = 0; i<6; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
         xP+=5;
     }
     xP+=5;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=5;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     xP+=15;
-    sys_draw_rectangle(xP,yP,5,5,RED);
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
     // cuarta linea
     yP+=5;
-    xP = 250;
-
-
-    
-
+    xP = xpos;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=20;
+    for(int i = 0; i<9; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    sys_draw_rectangle(xP,yP,5,5,BLACK);
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,BLACK);
+    xP+=5;
+    for(int i = 0; i<8; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+xP+=15;
+sys_draw_rectangle(xP,yP,5,5,GOLD);
+// 5ta linea
+    yP+=5;
+    xP = xpos;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=30;
+    for(int i = 0; i< 6 ; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i< 3; i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i = 0; i<6; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=25;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    // 6ta linea
+    yP+=5;
+    xP = xpos;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=30;
+    for(int i= 0; i< 5; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i<4; i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i =0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=25;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    // 7ta linea
+    yP+=5;
+    xP = xpos;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=30;
+    for(int i = 0; i<7;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i<2; i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i = 0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=25;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    // linea 8
+    xP= xpos;
+    yP +=5;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=25;
+    for(int i = 0; i<7; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i<2;i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i = 0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=20;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    // linea 9
+    yP+=5;
+    xP = xpos;
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=25;
+    for(int i =0 ; i<7;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i<2; i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i = 0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=20;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    // linea 10
+    yP+=5;
+    xP = xpos;
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=20;
+    for(int i = 0; i<7;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i<2;i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i = 0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=15;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    xP+=5;
+    sys_draw_rectangle(xP,yP,5,5,GOLD);
+    // linea 11
+    xP=xpos;
+    yP+=5;
+    xP+=10;
+    for(int i = 0; i<3;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=5;
+    for(int i = 0; i<5;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i = 0; i<4; i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    xP+=5;
+    for(int i = 0; i<3;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    // linea 12
+    xP=xpos;
+    yP+=5;
+    xP+=20;
+    for(int i = 0; i<7;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    for(int i = 0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,BLACK);
+        xP+=5;
+    }
+    for(int i = 0; i<6;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    // linea 13
+    xP = xpos;
+    yP+=5;
+    xP+=30;
+    for(int i = 0 ;i<15;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    // linea 14
+    xP = xpos;
+    yP+=5;
+    xP+=35;
+    for(int i = 0 ;i<13;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    // linea 15
+     xP = xpos;
+    yP+=5;
+    xP+=40;
+    for(int i = 0 ;i<11;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    // linea 16
+     xP = xpos;
+    yP+=5;
+    xP+=50;
+    for(int i = 0 ;i<7;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    // linea 17 18 19
+    for(int j =0; j<3;j++){
+     xP = xpos;
+    yP+=5;
+    xP+=55;
+    for(int i = 0 ;i<5;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    }
+    // 20 linea
+      xP = xpos;
+    yP+=5;
+    xP+=50;
+    for(int i = 0 ;i<7;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
+    // 21
+      xP = xpos;
+    yP+=5;
+    xP+=45;
+    for(int i = 0 ;i<9;i++){
+        sys_draw_rectangle(xP,yP,5,5,GOLD);
+        xP+=5;
+    }
 
 }
+
+
+
+
+
+
+
+
+
 void exit() {
     clear();
     setCursorPosition(390,SCREEN_HEIGHT/2);
@@ -87,9 +332,10 @@ void exit() {
 void youWin(int color, char * player){
     clear();
     sys_beep(300, 18);
-    setCursorPosition(390,SCREEN_HEIGHT/2);
-    printf(color,"%s wins!!\n",player);
-    fireworks();
+    setCursorPosition(440,SCREEN_HEIGHT/2 + 80);
+    printf(color,"%s!!\n",player);
+    cup(250,SCREEN_HEIGHT/2);
+    cup(600,SCREEN_HEIGHT/2);
     hold(50);
     exit();
     return;
@@ -133,8 +379,6 @@ void tronGame(){
     int j2Y = 384;
     int j2Xincrement = 1;
     int j2Yincrement = 0;
-    
-    int xP = SQUARE_UNIT;
     char c;
     while(1){
         hold(1);
@@ -197,10 +441,10 @@ void tronGame(){
         } 
         
         if (matrix[j1X/SQUARE_UNIT][j1Y/SQUARE_UNIT] == 1 || OUT_OF_BOUNDS(j1X,j1Y)){
-            youWin(RED,"PLAYER 2");
+            youWin(RED,"PLAYER 2 WINS");
             return; 
         } else if (matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] == 1 || OUT_OF_BOUNDS(j2X,j2Y)){
-            youWin(GREEN,"PLAYER 1");
+            youWin(GREEN,"PLAYER 1 WINS");
             return;
         }
          else {
@@ -208,7 +452,7 @@ void tronGame(){
             matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] = 1;
         }
         if(j1X == j2X && j1Y == j2Y){
-            youWin(WHITE,"its a tie!");
+            youWin(BLACK,"its a tie!");
             return;
         }
         j1X += SQUARE_UNIT*j1Xincrement;
