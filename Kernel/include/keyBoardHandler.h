@@ -9,14 +9,13 @@ static const char keyBoardTable[256] =
            0,  0, 0,0,0,0,0,0,0,0,
             0,0,4,0,0,2,0,3,0,0,
             5,0,0,0,0,0,0,0,0,0
-            // 2: izquierda
-            // 3: derecha
-            // 4: arriba 
-            // 5: abajo 
+            // 2: left arrow
+            // 3: right arrow
+            // 4: up arrow 
+            // 5: down arrow 
     };
 
 void keyHandler();
 
 char nextElement();
 
-//void getBuff(char * buffDest);

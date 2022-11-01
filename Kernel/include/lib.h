@@ -17,10 +17,10 @@ int getHours();
 char getKey();
 void _sti();
 void hlt();
-void outb(int memoryMap, int output); // cambiar los nombres cuando lo entendamos
-int inb(int memoryMap); //
+void outb(int memoryMap, int output); 
+int inb(int memoryMap); // both inb and outb functions are used for beep, and to write/read in a memory position.
 int getRDI();
-void getRegisters(int * regs);
+void getRegisters(uint64_t * regs);
 
 
 #endif

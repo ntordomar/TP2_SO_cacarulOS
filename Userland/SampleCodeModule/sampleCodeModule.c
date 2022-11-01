@@ -1,5 +1,4 @@
 /* sampleCodeModule.c */
-// terminal
 #include <userStdF.h>
 #include <userLib.h>
 #include <stdint.h>
@@ -10,13 +9,14 @@
 #include <memory.h>
 #include <lettersize.h>
 #include <exceptions.h>
+#include <drawings.h>
 void help();
 void clear();
 void backspace();
 void newLine();
 void tron();
 void piano();
-char * v = (char*)0xB8000 + 79 * 2; // sirve?
+char * v = (char*)0xB8000 + 79 * 2; 
 
 
 static char* commandList[] = {"HELP", "TRON", "LETTERSIZE","CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PIANO"};
@@ -54,8 +54,8 @@ void help(){
     printf(WHITE,"HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
     printf(WHITE, "TRON:       PLAY TRON WITH A FRIEND!! \n");
     printf(WHITE,"LETTERSIZE: CHANGES LETTER FONT \n");
-    printf(WHITE,"CLEAR:      ERRASES THE TERMINAL :(\n");
-    printf(WHITE,"TIME:       PRINTS CURRENT TIME IN ARGENTINA\n");
+    printf(WHITE,"CLEAR:      CLEARS THE SCREEN TERMINAL \n");
+    printf(WHITE,"TIME:       PRINTS CURRENT TIME GTC\n");
     printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
     printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
     printf(WHITE,"DIVIDEBYZERO: WANT TO KNOW WHAT HAPPENS WHEN YOU DIVIDE BY ZERO?\n");
@@ -78,25 +78,23 @@ void tron(){
 
 int main() {
     setCharSize(1);
-    printf(WHITE,"Welcome to cacaTerminal");
-    hold(20);
+    setCursorPosition(410,350);
+    printf(WHITE,"Welcome to CACARULOS");
+    cacarulo(430,400);
+    clear();
+    printf(WHITE,"Welcome to cacarulo's terminal. To see available commands, write HELP, followed by an enter.");
+    hold(60);
     clear();
     printf(WHITE,"root@cacarulOS $ ");
-    //int flagOmg = 1;
+    
+    
     while(1){
-        // if(flagOmg){
-        //     printChar('_',WHITE);
-        //     flagOmg = 0;
-        //     }else{
-        //         backspace();
-        //         flagOmg = 1;
-        //     }
+       
         hold(1);
         char c  = getChar();
         
         if (c != -1 && c!= 0){
             if(c == 8){ // 8 is ascii's basckspace  
-                //if(!flagOmg)backspace();
                 if(lineCantChar != 0){ 
                     backspace();
                     lineCantChar--;
@@ -112,7 +110,6 @@ int main() {
             }
             else{
                 lineBuffer[lineCantChar++] = c;
-               // if(!flagOmg) backspace();
                 printChar(c, WHITE);
            
             }

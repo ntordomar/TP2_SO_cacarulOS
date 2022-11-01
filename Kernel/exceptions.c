@@ -1,7 +1,7 @@
 #include <video.h>
 #include <time.h>
 #include <lib.h>
-
+#include <speaker.h>
 #define ZERO_EXCEPTION_ID 0
 #define INVALID_OP_CODE_ID 6
 
@@ -12,6 +12,7 @@ void invalid_op_code();
 
 
 void exceptionDispatcher(int exception) {
+	beep(1500,7);
 	if (exception == ZERO_EXCEPTION_ID){
 		zero_division();
 	} else if (exception == INVALID_OP_CODE_ID){
@@ -27,7 +28,7 @@ void printRegs() {
     itoa(getRDI(), r2, 10);
     draw_string(0, 100, "RDI: ", 5, RED, BLACK);
     draw_string(6 * 8 * letterSize, 100 , r2, strlen(r2), RED, BLACK);
-    int regs[16];
+    uint64_t regs[16];
     getRegisters(regs);
     char * registersName[] = {"RAX: ","RBX: ","RCX: ","RDX: ","RSI: ","RBP: ","RSP: ","R8:  ","R9:  ","R10: "
 								,"R11: " ,"R12: ","R13: ","R14: ","R15: ", "IP:  "};

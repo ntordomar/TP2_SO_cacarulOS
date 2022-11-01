@@ -5,8 +5,18 @@
 #define CORAL 0xFF7F50
 #define PINK 0xFF69B4
 #define GOLD 0XAE8625
+#define BLUE 0x1663BE
+#define CREME 0xF1C27D
+#define GRAY 0xDDDDDD
+#define BROWN 0X92623A
+
+
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
+
+#define LETTER_WIDTH 8
+#define LETTER_HEIGHT 16
+
 #include <stdint.h>
 char getChar();
 void itoa(int value, char *buffer, int base);

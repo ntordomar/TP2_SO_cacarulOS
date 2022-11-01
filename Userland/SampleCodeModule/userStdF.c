@@ -63,7 +63,7 @@ int atoi(char* str)
     return res;
 }
 
-int strcmp(char * s1, char * s2){ // returns 0 if there are the same string. ambos strings null terminated
+int strcmp(char * s1, char * s2){ // returns 0 if there are the same string. both strings null terminated
 int i = 0; 
 while (s1[i] != 0 && s2[i] != 0){
     if(s1[i] != s2[i]) return 1;
@@ -83,26 +83,24 @@ int strlen(char * s){
 void print(char * buffer, int color){
     int len = strlen(buffer);
     for (int i = 0; i<len; i++){
-        if ((Xpos + (charSize * 8)) >= 1024){
+        if ((Xpos + (charSize * LETTER_WIDTH)) >= SCREEN_WIDTH){
             Xpos = 0;
-            Ypos += charSize * 16; // el 1 es el size falta getter
-        } if ((Ypos + (charSize * 16)) >= 768){
+            Ypos += charSize * LETTER_HEIGHT;
+        } if ((Ypos + (charSize * LETTER_HEIGHT)) >= SCREEN_HEIGHT){
             clear();
         }
         sys_write_char(Xpos, Ypos, buffer[i], color);
-        Xpos += 8 * charSize;
-        //Checkear si hay que saltar de linea
+        Xpos += LETTER_WIDTH * charSize;
     }
 }
 
 void backspace(){
     if(Xpos <= 0) {
     if(Ypos == 0) return;
-
-        Xpos = 1024;
-        Ypos -= 16 * charSize; // el 1 es el size
+        Xpos = SCREEN_WIDTH;
+        Ypos -= LETTER_HEIGHT * charSize; 
     } else {
-        Xpos -= charSize*8; // El 1 es el size
+        Xpos -= LETTER_WIDTH * charSize; 
     }
     sys_write_char(Xpos,Ypos,' ',WHITE);
 }
@@ -114,7 +112,7 @@ void clear(){
 
 void newLine(){
     Xpos = 0;
-    Ypos += 16 * charSize;
+    Ypos += LETTER_HEIGHT * charSize;
 }
 
 void printChar(char c, int color){
@@ -188,6 +186,7 @@ void setCursorPosition(int x, int y){
 }
 
 // https://www.equestionanswers.com/c/c-printf-scanf-working-principle.php
+// idea of code from here. Code is moddified so that we can change its usage
 void printf(int color, char * str, ...) {  
     va_list vl;
     int i = 0, j=0;
@@ -238,7 +237,7 @@ void printf(int color, char * str, ...) {
         }else if(str[i] == '\n'){
             j = 0;
             print(buff, color); 
-            buff[j]=0; // arreglamos el caso de \n encadenados
+            buff[j]=0; // fixes case of chained \n
             newLine();
         } 
         else {

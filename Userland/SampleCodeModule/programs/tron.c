@@ -5,12 +5,6 @@
 #define SQUARE_UNIT 8
 #define OUT_OF_BOUNDS(x, y) ((x) > SCREEN_WIDTH || (x) < 0 || (y) > SCREEN_HEIGHT || (y) < 0) 
 
-
-
-
-
-
-
 void exit() {
     clear();
     setCursorPosition(390,SCREEN_HEIGHT/2);
@@ -101,25 +95,25 @@ void tronGame(){
                 j2Xincrement = 1;
             }
             break;
-        case 2: // izquierda
+        case 2: // left
             if (j1Xincrement != 1){
                 j1Xincrement = -1;
                 j1Yincrement = 0;
             }
             break;
-        case 3: // derecha
+        case 3: // right
             if (j1Xincrement != -1){
                 j1Xincrement = 1;
                 j1Yincrement = 0;
             }
             break;
-        case 4: // arriba
+        case 4: // up
             if (j1Yincrement != 1){
                 j1Xincrement = 0;
                 j1Yincrement = -1;
             }
             break;        
-        case 5: // abajo
+        case 5: // down
             if (j1Yincrement != -1){
                 j1Xincrement = 0;
                 j1Yincrement = 1;
@@ -133,10 +127,10 @@ void tronGame(){
         } 
         
         if (matrix[j1X/SQUARE_UNIT][j1Y/SQUARE_UNIT] == 1 || OUT_OF_BOUNDS(j1X,j1Y)){
-            youWin(RED,"PLAYER 2 WINS");
+            youWin(GREEN,"PLAYER 2 WINS");
             return; 
         } else if (matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] == 1 || OUT_OF_BOUNDS(j2X,j2Y)){
-            youWin(GREEN,"PLAYER 1 WINS");
+            youWin(RED,"PLAYER 1 WINS");
             return;
         }
          else {
@@ -144,7 +138,7 @@ void tronGame(){
             matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] = 1;
         }
         if(j1X == j2X && j1Y == j2Y){
-            youWin(BLACK,"its a tie!");
+            youWin(WHITE,"its a tie!");
             return;
         }
         j1X += SQUARE_UNIT*j1Xincrement;

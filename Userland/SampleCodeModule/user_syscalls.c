@@ -21,7 +21,7 @@ void sys_write_char(int x, int y, char c, int color){
 }
 
 
-//segundos de la hora
+
 void sys_get_seconds(int * sec){
     sys_int_80((uint64_t)6, (uint64_t)sec, 0, 0, 0,0);
 }

@@ -39,8 +39,8 @@ int getYPos(int y){
 }
 
  void putpixel(int x, int y, int color) {
-    uint32_t where = getPosition(x, y);
-    uint32_t * aux = (uint32_t *) (screenInformation->framebuffer) + where;
+    int where = getPosition(x, y);
+    uint8_t * aux = (uint8_t *) ((uint64_t) screenInformation->framebuffer) + where;
     *aux = getBlue(color);  // BLUE
     *(aux+1) = getGreen(color); // GREEN
     *(aux+2) = getRed(color); // RED
@@ -49,12 +49,12 @@ int getYPos(int y){
 
 void fillrect(int x, int y, int color, int w, int h) {
     
-     if(x > screenInformation->width || y > screenInformation->height) return;
+     if(x > SCREEN_W || y > SCREEN_H) return;
     int i, j;
-     if(w+x  > screenInformation->width) w = screenInformation->width -x;
-     if(h+y > screenInformation->height) h = screenInformation->height - y;
+     if(w+x  > SCREEN_W) w = SCREEN_W -x;
+     if(h+y > SCREEN_H) h = SCREEN_H - y;
     
-    uint8_t * aux = (uint8_t *) (screenInformation->framebuffer + getPosition(x, y));
+    uint8_t * aux = (uint8_t *) ((uint64_t)screenInformation->framebuffer + getPosition(x, y));
     int blue = getBlue(color);
     int red = getRed(color);
     int green = getGreen(color);
@@ -62,7 +62,7 @@ void fillrect(int x, int y, int color, int w, int h) {
     
     for (i = 0; i < w; i++) {
         for (j = 0; j < h; j++) {
-            aux = (uint8_t *) (screenInformation->framebuffer + getPosition(x+i,y+j));
+            aux = (uint8_t *) ((uint64_t)screenInformation->framebuffer + getPosition(x+i,y+j));
             *(aux) = blue;  // BLUE
             *(aux+1) = green; // GREEN
             *(aux+2) = red; // RED

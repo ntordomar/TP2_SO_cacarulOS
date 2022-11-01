@@ -18,17 +18,16 @@ typedef struct {
 
 
 
-DESCR_INT * idt = (DESCR_INT *) 0;	// IDT de 255 entradas LA TABLA
+DESCR_INT * idt = (DESCR_INT *) 0;	// IDT of 255 entries int table
 
-static void setup_IDT_entry (int index, uint64_t offset); // index es EN QUE POSICION offset puntero a funcccc
+static void setup_IDT_entry (int index, uint64_t offset); // index which position of the table, offset function pointer
 
-void load_idt() { // la llamo al principio del main para que me cargue la idt 
+void load_idt() { // its called at the begining of main to load IDT
   _cli();
   setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);
-  setup_IDT_entry(0x21,  (uint64_t)&_irq01Handler); // agrego el teclado!!! SI LE AGREGO EL CASTEO DE LOS ANTERIORES SE ME ROMPE QUE ONDAAAAA LOCO
+  setup_IDT_entry(0x21,  (uint64_t)&_irq01Handler); // adding keyboard
   setup_IDT_entry(0x80, (uint64_t)&int80Handler);
-  setup_IDT_entry (0x00, (uint64_t)&_exception0Handler); // Aca se tiene que llamar a la funcion de asm y esa llamar a esta 
-	//Solo interrupcion timer tick habilitadas CAMBIARLA PARA LA DEL TECLADO (ABRIR EL CORRESPONDIENTE IRQ 1)
+  setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
   setup_IDT_entry (0x06, (uint64_t)&_exception6Handler);
 	picMasterMask(0xFC); 
 	picSlaveMask(0xFF);

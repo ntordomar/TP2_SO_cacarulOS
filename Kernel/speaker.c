@@ -36,5 +36,4 @@
  	 play_sound(frec);
  	 hold(time);
  	 nosound();
-          //set_PIT_2(old_frequency);
  }

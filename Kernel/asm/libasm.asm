@@ -38,7 +38,7 @@ cpuVendor:
 	ret
 
 
-	getSeconds:
+getSeconds:
 	push rbp
 	mov  rbp,rsp
 	mov al, 0
@@ -48,7 +48,7 @@ cpuVendor:
 	pop rbp
 	ret
 
-	getMinutes:
+getMinutes:
 	push rbp
 	mov  rbp,rsp
 	mov al, 2
@@ -59,7 +59,7 @@ cpuVendor:
 	ret
 
 
-	getHours:
+getHours:
 	push rbp
 	mov  rbp,rsp
 	mov rax,0
@@ -71,7 +71,7 @@ cpuVendor:
 	ret
 
 
-	getKey:
+getKey:
 	push rbp
 	mov rbp,rsp
 	mov rax,0
@@ -128,26 +128,26 @@ getRDI:
     pop rbp
     ret
 
-;void getRegister(int * regs);
+;void getRegister(uint_64 * regs);
 getRegisters:
 ; no realizamos el armado del stackframe pues necesitamos los registros del rbp y rsp
     mov [rdi], rax
-    mov [rdi + 4],rbx
-    mov [rdi + 8], rcx
-    mov [rdi + 12], rdx
-    mov [rdi + 16], rsi
-    mov [rdi + 20], rbp
-    mov [rdi + 24], rsp
-    mov [rdi + 28], r8
-    mov [rdi + 32], r9
-    mov [rdi + 36], r10
-    mov [rdi + 40], r11
-    mov [rdi + 44], r12
-    mov [rdi + 48], r13
-    mov [rdi + 52], r14
-    mov [rdi + 56], r15
 	mov rax, $
-	mov [rdi + 60], rax
+	mov [rdi + 120], rax
+    mov [rdi + 8],rbx
+    mov [rdi + 16], rcx
+    mov [rdi + 24], rdx
+    mov [rdi + 32], rsi
+    mov [rdi + 40], rbp
+    mov [rdi + 48], rsp
+    mov [rdi + 56], r8
+    mov [rdi + 64], r9
+    mov [rdi + 72], r10
+    mov [rdi + 80], r11
+    mov [rdi + 88], r12
+    mov [rdi + 96], r13
+    mov [rdi + 104], r14
+    mov [rdi + 112], r15
 ret
 
 
