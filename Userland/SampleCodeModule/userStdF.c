@@ -83,13 +83,13 @@ int strlen(char * s){
 void print(char * buffer, int color){
     int len = strlen(buffer);
     for (int i = 0; i<len; i++){
-        if ((Xpos + (charSize * LETTER_WIDTH)) >= SCREEN_WIDTH){
+        if ((Xpos + (charSize * LETTER_WIDTH)) >= SCREEN_WIDTH){ //If we get to the end of the screen we re-adjust x and y pos to begin a new line
             Xpos = 0;
             Ypos += charSize * LETTER_HEIGHT;
-        } if ((Ypos + (charSize * LETTER_HEIGHT)) >= SCREEN_HEIGHT){
+        } if ((Ypos + (charSize * LETTER_HEIGHT)) >= SCREEN_HEIGHT){ // 'scrolling' functionality
             clear();
         }
-        sys_write_char(Xpos, Ypos, buffer[i], color);
+        sys_write_char(Xpos, Ypos, buffer[i], color); 
         Xpos += LETTER_WIDTH * charSize;
     }
 }

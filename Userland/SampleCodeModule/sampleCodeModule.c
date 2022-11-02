@@ -34,7 +34,7 @@ void analizeCommand(){
     char argument[50];
     divideString(lineBuffer,argument,' ');
     for (int i =0; i<commandCount; i++){
-        if (strcmp(lineBuffer, commandList[i]) == 0){
+        if (strcmp(lineBuffer, commandList[i]) == 0){ //If theres a match, the command function gets called
             (*commandFunctions[i])(argument);
             lineCantChar = 0;
         
@@ -77,10 +77,11 @@ void tron(){
 
 
 int main() {
-    setCharSize(1);
-    setCursorPosition(410,350);
-    printf(WHITE,"Welcome to CACARULOS");
+    setCharSize(3);
+    setCursorPosition(300,250);
+    printf(WHITE,"Welcome to cacarulOS");
     cacarulo(430,400);
+    setCharSize(1);
     clear();
     printf(WHITE,"Welcome to cacarulo's terminal. To see available commands, write HELP, followed by an enter.");
     hold(60);
@@ -91,7 +92,7 @@ int main() {
     while(1){
        
         hold(1);
-        char c  = getChar();
+        char c  = getChar(); //We continously ask if there is a new char to print
         
         if (c != -1 && c!= 0){
             if(c == 8){ // 8 is ascii's basckspace  
@@ -99,7 +100,7 @@ int main() {
                     backspace();
                     lineCantChar--;
                 }
-            } else if(c == '\n'){
+            } else if(c == '\n'){ 
                 printf(WHITE,"\n");
                 lineBuffer[lineCantChar] = 0;
                 analizeCommand();

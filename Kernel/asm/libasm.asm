@@ -75,11 +75,6 @@ getKey:
 	push rbp
 	mov rbp,rsp
 	mov rax,0
-	;ciclo:
-	;in al, 64h
-	;and al,0x01
-	;cmp al,0
-	;je ciclo
 	in al,60h
 	mov rsp,rbp
 	pop rbp
@@ -130,7 +125,7 @@ getRDI:
 
 ;void getRegister(uint_64 * regs);
 getRegisters:
-; no realizamos el armado del stackframe pues necesitamos los registros del rbp y rsp
+; saving the registers on a vector direction we get on rdi
     mov [rdi], rax
 	mov rax, $
 	mov [rdi + 120], rax

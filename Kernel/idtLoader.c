@@ -24,12 +24,12 @@ static void setup_IDT_entry (int index, uint64_t offset); // index which positio
 
 void load_idt() { // its called at the begining of main to load IDT
   _cli();
-  setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);
+  setup_IDT_entry (0x20, (uint64_t)&_irq00Handler); // adding timer 
   setup_IDT_entry(0x21,  (uint64_t)&_irq01Handler); // adding keyboard
-  setup_IDT_entry(0x80, (uint64_t)&int80Handler);
-  setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
-  setup_IDT_entry (0x06, (uint64_t)&_exception6Handler);
-	picMasterMask(0xFC); 
+  setup_IDT_entry(0x80, (uint64_t)&int80Handler); // Setting for software interruptions
+  setup_IDT_entry (0x00, (uint64_t)&_exception0Handler); // /0 exception
+  setup_IDT_entry (0x06, (uint64_t)&_exception6Handler); // op code exception
+	picMasterMask(0xFC); //Mask to allow interruptions
 	picSlaveMask(0xFF);
         
 	_sti();

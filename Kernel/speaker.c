@@ -24,7 +24,7 @@
  	}
  }
  
- //make it shutup
+ //make it stop
   void nosound() {
  	uint8_t tmp = inb(0x61) & 0xFC;
  

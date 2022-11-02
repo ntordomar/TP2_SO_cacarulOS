@@ -24,6 +24,7 @@ getRax:
     ret
 
 ;int getRDI();
+;Special case for rdi because its the first register that recieves a parameter
 getRDI:
     push rbp
     mov rbp, rsp
@@ -34,7 +35,7 @@ getRDI:
 
 ;void getRegister(int * regs);
 getRegister:
-; no realizamos el armado del stackframe pues necesitamos los registros del rbp y rsp
+; saving the registers on a vector direction we get on rdi
     mov [rdi], rax
     mov [rdi + 4],rbx
     mov [rdi + 8], rcx
