@@ -80,7 +80,7 @@ int main() {
     setCharSize(3);
     setCursorPosition(300,250);
     printf(WHITE,"Welcome to cacarulOS");
-    cacarulo(430,400);
+    //cacarulo(430,400);
     setCharSize(1);
     clear();
     printf(WHITE,"Welcome to cacarulo's terminal. To see available commands, write HELP, followed by an enter.");
@@ -106,9 +106,7 @@ int main() {
                 analizeCommand();
                 printf(WHITE,"root@cacarulOS $ ");
                 
-            } else if (c<=5 && c>=2){
-                capture();
-            }
+            } 
             else{
                 lineBuffer[lineCantChar++] = c;
                 printChar(c, WHITE);

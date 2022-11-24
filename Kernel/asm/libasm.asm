@@ -9,6 +9,7 @@ GLOBAL inb
 GLOBAL hlt
 GLOBAL getRDI
 GLOBAL getRegisters
+GLOBAL getMemory
 
 extern sysInterruptions
 section .text
@@ -145,5 +146,24 @@ getRegisters:
     mov [rdi + 112], r15
 ret
 
+;void getMemory(int memoryPos, unsigned char * res)
+;RDI la memoryPos RSI res
+getMemory:
+    push rbp
+    mov rbp, rsp
+    mov R8, 0
+    mov rax,0
+    loop:
+    mov  al, [RDI] 
+    mov  [RSI], al
+    inc RDI
+    inc RSI
+    inc R8
+    cmp R8, 32
+    je exit
+    jmp loop
 
-
+exit:
+    mov rsp, rbp
+    pop rbp
+    ret

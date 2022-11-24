@@ -9,3 +9,5 @@ void sys_get_hours(int * hours);
 void sys_change_font_size(int size);
 void sys_get_ticks(int ticks);
 void sys_beep(int freq, int time);
+void sys_get_mem(int memoryPos, unsigned char * buff);
+void sys_get_regs(int * captured, int * regs);

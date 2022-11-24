@@ -21,7 +21,7 @@ void outb(int memoryMap, int output);
 int inb(int memoryMap); // both inb and outb functions are used for beep, and to write/read in a memory position.
 int getRDI();
 void getRegisters(uint64_t * regs);
-
+void getMemory(int memoryPos, unsigned char * res);
 
 #endif
 

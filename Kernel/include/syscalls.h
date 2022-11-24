@@ -25,3 +25,7 @@ void _9_set_font_size(uint64_t size, uint64_t r2, uint64_t r3, uint64_t r4, uint
 void _10_beep(uint64_t frequency, uint64_t time, uint64_t r3, uint64_t r4, uint64_t r5);
 
 void _11_get_ticks(uint64_t ticks, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
+
+void _12_get_mem(uint64_t memoryPos, uint64_t buff);
+
+void _13_get_regs(uint64_t wasCaptured, uint64_t registers );

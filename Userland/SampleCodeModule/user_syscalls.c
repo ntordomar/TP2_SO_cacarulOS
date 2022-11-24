@@ -44,3 +44,10 @@ void sys_get_ticks(int ticks) {
     sys_int_80((uint64_t)11, (uint64_t)ticks, 0, 0, 0, 0);
 }
 
+void sys_get_mem(int memoryPos, unsigned char * buff) {
+    sys_int_80((uint64_t)12, (uint64_t)memoryPos, (uint64_t)buff, 0, 0, 0);
+}
+
+void sys_get_regs(int * captured, int * regs) {
+    sys_int_80((uint64_t)13, (uint64_t)captured, (uint64_t) regs, 0, 0, 0);
+}

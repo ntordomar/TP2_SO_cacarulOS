@@ -2,7 +2,6 @@ GLOBAL sys_int_80
 GLOBAL _hlt
 GLOBAL getRegister
 global getRDI
-global getMemory
 global divideZero
 global opCodeEx
 sys_int_80:
@@ -55,27 +54,6 @@ getRegister:
     mov [rdi + 60], rax
 ret
 
-;void getMemory(int memoryPos, int * res)
-;RDI la memoryPos RSI res
-getMemory:
-    push rbp
-    mov rbp, rsp
-    mov R8, 0
-    mov rax,0
-    loop:
-    mov  al, [RDI] 
-    mov  [RSI], al
-    inc RDI
-    inc RSI
-    inc R8
-    cmp R8, 32
-    je exit
-    jmp loop
-
-exit:
-    mov rsp, rbp
-    pop rbp
-    ret
 
 divideZero:
     mov rax,0

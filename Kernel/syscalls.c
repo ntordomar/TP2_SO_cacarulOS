@@ -6,9 +6,12 @@
 #include <time.h>
 #include <speaker.h>
 
-static void (*sysFunctions[12])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5) = {_0_empty,
+extern uint8_t capturedReg;
+extern const uint64_t registers[17];
+
+static void (*sysFunctions[])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5) = {_0_empty,
 _1_write,_2_read,_3_draw_rectangle,_4_clear_screen, _5_write_char, _6_get_seconds, _7_get_minutes, _8_get_hours,
-_9_set_font_size, _10_beep, _11_get_ticks};
+_9_set_font_size, _10_beep, _11_get_ticks, _12_get_mem, _13_get_regs};
 
 void sys_call_handler(uint64_t mode, uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5 ){ // pasamos todos ints, en el caso en el que sea un numero, se lee como un numero, en el caso de que esa una direccion de memoria, se castea a la que se necesita :)
     (*sysFunctions[mode])(r1,r2,r3,r4,r5);
@@ -68,5 +71,18 @@ void _10_beep(uint64_t frequency, uint64_t time, uint64_t r3, uint64_t r4, uint6
 
 void _11_get_ticks(uint64_t  delta, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
     hold((int) delta);
+}
+
+void _12_get_mem(uint64_t memoryPos, uint64_t buff) {
+    getMemory((int)memoryPos,(unsigned char *) buff );
+}
+
+void _13_get_regs(uint64_t wasCaptured, uint64_t regs) {
+   *((int *)wasCaptured) = capturedReg;
+    if(wasCaptured) {
+        for(int i = 0; i<17; i++){
+            ((int *) regs)[i] = registers[i];
+        }
+    }
 }
 

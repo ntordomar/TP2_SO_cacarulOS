@@ -17,8 +17,8 @@ char nextElement(){ // returns the first element pushed into the buffer in crono
     return toRet;
 }
  
-void keyHandler(){ // Every time someone presses a key this function gets called and inserts into the circular buffer
-    int tecla = getKey();
+void keyHandler(int tecla){ // Every time someone presses a key this function gets called and inserts into the circular buffer
+    
     if(tecla <=0x79){ // 0x79 because its the code for the biggest 'press'. We do this to avoid getting the releas of a key into the buffer
         
         if (cantElems == BUFFER_SIZE){
