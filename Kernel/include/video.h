@@ -6,6 +6,10 @@
 #define CORAL 0xFF7F50
 #define PINK 0xFF69B4
 #define INITIAL_FONT_SIZE 1
+
+#define CHAR_WIDTH 8
+#define CHAR_HEIGHT 16
+
 //https://wiki.osdev.org/VESA_Video_Modes
 struct vbe_mode_info_structure {
 	uint16_t attributes;		// deprecated, only bit 7 should be of interest to you, and it indicates the mode supports a linear frame buffer.

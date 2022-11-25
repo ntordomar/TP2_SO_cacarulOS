@@ -80,9 +80,9 @@ void draw_string( int x, int y, char* input, int len,int color, int backgroundCo
     int yInter = y;
     for(int i = 0; i<len; i++){
             draw_char(xInter, yInter, input[i], color, BLACK);
-            xInter+= DEFAULT_LETTER_SIZE*8;
-            if((xInter + (DEFAULT_LETTER_SIZE * 8)) >= 1024) {
-                yInter += 16 * DEFAULT_LETTER_SIZE;
+            xInter+= DEFAULT_LETTER_SIZE*CHAR_WIDTH;
+            if((xInter + (DEFAULT_LETTER_SIZE * CHAR_WIDTH)) >= SCREEN_W) {
+                yInter += CHAR_HEIGHT * DEFAULT_LETTER_SIZE;
                 xInter = 0;
             }
         
@@ -99,8 +99,8 @@ void draw_char(int x, int y, char letter, int color, int backgroundColor) {
 
 	unsigned char* toDraw = charBitmap(letter);
 
-	for(int i = 0; i < 16; i++) { // 16 is the height of a letter
-		for(int j = 0; j < 8; j++) { // 8 is the width 
+	for(int i = 0; i < CHAR_HEIGHT; i++) { 
+		for(int j = 0; j < CHAR_WIDTH; j++) { 
 
         bitIsPresent = 0;
             switch (j)

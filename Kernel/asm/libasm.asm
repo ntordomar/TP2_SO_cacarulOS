@@ -115,36 +115,6 @@ hlt:
 	hlt
 	ret
 
-;int getRDI();
-getRDI:
-    push rbp
-    mov rbp, rsp
-    mov rax, rdi
-    mov rsp, rbp
-    pop rbp
-    ret
-
-;void getRegister(uint_64 * regs);
-getRegisters:
-; saving the registers on a vector direction we get on rdi
-    mov [rdi], rax
-	mov rax, $
-	mov [rdi + 120], rax
-    mov [rdi + 8],rbx
-    mov [rdi + 16], rcx
-    mov [rdi + 24], rdx
-    mov [rdi + 32], rsi
-    mov [rdi + 40], rbp
-    mov [rdi + 48], rsp
-    mov [rdi + 56], r8
-    mov [rdi + 64], r9
-    mov [rdi + 72], r10
-    mov [rdi + 80], r11
-    mov [rdi + 88], r12
-    mov [rdi + 96], r13
-    mov [rdi + 104], r14
-    mov [rdi + 112], r15
-ret
 
 ;void getMemory(int memoryPos, unsigned char * res)
 ;RDI la memoryPos RSI res

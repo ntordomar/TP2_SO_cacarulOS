@@ -16,4 +16,4 @@ hang:
 clearStackAndMain:
 	call getStackBase
 	mov rsp, rax
-	call main
+	ret

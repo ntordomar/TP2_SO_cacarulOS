@@ -1,11 +1,16 @@
 {
     "files.associations": {
         "naiveconsole.h": "c",
-        "*.asm": "asm",
+        //"*.asm": "asm",
         "user_syscalls.h": "c",
         "userstdf.h": "c",
         "speaker.h": "c",
         "time.h": "c",
         "lib.h": "c"
+    },
+    "asciidoc.previewFrontMatter": "show",
+    "git.useCommitInputAsStashMessage": false,
+    "workbench.colorCustomizations": {
+    
     }
 }

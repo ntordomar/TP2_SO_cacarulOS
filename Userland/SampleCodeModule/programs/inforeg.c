@@ -12,10 +12,10 @@ void inforeg(){
         return;
     }
 
-    char * registersName[] = {"RDI", "RAX","RBX","RCX","RDX","RSI","RBP","RSP","R8","R9","R10","R11"
-                             ,"R12","R13","R14","R15", "IP"};
+    char * registersName[] = {"RAX","RBX","RCX","RDX","RSI","RDI","RBP","RSP","R8","R9","R10","R11"
+                             ,"R12","R13","R14","R15", "RIP"};
     for (int i = 0; i<17; i++){
-        printf(WHITE, "%s: %s \n" ,registersName[i],regs[i]);
+        printf(WHITE, "%s: %d \n" ,registersName[i],regs[i]);
     }
 }
 

@@ -15,9 +15,10 @@ GLOBAL int80Handler
 GLOBAL _exception6Handler
 
 ;----------------------
-;variables para inforeg
+;variables para inforeg y exceptions
 GLOBAL registers
 GLOBAL capturedReg
+GLOBAL excepRegs
 ;----------------------
 
 GLOBAL _exception0Handler
@@ -85,7 +86,34 @@ SECTION .text
 
 %macro exceptionHandler 1
 	pushState
+	; guardo el vector de registros: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
+	; R14, R15, RIP
+    mov [excepRegs + 8], rbx
+    mov [excepRegs + 16], rcx
+    mov [excepRegs + 24], rdx
+    mov [excepRegs + 32], rsi
+	mov [excepRegs + 40], rdi
+    mov [excepRegs + 48], rbp
+    mov [excepRegs + 64], r8
+    mov [excepRegs + 72], r9
+    mov [excepRegs + 80], r10
+    mov [excepRegs + 88], r11
+    mov [excepRegs + 96], r12
+    mov [excepRegs + 104], r13
+    mov [excepRegs + 112], r14
+    mov [excepRegs + 120], r15
 
+	mov rax, rsp
+	add rax, 160			  ;corregimos la altura del stack
+	mov [excepRegs+ 56], rax  ;RSP
+
+	mov rax, [rsp+15*8]
+	mov [excepRegs + 128], rax ;RIP
+
+	mov rax, [rsp + 14*8]	;obtengo RAX
+	mov [excepRegs], rax
+
+	
 	mov rdi, %1 ; pasaje de parametro
 	call exceptionDispatcher
 
@@ -138,19 +166,19 @@ _irq00Handler:
 ;Keyboard
 _irq01Handler:
 	pushState
-	push rax
 	mov rax, 0
-	in al, 60h
-	cmp al, 29 ; es la tecla ctrl
+	in al, 0x60
+	cmp al, 0x1D ; es la tecla ctrl
 	jne noCtrl
 	
+	; guardo el vector de registros: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
+	; R14, R15, RIP
     mov [registers + 8], rbx
     mov [registers + 16], rcx
     mov [registers + 24], rdx
     mov [registers + 32], rsi
 	mov [registers + 40], rdi
     mov [registers + 48], rbp
-    mov [registers + 56], rsp
     mov [registers + 64], r8
     mov [registers + 72], r9
     mov [registers + 80], r10
@@ -161,21 +189,24 @@ _irq01Handler:
     mov [registers + 120], r15
 
 	mov rax, rsp
-	add rax, 160
-	mov [registers+136], rax ;RSP
+	add rax, 160			  ;corregimos la altura del stack
+	mov [registers+ 56], rax  ;RSP
 
-	pop  rax
+	mov rax, [rsp+15*8]
+	mov [registers + 128], rax ;RIP
+
+	mov rax, [rsp + 14*8]	;obtengo RAX
 	mov [registers], rax
-
-	mov rax, $
-	mov [registers + 128], rax	;rip
 
 	mov byte [capturedReg], 1
 	jmp exit
 
 noCtrl:
+	cmp al, 0x9D	;me fijo si la tecla es un ctrl release
+	je exit
 	mov rdi, rax
 	call keyHandler
+	jmp exit
 	
 exit:
 	; signal pic EOI (End of Interrupt)
@@ -218,6 +249,7 @@ haltcpu:
 
 SECTION .bss
 	aux resq 1
-	registers resq 16
-	capturedReg resb 1
+	registers resq 17	;registros al hacer una captura
+	excepRegs resq 17	;registros al haber una excepcion
+	capturedReg resb 1	;indica si se realizo una captura(=1) o no(=0)
 	
