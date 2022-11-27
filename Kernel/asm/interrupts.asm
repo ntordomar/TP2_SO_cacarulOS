@@ -13,9 +13,12 @@ GLOBAL _irq04Handler
 GLOBAL _irq05Handler
 GLOBAL int80Handler
 GLOBAL _exception6Handler
+GLOBAL restore_stack
+
+GLOBAL save_original_regs
 
 ;----------------------
-;variables para inforeg y exceptions
+;inforeg and exceptions arrays of registers.
 GLOBAL registers
 GLOBAL capturedReg
 GLOBAL excepRegs
@@ -26,6 +29,7 @@ EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 EXTERN sys_call_handler
 EXTERN keyHandler
+EXTERN getStackBase
 
 
 SECTION .text
@@ -71,7 +75,7 @@ SECTION .text
 %macro irqHandlerMaster 1
 	pushState
 
-	mov rdi, %1 ; pasaje de parametro
+	mov rdi, %1 ; irqDispatcher parameter.
 	call irqDispatcher
 
 	; signal pic EOI (End of Interrupt)
@@ -85,9 +89,11 @@ SECTION .text
 
 
 %macro exceptionHandler 1
-	pushState
-	; guardo el vector de registros: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
+	mov byte [capturedReg], 0
+
+	; saving an array of registers: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
 	; R14, R15, RIP
+	mov [excepRegs], rax
     mov [excepRegs + 8], rbx
     mov [excepRegs + 16], rcx
     mov [excepRegs + 24], rdx
@@ -104,23 +110,42 @@ SECTION .text
     mov [excepRegs + 120], r15
 
 	mov rax, rsp
-	add rax, 160			  ;corregimos la altura del stack
+	
 	mov [excepRegs+ 56], rax  ;RSP
 
-	mov rax, [rsp+15*8]
+	mov rax, [rsp]
 	mov [excepRegs + 128], rax ;RIP
-
-	mov rax, [rsp + 14*8]	;obtengo RAX
-	mov [excepRegs], rax
+	
 
 	
-	mov rdi, %1 ; pasaje de parametro
+	mov rdi, %1 ; irqDispatcher parameter.
 	call exceptionDispatcher
+	
+	;Restoring original registers
+	mov rax, [ogRegs+8*0]
+	mov rbx, [ogRegs+8*1]
+	mov rcx, [ogRegs+8*2]
+	mov rdx, [ogRegs+8*3]
+	mov rsi, [ogRegs+8*4]
+	mov rdi, [ogRegs+8*5]
+	mov rbp, [ogRegs+8*6]
+	mov r8,  [ogRegs+8*7]
+	mov r9,  [ogRegs+8*8]
+	mov r10, [ogRegs+8*9]
+	mov r11, [ogRegs+8*10]
+	mov r12, [ogRegs+8*11]
+	mov r13, [ogRegs+8*12]
+	mov r14, [ogRegs+8*13]
+	mov r15, [ogRegs+8*14]
+	
+	mov rax, [ogRegs+8*16]	;RIP
+	mov [rsp], rax
+	
 
-	popState
 	iretq
 %endmacro
 
+	
 
 int80Handler:
 	pushState
@@ -153,7 +178,7 @@ picMasterMask:
 picSlaveMask:
 	push    rbp
     mov     rbp, rsp
-    mov     ax, di  ; ax = mascara de 16 bits
+    mov     ax, di  ; ax = mask of 16 bits
     out	0A1h,al
     pop     rbp
     retn
@@ -168,10 +193,10 @@ _irq01Handler:
 	pushState
 	mov rax, 0
 	in al, 0x60
-	cmp al, 0x1D ; es la tecla ctrl
+	cmp al, 0x1D ; ctrl key
 	jne noCtrl
 	
-	; guardo el vector de registros: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
+	; saving an array of registers: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
 	; R14, R15, RIP
     mov [registers + 8], rbx
     mov [registers + 16], rcx
@@ -189,20 +214,20 @@ _irq01Handler:
     mov [registers + 120], r15
 
 	mov rax, rsp
-	add rax, 160			  ;corregimos la altura del stack
+	add rax, 160			  ;fixing stack height so that rax value is RSP value.
 	mov [registers+ 56], rax  ;RSP
 
 	mov rax, [rsp+15*8]
 	mov [registers + 128], rax ;RIP
 
-	mov rax, [rsp + 14*8]	;obtengo RAX
+	mov rax, [rsp + 14*8]	;RAX
 	mov [registers], rax
 
 	mov byte [capturedReg], 1
 	jmp exit
 
 noCtrl:
-	cmp al, 0x9D	;me fijo si la tecla es un ctrl release
+	cmp al, 0x9D	; checking if the key is a ctrl release
 	je exit
 	mov rdi, rax
 	call keyHandler
@@ -238,6 +263,7 @@ _irq05Handler:
 _exception0Handler:
 	exceptionHandler 0
 
+;Op Code Exception
 _exception6Handler:
 	exceptionHandler 6
 
@@ -246,10 +272,47 @@ haltcpu:
 	hlt
 	ret
 
+save_original_regs:
+	; Saving registers: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
+	; R14, R15, RIP
+    mov [ogRegs+8*0], 	rax
+	mov [ogRegs+8*1], 	rbx
+	mov [ogRegs+8*2], 	rcx
+	mov [ogRegs+8*3], 	rdx
+	mov [ogRegs+8*4], 	rsi
+	mov [ogRegs+8*5], 	rdi
+	mov [ogRegs+8*6], 	rbp
+	mov [ogRegs+8*7], 	r8
+	mov [ogRegs+8*8], 	r9
+	mov [ogRegs+8*9], 	r10
+	mov [ogRegs+8*10], 	r11
+	mov [ogRegs+8*11], 	r12
+	mov [ogRegs+8*12], 	r13
+	mov [ogRegs+8*13], 	r14
+	mov [ogRegs+8*14], 	r15
+	mov [ogRegs+8*15], rsp	;RSP
+	mov rax, [rsp]   ; RSP contains the return adress, so we get the RIP
+	mov [ogRegs+8*16], rax
+	ret
+
+restore_stack:
+	mov [prevBS],rbx
+	pop rbx
+	call getStackBase
+	mov rsp,rax
+	push rbx
+	mov rbx,[prevBS]
+	ret
+
+
+
+
+SECTION .data
+	capturedReg dq 0	;regs captured -> 1. regs not captured yet -> 0
 
 SECTION .bss
-	aux resq 1
-	registers resq 17	;registros al hacer una captura
-	excepRegs resq 17	;registros al haber una excepcion
-	capturedReg resb 1	;indica si se realizo una captura(=1) o no(=0)
+	registers resq 17	;registrs when taking SCREENSHOT
+	excepRegs resq 17	;registrs when there is an exception
+	prevBS 	resq 1
+	ogRegs resq 17		;Vector for original registers
 	

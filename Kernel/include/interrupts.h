@@ -33,4 +33,6 @@ void picSlaveMask(uint8_t mask);
 //ends cpu excecution
 void haltcpu(void);
 
+void save_original_regs();
+void restore_stack();
 #endif /* INTERRUPS_H_ */

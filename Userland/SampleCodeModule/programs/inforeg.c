@@ -1,5 +1,6 @@
 #include <userStdF.h>
 #include <userLib.h>
+#include <user_syscalls.h>
 
 void inforeg(){
     

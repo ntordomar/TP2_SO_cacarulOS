@@ -53,6 +53,8 @@ void * initializeKernelBinary()
 int main()
 {
 	load_idt(); //Setup idt before terminal runs
+	save_original_regs();
+	restore_stack();
 	((EntryPoint)sampleCodeModuleAddress)(); //Calling sampleCodeModule's main address
 	return 0;
 }

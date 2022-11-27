@@ -49,7 +49,6 @@ void printRegs() {
 	draw_string(400, 50, "Reiniciando terminal...", 23, RED, BLACK);
 	hold(40);
 	clearScreen();
-	clearStackAndMain();
 }
 
  void invalid_op_code() {
@@ -62,5 +61,4 @@ void printRegs() {
 	draw_string(400, 50, "Reiniciando terminal...", 23, RED, BLACK);
 	hold(40);
 	clearScreen();
-	clearStackAndMain();
  }

@@ -56,7 +56,7 @@ void help(){
     printf(WHITE,"LETTERSIZE: CHANGES LETTER FONT \n");
     printf(WHITE,"CLEAR:      CLEARS THE SCREEN TERMINAL \n");
     printf(WHITE,"TIME:       PRINTS CURRENT TIME GTC\n");
-    printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT\n");
+    printf(WHITE,"INFOREG:    TAKES A SNAPSHOT OF THE REGISTERS CONTENT. YOU MUST TAKE A SCREENSHOT BEFORE WITH CTRL KEY.\n");
     printf(WHITE,"MEMORY:     PRINTS THE MEMORY CONTENT OF 30 BYTES. YOU MUST SEND THE FIRST MEMORY PLACE BY PARAMETER.\n");
     printf(WHITE,"DIVIDEBYZERO: WANT TO KNOW WHAT HAPPENS WHEN YOU DIVIDE BY ZERO?\n");
     printf(WHITE,"OPCODE:     WANT TO KNOW WHAT HAPPENS WHEN YOU OP CODE?\n");
@@ -80,7 +80,7 @@ int main() {
     setCharSize(3);
     setCursorPosition(300,250);
     printf(WHITE,"Welcome to cacarulOS");
-    //cacarulo(430,400);
+    cacarulo(430,400);
     setCharSize(1);
     clear();
     printf(WHITE,"Welcome to cacarulo's terminal. To see available commands, write HELP, followed by an enter.");

@@ -73,11 +73,11 @@ void _11_get_ticks(uint64_t  delta, uint64_t r2, uint64_t r3, uint64_t r4, uint6
     hold((int) delta);
 }
 
-void _12_get_mem(uint64_t memoryPos, uint64_t buff) {
+void _12_get_mem(uint64_t memoryPos, uint64_t buff, uint64_t r3, uint64_t r4, uint64_t r5) {
     getMemory((int)memoryPos,(unsigned char *) buff );
 }
 
-void _13_get_regs(uint64_t wasCaptured, uint64_t regs) {
+void _13_get_regs(uint64_t wasCaptured, uint64_t regs, uint64_t r3, uint64_t r4, uint64_t r5) {
    *((int *)wasCaptured) = capturedReg;
     if(wasCaptured) {
         for(int i = 0; i<17; i++){
