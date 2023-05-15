@@ -2,6 +2,7 @@
 #include <time.h>
 #include <lib.h>
 #include <speaker.h>
+#include <keyBoardHandler.h>
 #define ZERO_EXCEPTION_ID 0
 #define INVALID_OP_CODE_ID 6
 
@@ -44,7 +45,8 @@ void printRegs() {
 	clearScreen();
 	draw_string(400, 50, "TUVISTE UNA ZERO DIVISION", 25, RED, BLACK);
 	printRegs();
-	hold(100);
+	draw_string(5,20,"Presiona ESC para reiniciar la terminal",39,RED,BLACK);
+	while(nextElement() != 27);
 	clearScreen();
 	draw_string(400, 50, "Reiniciando terminal...", 23, RED, BLACK);
 	hold(40);
@@ -56,6 +58,7 @@ void printRegs() {
 	clearScreen();
 	draw_string(400, 50, "TUVISTE UNA OP-CODE", 19, RED, BLACK);
 	printRegs();
+	draw_string(5,20,"Presiona ESC para reiniciar la terminal",39,RED,BLACK);
 	hold(100);
 	clearScreen();
 	draw_string(400, 50, "Reiniciando terminal...", 23, RED, BLACK);
