@@ -19,21 +19,28 @@ typedef struct blockLink * blockMemory;
 
 size_t freeMemory = TOTALHEAPSIZE; // The amount of free memory in the heap
 uint8_t heapMemory[TOTALHEAPSIZE]; 
-blockLink * firstBlock; // The first block of the heap
+blockLink firstBlock; // The first block of the heap
 
 uint8_t usingHeap = 0;
-
+void initHeap();
 void * malloc(size_t wantedBlockSize) {
-    
-    if(wantedBlockSize <0 || wantedBlockSize > freeMemory) {
+    _cli();
+
+    if(wantedBlockSize <0) {
+        return NULL;
+    }
+
+    wantedBlockSize += sizeof(blockLink) + ( 8 - (wantedBlockSize & 7) ); // We align the size of the block to 8 bytes
+
+    if(wantedBlockSize > freeMemory) {
         return NULL;
     }
 
     if(!usingHeap) {
         initHeap(); //Initializes the heap by inserting a first block that has the size of the entire heap.
     }
-    blockMemory previousBlock = firstBlock;
-    blockMemory actualBlock = firstBlock->nextFreeBlock;
+    blockMemory previousBlock = &firstBlock;
+    blockMemory actualBlock = (&firstBlock)->nextFreeBlock;
 
     //iterate through the list of free blocks until we find one that is big enough
     while(actualBlock != NULL && actualBlock->blockSize < wantedBlockSize) {
@@ -42,18 +49,17 @@ void * malloc(size_t wantedBlockSize) {
     }
     
     if(actualBlock == NULL) {
-        return NULL;
+        return NULL; // llegue al final de la lista y no hay bloque con el size suficiente
     }
 
-    // en este punto ya estamos en el bloque que vamos a partir / null
+    // en este punto ya estamos en el bloque que vamos a partir 
     
     void * startPosition = USABLE_MEMORY(actualBlock);
 
     if(actualBlock->blockSize - wantedBlockSize > MIN_BLOCK_SIZE) {
         // Spliting the block in order to take out the block we will return
-        int returnedBlockSize = wantedBlockSize + sizeof(blockLink);
-        blockMemory remainingBlock  = actualBlock + returnedBlockSize;
-        remainingBlock->blockSize = actualBlock->blockSize - returnedBlockSize;
+        blockMemory remainingBlock  = actualBlock + wantedBlockSize;
+        remainingBlock->blockSize = actualBlock->blockSize - wantedBlockSize;
         remainingBlock->nextFreeBlock = actualBlock->nextFreeBlock;
         previousBlock->nextFreeBlock = remainingBlock;
     }else {
@@ -64,7 +70,7 @@ void * malloc(size_t wantedBlockSize) {
  
     
     
-    _cli();
+    
         // primero pregunto si tengo el lugar (sumandole el tamanio del struct + alineacion) 
         // recorre la lista de bloques libres hasta encontrar uno que sea lo suficientemente grande
         // en caso de que lo encuentra:
@@ -77,10 +83,52 @@ void * malloc(size_t wantedBlockSize) {
 
 }
 
+void free(void * ptr) {
+    // resto size del struct
+    blockLink * blockToInsert = (uint8_t) ptr - sizeof(blockLink);
+    blockLink * current = &firstBlock;
+    // primero itera hasta encontrar una direccion de memoria donde la proxima se pase 
+    for (; current->nextFreeBlock != NULL && current->nextFreeBlock < blockToInsert; current = current->nextFreeBlock) {
+        // we are just iterating to get to the right position
+    }
+    
+    if(current + sizeof(blockLink) + current->blockSize == blockToInsert){
+        // tenemos que mergear
+        current->blockSize += (blockToInsert->blockSize + sizeof(blockLink));
+        
+    } else {
+        // se quedan separados :( Tenemos que insertarlo en la lista.
+        blockToInsert->nextFreeBlock = current->nextFreeBlock;
+        current->nextFreeBlock = blockToInsert;
+        current = blockToInsert;
+    }
+
+    // mi direccion de memoria es la misma que la suma entre la pos de memoria de current + current.size
+    // IF true, modifico el tamanio al current
+    // current + current.size + sizeOF(BLOCK) = current.next
+    // ahora preguntamos si coincide el final del bloque con el siguiente bloque
+    if(current->nextFreeBlock == NULL) return;
+    if(current + sizeof(blockLink) + current->blockSize == current->nextFreeBlock) {
+        current->blockSize += sizeof(blockLink) + current->nextFreeBlock->blockSize;
+        current->nextFreeBlock = current->nextFreeBlock->nextFreeBlock;
+    }
+}
+
 void initHeap() {
-    blockMemory firstUsableBlock = (blockMemory) heapMemory;
-    firstBlock->nextFreeBlock = firstUsableBlock;
-    firstUsableBlock->blockSize = TOTALHEAPSIZE - sizeof(blockLink); // We save the usable memory for the user
-    freeMemory -= sizeof(blockLink);
+
+    size_t alignedAddress;
+    alignedAddress = heapMemory;
+
+    if ((alignedAddress & 0x0007) != 0x00) {
+        alignedAddress += (8 - 1);
+        alignedAddress &= ~(0x0007);
+
+    }
+
+
+    blockMemory firstUsableBlock = (blockMemory) alignedAddress;
+    firstBlock.nextFreeBlock = firstUsableBlock;
+    freeMemory -= (sizeof(blockLink) + ( alignedAddress - (size_t) heapMemory));
+    firstUsableBlock->blockSize = freeMemory; // We save the usable memory for the user
     usingHeap = 1;
 }
