@@ -1,10 +1,8 @@
-// This is the implementation of the heap that uses the first fit algorithm with a linked list
-// of free blocks. The free blocks are sorted by address, and adyacent free blocks are merged
-
 #include "heap.h"
 #include "../include/interrupts.h"
 #include <stddef.h>
 #include <stdint.h>
+#include <stdio.h>
 
 typedef struct blockLink // This is the structure of a free block
 {
@@ -12,123 +10,115 @@ typedef struct blockLink // This is the structure of a free block
     size_t blockSize;                     /*<< The size of the free block. */
 } blockLink;
 
-typedef struct blockLink * blockMemory;
+//Keeping a list of free blocks and a list of allocated blocks
+blockLink headBlock; // The first block of the free heap
 
-#define USABLE_MEMORY(x) (x + sizeof(blockLink))  
-#define MIN_BLOCK_SIZE (sizeof(blockLink) * 2) // The minimum size of a block is twice the size of the blockLink struct
+uint8_t heapMemory[TOTALHEAPSIZE];
 
-size_t freeMemory = TOTALHEAPSIZE; // The amount of free memory in the heap
-uint8_t heapMemory[TOTALHEAPSIZE]; 
-blockLink firstBlock; // The first block of the heap
+size_t freeMemory = 0; // The amount of free memory in the heap
 
 uint8_t usingHeap = 0;
-void initHeap();
+
+
 void * malloc(size_t wantedBlockSize) {
-    _cli();
 
-    if(wantedBlockSize <0) {
+    if (!usingHeap){
+        initHeap();
+    }
+
+    if (wantedBlockSize > freeMemory){
         return NULL;
     }
 
-    wantedBlockSize += sizeof(blockLink) + ( 8 - (wantedBlockSize & 7) ); // We align the size of the block to 8 bytes
+    blockLink * currentBlock = headBlock.nextFreeBlock;
+    blockLink * previousBlock = &headBlock;
 
-    if(wantedBlockSize > freeMemory) {
+    while(currentBlock != NULL && currentBlock->blockSize<wantedBlockSize){
+        previousBlock = currentBlock;
+        currentBlock = currentBlock->nextFreeBlock;
+    }
+
+    //We didnt find any block big enough
+    if (currentBlock == NULL){
         return NULL;
     }
 
-    if(!usingHeap) {
-        initHeap(); //Initializes the heap by inserting a first block that has the size of the entire heap.
-    }
-    blockMemory previousBlock = &firstBlock;
-    blockMemory actualBlock = (&firstBlock)->nextFreeBlock;
+    void * pointerToReturn;
 
-    //iterate through the list of free blocks until we find one that is big enough
-    while(actualBlock != NULL && actualBlock->blockSize < wantedBlockSize) {
-        previousBlock = actualBlock;
-        actualBlock = actualBlock->nextFreeBlock;
-    }
-    
-    if(actualBlock == NULL) {
-        return NULL; // llegue al final de la lista y no hay bloque con el size suficiente
-    }
+    //We found a block big enough
+    if (currentBlock->blockSize - wantedBlockSize > 2 * sizeof(blockLink)){ // Hay que dividir
+        blockLink * newBlock = (blockLink * )((uint8_t * )currentBlock + sizeof(blockLink) + wantedBlockSize);
+        newBlock->blockSize = currentBlock->blockSize - wantedBlockSize - sizeof(blockLink);
+        newBlock->nextFreeBlock = currentBlock->nextFreeBlock;
 
-    // en este punto ya estamos en el bloque que vamos a partir 
-    
-    void * startPosition = USABLE_MEMORY(actualBlock);
+        //Preparo el bloque que voy a devolver
+        currentBlock->blockSize = wantedBlockSize;
+        currentBlock->nextFreeBlock = NULL;
 
-    if(actualBlock->blockSize - wantedBlockSize > MIN_BLOCK_SIZE) {
-        // Spliting the block in order to take out the block we will return
-        blockMemory remainingBlock  = actualBlock + wantedBlockSize;
-        remainingBlock->blockSize = actualBlock->blockSize - wantedBlockSize;
-        remainingBlock->nextFreeBlock = actualBlock->nextFreeBlock;
-        previousBlock->nextFreeBlock = remainingBlock;
-    }else {
-        previousBlock->nextFreeBlock = actualBlock->nextFreeBlock;
-    }
-    freeMemory -= (actualBlock->blockSize + sizeof(blockLink));
-    return startPosition;
- 
-    
-    
-    
-        // primero pregunto si tengo el lugar (sumandole el tamanio del struct + alineacion) 
-        // recorre la lista de bloques libres hasta encontrar uno que sea lo suficientemente grande
-        // en caso de que lo encuentra:
-                // El que vamos a devolver va a ser en el que esta + tamanio del struct
-                // en caso de que quede lugar libre, creamos en bloqueEncontrado +  tamanio del bloque + tamanio del struct,un nuevo bloque de tamaño = tamaño bloque - tamaño pedido
-                // linkeamos el anterior y el proximo con ese struct
-                // retornamos el struct que sacamos :)
-    _sti();
-    
+        freeMemory -= wantedBlockSize + sizeof(blockLink);
+        pointerToReturn = (uint8_t *) currentBlock + sizeof(blockLink);
+        previousBlock->nextFreeBlock = newBlock;
 
-}
-
-void free(void * ptr) {
-    // resto size del struct
-    blockLink * blockToInsert = (uint8_t) ptr - sizeof(blockLink);
-    blockLink * current = &firstBlock;
-    // primero itera hasta encontrar una direccion de memoria donde la proxima se pase 
-    for (; current->nextFreeBlock != NULL && current->nextFreeBlock < blockToInsert; current = current->nextFreeBlock) {
-        // we are just iterating to get to the right position
-    }
-    
-    if(current + sizeof(blockLink) + current->blockSize == blockToInsert){
-        // tenemos que mergear
-        current->blockSize += (blockToInsert->blockSize + sizeof(blockLink));
-        
     } else {
-        // se quedan separados :( Tenemos que insertarlo en la lista.
-        blockToInsert->nextFreeBlock = current->nextFreeBlock;
-        current->nextFreeBlock = blockToInsert;
-        current = blockToInsert;
+        pointerToReturn = (uint8_t *)currentBlock + sizeof(blockLink);
+        freeMemory -= currentBlock->blockSize;
+        previousBlock->nextFreeBlock = currentBlock->nextFreeBlock;
     }
 
-    // mi direccion de memoria es la misma que la suma entre la pos de memoria de current + current.size
-    // IF true, modifico el tamanio al current
-    // current + current.size + sizeOF(BLOCK) = current.next
-    // ahora preguntamos si coincide el final del bloque con el siguiente bloque
-    if(current->nextFreeBlock == NULL) return;
-    if(current + sizeof(blockLink) + current->blockSize == current->nextFreeBlock) {
-        current->blockSize += sizeof(blockLink) + current->nextFreeBlock->blockSize;
-        current->nextFreeBlock = current->nextFreeBlock->nextFreeBlock;
-    }
+    return pointerToReturn;
+
 }
 
-void initHeap() {
+void free(void * ptr){
 
-    size_t alignedAddress;
-    alignedAddress = heapMemory;
 
-    if ((alignedAddress & 0x0007) != 0x00) {
-        alignedAddress += (8 - 1);
-        alignedAddress &= ~(0x0007);
+    blockLink * blockToFree = (blockLink *)((uint8_t *)ptr - sizeof(blockLink));
 
+    
+    blockLink * prev = &headBlock;
+    blockLink * curr = headBlock.nextFreeBlock;
+
+    while (curr != NULL && (uint8_t *)curr < (uint8_t*)blockToFree){
+        prev = curr;
+        curr = curr->nextFreeBlock;
+    }
+
+    //Si el bloque que quiero liberar es el ultimo
+    if (curr == NULL){
+        prev->nextFreeBlock = blockToFree;
+        blockToFree->nextFreeBlock = NULL;
+    } else {
+        blockToFree->nextFreeBlock = curr;
+        prev->nextFreeBlock = blockToFree;
     }
 
 
-    blockMemory firstUsableBlock = (blockMemory) alignedAddress;
-    firstBlock.nextFreeBlock = firstUsableBlock;
-    freeMemory -= (sizeof(blockLink) + ( alignedAddress - (size_t) heapMemory));
-    firstUsableBlock->blockSize = freeMemory; // We save the usable memory for the user
+    //Mergeamos a izquierda
+    if  ((uint8_t * )prev + sizeof(blockLink) + prev->blockSize == (uint8_t *)blockToFree){
+        prev->blockSize += blockToFree->blockSize + sizeof(blockLink);
+        prev->nextFreeBlock = blockToFree->nextFreeBlock;
+        freeMemory += sizeof(blockLink);
+        blockToFree = prev;
+        printf("Mergeamos a izquierda\n");
+    }
+
+    //Mergeamos a derecha
+    if ((uint8_t * )blockToFree + sizeof(blockLink) + blockToFree->blockSize == (uint8_t *)blockToFree->nextFreeBlock){
+        blockToFree->blockSize += blockToFree->nextFreeBlock->blockSize + sizeof(blockLink);
+        blockToFree->nextFreeBlock = blockToFree->nextFreeBlock->nextFreeBlock;
+        freeMemory += sizeof(blockLink);
+        printf("Mergeamos a derecha\n");
+    }
+
+    freeMemory += blockToFree->blockSize;
+}
+
+void initHeap(){
+    headBlock.nextFreeBlock = (blockLink *) heapMemory;
+    headBlock.blockSize = TOTALHEAPSIZE;
+    blockLink* firstBlock = headBlock.nextFreeBlock;
+    firstBlock->blockSize = TOTALHEAPSIZE - sizeof(blockLink);
+    freeMemory = firstBlock->blockSize;
+    firstBlock->nextFreeBlock = NULL;
     usingHeap = 1;
 }
