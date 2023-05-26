@@ -11,7 +11,7 @@
 // #include "./Scheduler/scheduler.h"
 
 int borrar();
-
+int borrar2 = 300;
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
@@ -66,16 +66,19 @@ int main()
 	// draw_string(100,100,"EJEMPLIN", 10, GREEN, BLACK);
 	// while(1);
 	initScheduler(1);
-	int shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar);
+	int shPid = createProcess("shell", 0, 4*4096, 4*4096, shellArgs, sampleCodeModuleAddress);
 	includeTerminal(shPid);
 	
 	// ((EntryPoint)sampleCodeModuleAddress)(); //Calling sampleCodeModule's main address
-	while(1);
+	while(1){
+		draw_string(100,100,"1", 2, GREEN, BLACK);
+		draw_string(100,100,"0", 2, GREEN, BLACK);
+	}
 	return 0;
 }
 
 int borrar(){
-    draw_string(500,100,"EJEMPLIN", 0x0F, GREEN, BLACK);
+    draw_string(300,100,"EJEMPLIN", 0x0F, GREEN, BLACK);
     while(1);
     return 0;
 }

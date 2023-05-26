@@ -5,7 +5,7 @@
 
 void initScheduler(int pid);
 void addProcess(processType * process);
-uint8_t * switchProcess(uint8_t * stackPointer);
+uint64_t * switchProcess(uint64_t * stackPointer, uint64_t * stackSegment);
 processType * getCurrentProcess();
 processType * findProcessByPid(int pid);
 uint8_t schedulerIsEnabled();

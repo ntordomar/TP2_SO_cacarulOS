@@ -5,9 +5,9 @@
 #include <stdint.h>
 
 typedef struct memoryBlock {
-    uint8_t * base;
+    uint64_t * base;
     size_t size;
-    uint8_t * current;
+    uint64_t * current;
 } memoryBlock;
 
 typedef struct processType {

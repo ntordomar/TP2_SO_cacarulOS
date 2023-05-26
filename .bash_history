@@ -312,3 +312,162 @@ gdb
 cd root
 make all
 exit
+cd root
+make all
+exit
+cd root
+make all
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root'
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+make all
+exit
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+dgb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+b time.c:6
+gdb
+gdb
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+make all
+make all
+ls
+cd roor
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb

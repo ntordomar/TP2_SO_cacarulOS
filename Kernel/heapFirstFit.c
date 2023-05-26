@@ -13,7 +13,7 @@ typedef struct blockLink // This is the structure of a free block
 //Keeping a list of free blocks and a list of allocated blocks
 blockLink headBlock; // The first block of the free heap
 
-uint8_t heapMemory[TOTALHEAPSIZE];
+uint64_t heapMemory[TOTALHEAPSIZE];
 
 size_t freeMemory = 0; // The amount of free memory in the heap
 
@@ -47,7 +47,7 @@ void * malloc(size_t wantedBlockSize) {
 
     //We found a block big enough
     if (currentBlock->blockSize - wantedBlockSize > 2 * sizeof(blockLink)){ // Hay que dividir
-        blockLink * newBlock = (blockLink * )((uint8_t * )currentBlock + sizeof(blockLink) + wantedBlockSize);
+        blockLink * newBlock = (blockLink * )((uint64_t * )currentBlock + sizeof(blockLink) + wantedBlockSize);
         newBlock->blockSize = currentBlock->blockSize - wantedBlockSize - sizeof(blockLink);
         newBlock->nextFreeBlock = currentBlock->nextFreeBlock;
 
@@ -56,11 +56,11 @@ void * malloc(size_t wantedBlockSize) {
         currentBlock->nextFreeBlock = NULL;
 
         freeMemory -= wantedBlockSize + sizeof(blockLink);
-        pointerToReturn = (uint8_t *) currentBlock + sizeof(blockLink);
+        pointerToReturn = (uint64_t *) currentBlock + sizeof(blockLink);
         previousBlock->nextFreeBlock = newBlock;
 
     } else {
-        pointerToReturn = (uint8_t *)currentBlock + sizeof(blockLink);
+        pointerToReturn = (uint64_t *)currentBlock + sizeof(blockLink);
         freeMemory -= currentBlock->blockSize;
         previousBlock->nextFreeBlock = currentBlock->nextFreeBlock;
     }
@@ -72,13 +72,13 @@ void * malloc(size_t wantedBlockSize) {
 void free(void * ptr){
 
 
-    blockLink * blockToFree = (blockLink *)((uint8_t *)ptr - sizeof(blockLink));
+    blockLink * blockToFree = (blockLink *)((uint64_t *)ptr - sizeof(blockLink));
 
     
     blockLink * prev = &headBlock;
     blockLink * curr = headBlock.nextFreeBlock;
 
-    while (curr != NULL && (uint8_t *)curr < (uint8_t*)blockToFree){
+    while (curr != NULL && (uint64_t *)curr < (uint64_t*)blockToFree){
         prev = curr;
         curr = curr->nextFreeBlock;
     }
@@ -94,7 +94,7 @@ void free(void * ptr){
 
 
     //Mergeamos a izquierda
-    if  ((uint8_t * )prev + sizeof(blockLink) + prev->blockSize == (uint8_t *)blockToFree){
+    if  ((uint64_t * )prev + sizeof(blockLink) + prev->blockSize == (uint64_t *)blockToFree){
         prev->blockSize += blockToFree->blockSize + sizeof(blockLink);
         prev->nextFreeBlock = blockToFree->nextFreeBlock;
         freeMemory += sizeof(blockLink);
@@ -102,7 +102,7 @@ void free(void * ptr){
     }
 
     //Mergeamos a derecha
-    if ((uint8_t * )blockToFree + sizeof(blockLink) + blockToFree->blockSize == (uint8_t *)blockToFree->nextFreeBlock){
+    if ((uint64_t * )blockToFree + sizeof(blockLink) + blockToFree->blockSize == (uint64_t *)blockToFree->nextFreeBlock){
         blockToFree->blockSize += blockToFree->nextFreeBlock->blockSize + sizeof(blockLink);
         blockToFree->nextFreeBlock = blockToFree->nextFreeBlock->nextFreeBlock;
         freeMemory += sizeof(blockLink);

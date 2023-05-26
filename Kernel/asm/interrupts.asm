@@ -14,7 +14,7 @@ GLOBAL _irq05Handler
 GLOBAL int80Handler
 GLOBAL _exception6Handler
 GLOBAL restore_stack
-
+GLOBAL createStack
 GLOBAL save_original_regs
 
 ;----------------------
@@ -55,6 +55,23 @@ SECTION .text
 	push r13
 	push r14
 	push r15
+%endmacro
+
+%macro pushStateNoRax 0
+    push rbx
+    push rcx
+    push rdx
+    push rbp
+    push rdi
+    push rsi
+    push r8
+    push r9
+    push r10
+    push r11
+    push r12
+    push r13
+    push r14
+    push r15
 %endmacro
 
 %macro popState 0
@@ -188,7 +205,7 @@ picSlaveMask:
 
 ;8254 Timer (Timer Tick)
 _irq00Handler:
-
+	cli
 	pushState ; Preservo el estado del proceso que esta corriendo
 
 	
@@ -196,9 +213,10 @@ _irq00Handler:
 	cmp rax,0
 	je .noSwitch
 
-	mov rdi,rsp ; Paso como argumento el stack pointer actual para poder intercambiar el proceso
+	mov rdi, rsp ; Paso como argumento el stack pointer actual para poder intercambiar el proceso
+	mov rsi, ss
 	call switchProcess
-	mov rsp,rax ; Recivo el nuevo stack pointer y se lo asigno a rsp para empezar a correr el nuevo proceso.
+	mov rsp,rax ; Recibo el nuevo stack pointer y se lo asigno a rsp para empezar a correr el nuevo proceso.
 
 	.noSwitch:
 	mov rdi, 0 ; irqDispatcher parameter.
@@ -208,6 +226,7 @@ _irq00Handler:
 	mov al, 20h
 	out 20h, al
 	popState
+	sti
 	iretq
 
 
@@ -325,6 +344,34 @@ restore_stack:
 	mov rsp,rax
 	push rbx
 	mov rbx,[prevBS]
+	ret
+
+createStack: ;RDI EL STACK - RSI CODE - RDX ARGS
+	mov r8,rsp ; preservo viejo RSP
+	mov rsp,rdi
+	push 0x0 ; el SS
+	push rdi ; el RSP
+	push 0x202 ; el RFLAGS
+	push 0x8 ; el CS
+	push rsi ; el RIP
+	push 0x0 ; el RAX
+	mov rdi,rdx ; los argumentos
+	push 0x1 ;rbx
+    push 0x2
+    push 0x3
+    push 0x4
+    push rdx ; no tocar, son los argumentos
+    push 0x6
+    push 0x7
+    push 0x8
+    push 0x9
+    push 0x10
+    push 0x11
+    push 0x12
+    push 0x13
+    push 0x14
+	mov rax,rsp ; el RSP
+	mov rsp,r8 ; restauro el RSP
 	ret
 
 
