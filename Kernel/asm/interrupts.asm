@@ -30,6 +30,8 @@ EXTERN exceptionDispatcher
 EXTERN sys_call_handler
 EXTERN keyHandler
 EXTERN getStackBase
+EXTERN switchProcess
+EXTERN schedulerIsEnabled
 
 
 SECTION .text
@@ -74,7 +76,6 @@ SECTION .text
 
 %macro irqHandlerMaster 1
 	pushState
-
 	mov rdi, %1 ; irqDispatcher parameter.
 	call irqDispatcher
 
@@ -186,7 +187,29 @@ picSlaveMask:
 
 ;8254 Timer (Timer Tick)
 _irq00Handler:
-	irqHandlerMaster 0
+
+	pushState ; Preservo el estado del proceso que esta corriendo
+
+	
+	call schedulerIsEnabled
+	cmp rax,0
+	je .noSwitch
+
+	mov rdi,rsp ; Paso como argumento el stack pointer actual para poder intercambiar el proceso
+	call switchProcess
+	mov rsp,rax ; Recivo el nuevo stack pointer y se lo asigno a rsp para empezar a correr el nuevo proceso.
+
+	.noSwitch:
+	mov rdi, 0 ; irqDispatcher parameter.
+	call irqDispatcher
+
+	; signal pic EOI (End of Interrupt)
+	mov al, 20h
+	out 20h, al
+
+	popState
+	iretq
+
 
 ;Keyboard
 _irq01Handler:
