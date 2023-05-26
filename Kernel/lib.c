@@ -107,3 +107,7 @@ char * strcpy(char* destination, const char* source){
     // the destination is returned by standard `strcpy()`
     return ptr;
 }
+
+void getRegistersDebugger(){
+    return;
+}

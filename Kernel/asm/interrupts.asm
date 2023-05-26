@@ -32,6 +32,7 @@ EXTERN keyHandler
 EXTERN getStackBase
 EXTERN switchProcess
 EXTERN schedulerIsEnabled
+EXTERN getRegistersDebugger
 
 
 SECTION .text
@@ -206,7 +207,6 @@ _irq00Handler:
 	; signal pic EOI (End of Interrupt)
 	mov al, 20h
 	out 20h, al
-
 	popState
 	iretq
 

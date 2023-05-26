@@ -1,5 +1,5 @@
 #include "./include/process.h"
-
+#include <video.h>
 int biggerPidAvailable = 1;
 
 int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, char ** args, void* code){
@@ -25,6 +25,7 @@ int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, ch
     process->heap = malloc(sizeof(memoryBlock));
     if(process->heap == NULL){
         return -1;
+        
     }
     process->heap->base = malloc(heapSize); // preguntar que onda la stack size??????? en ambos casos seria 4096
     if(process->heap->base == NULL){
@@ -48,15 +49,14 @@ int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, ch
     // A PARTIR DE ESTE PUNTO YA PUSIMOS TODA LA INFORMACION ADENTRO DEL PROCESO.
     // LO AGREGO A MI LISTA DE PROCESOS. ANALIZAR TODOS JUNTOS, TIPO PARA QUE QUEREMOS ESO SI YA LO TENEMOS EN EL SCHEDULER
     // ahora deberia agregarlo a la lista en el scheduler, y tmb deberia crear toda la estructura del stack
-    createProcessStack(code, args, process->stack->base + process->stack->size);    
+    createProcessStack(code, args, (uint8_t *)process->stack->base + process->stack->size);    
     addProcess(process);
     return process->pid;
 }
 
 int createProcessStack(uint8_t * code, char** args, uint8_t * stackStart){
-    
-    for (int i = 0; i<CANT_REGISTER ; i++){
-        *(STACKPOS(GPR_START + i)) = i;
+    for (int i = 1; i<CANT_REGISTER ; i++){
+        *(STACKPOS(GPR_START + i*8)) = 1;
     }
 
     // pisamos el valor de RDI, puesto que ahi va a estar el puntero a los argumentos
@@ -81,6 +81,7 @@ int createProcessStack(uint8_t * code, char** args, uint8_t * stackStart){
             RSP ->   PRIMER BLOQUE (stackStart - 1 * 8)
       stackStart ->  FFFFFFFFFF
     */
+   return 0;
 }
 
 int getNewPid(){

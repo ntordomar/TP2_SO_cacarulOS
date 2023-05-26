@@ -220,3 +220,95 @@ exit
 cd root
 make all
 exit
+cd root
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd make 
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make al
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+./run.sh 
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+./run.sh 
+exit
+cd root
+make all
+./run.sh 
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+./run.sh 
+exit
+cd root
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+gdb
+cd root
+make all
+exit

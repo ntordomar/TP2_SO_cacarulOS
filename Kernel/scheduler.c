@@ -41,6 +41,7 @@ void addProcess(processType * process) {
 
 uint8_t * switchProcess(uint8_t * stackPointer){
     currentP->stack->current = stackPointer; // guardo el stack pointer del proceso actual
+    draw_string(100,300,"init scheduler", 0x0F, GREEN, BLACK);
     schNode * iter = processes;
     while (iter != NULL && ( iter->processControlBlock == NULL|| iter->processControlBlock->process->status != READY) ){ // busca el prox proceso ready
         iter = iter->next;

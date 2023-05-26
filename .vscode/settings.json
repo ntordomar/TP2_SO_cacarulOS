@@ -31,7 +31,8 @@
         "stdio.h": "c",
         "heap.h": "c",
         "types.h": "c",
-        "video.h": "c"
+        "video.h": "c",
+        "moduleloader.h": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,
