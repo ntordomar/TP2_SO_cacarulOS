@@ -25,6 +25,7 @@ void getRegisters(uint64_t * regs);
 void getMemory(int memoryPos, unsigned char * res);
 void getRegistersDebugger();
 uint64_t* createStack(uint64_t* stackStart,void * code, char ** args);
+void forceChangeOfProcess(uint64_t* RSP);
 #endif
 
 

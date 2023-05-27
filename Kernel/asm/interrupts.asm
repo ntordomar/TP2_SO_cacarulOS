@@ -16,6 +16,7 @@ GLOBAL _exception6Handler
 GLOBAL restore_stack
 GLOBAL createStack
 GLOBAL save_original_regs
+GLOBAL forceChangeOfProcess
 
 ;----------------------
 ;inforeg and exceptions arrays of registers.
@@ -374,7 +375,10 @@ createStack: ;RDI EL STACK - RSI CODE - RDX ARGS
 	mov rsp,r8 ; restauro el RSP
 	ret
 
-
+forceChangeOfProcess:
+	mov rsp,rdi
+	popState
+	iretq
 
 
 SECTION .data

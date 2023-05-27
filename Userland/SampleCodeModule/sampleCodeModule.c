@@ -77,7 +77,6 @@ void tron(){
 
 
 int main() {
-    printf(WHITE,"HOLa");
     setCharSize(3);
     setCursorPosition(300,250);
     printf(WHITE,"Welcome to cacarulOS");
