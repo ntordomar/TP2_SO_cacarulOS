@@ -49,12 +49,12 @@ void stopProcess(uint64_t * stackPointer, uint64_t * stackSegment) {
     if(currentPCB->ticks == priorityQuantum[currentPCB->priority]*QUANTUM) {
         // the process used all its quantum
         if(currentPCB->priority > MIN_PRIORITY) {
-            dequeue(queues[currentPCB->priority]);
+            dequeueByData(queues[currentPCB->priority], currentPCB->process->pid);
             currentPCB->priority--;
             enqueue(queues[currentPCB->priority], currentPCB); // le bajo la prioridad
             
-        }else{
-            dequeue(queues[currentPCB->priority]);
+        }else {
+            dequeueByData(queues[currentPCB->priority], currentPCB->process->pid);
             enqueue(queues[currentPCB->priority], currentPCB); 
         }
     }
@@ -98,7 +98,7 @@ PCB * findPcbEntry(int pid) {
     PCB * elementToReturn;
     for(int i = MAX_PRIORITY; i >= MIN_PRIORITY; i--) {
         elementToReturn = findElementByPid(queues[i], pid);        
-        if (elementToReturn!=NULL){
+        if (elementToReturn != NULL) {
             return elementToReturn;
         }
     }
@@ -111,6 +111,8 @@ int getCurrentPid() {
 
 void changePriority(int pid, int newPriority) {
     PCB * processToChange =  findPcbEntry(pid);
+    // if(processToChange->process->status == BLOCKED) return;
+    
     dequeueByData(queues[processToChange->priority], pid);
     if(newPriority > MAX_PRIORITY) {
         processToChange->priority = MAX_PRIORITY;

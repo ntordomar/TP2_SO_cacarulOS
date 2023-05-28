@@ -86,6 +86,23 @@ int killProcess(int pid){
     return 0;
 }
 
+int toggleBlockProcess(int pid) {
+    PCB * processPCB = findPcbEntry(pid);
+
+    if(processPCB == NULL || processPCB->process == NULL){
+        return -1;
+    }
+
+    int oldProcessStatus = processPCB->process->status;
+    processPCB->process->status = (oldProcessStatus == BLOCKED) ? READY : BLOCKED;
+
+    if (pid == getCurrentPid()) {
+        forceScheduler();
+    }
+    return 0;
+}
+
+
 void processWrapper(int code(char **args), char ** args){
     int ret = code(args);
     draw_char(300, 300, 'A', GREEN, BLACK);

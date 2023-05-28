@@ -72,6 +72,7 @@ int main()
 	 pid2= createProcess("jua", 0, 4096, 4096, shellArgs, &borrar2);
 	 shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
 
+
 	includeTerminal(pid);
 	
 	// ((EntryPoint)sampleCodeModuleAddress)(); //Calling sampleCodeModule's main address
@@ -84,15 +85,20 @@ int main()
 
 int borrar(char ** args) {
     
-    
-	for(int i = 0; i<100000; i++){
-	draw_char(10,200,'C', GREEN, BLACK);
-	draw_char(10,200,'D', GREEN, BLACK);		
+	hold(4*18);
+	toggleBlockProcess(pid2);
+	
+	for (int i = 0; i < 100000; i++) {
+		draw_char(10,200,'C', RED, BLACK);
+		draw_char(10,200,'D', RED, BLACK);
 	}
-	killProcess(pid2);
-	killProcess(shPid);
-	hold(8*18);
-	createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
+	toggleBlockProcess(pid2);
+	while (1)
+	{
+		draw_char(10,200,'C', GREEN, BLACK);
+		draw_char(10,200,'D', GREEN, BLACK);
+	}
+	
     return 0;
 }
 int borrar2(char ** args) {

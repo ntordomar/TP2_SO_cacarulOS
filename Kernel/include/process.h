@@ -18,3 +18,5 @@ int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, ch
 int getNewPid();
 int killProcess(int pid);
 void processWrapper(int code(char **args), char ** arg);
+int blockProcess(int pid);
+int toggleBlockProcess(int pid);

@@ -1,21 +1,4 @@
 make all
-exit
-cd root
-make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make al
-make all
 ./run.sh 
 exit
 cd root
@@ -497,4 +480,21 @@ gdb
 gdb
 gdb
 clear
+exit
+cd root
+make clean
+make all
+make clean
+make all
+make clean
+make all
+exit
+cd root
+make clean
+make all
+exit
+cd root
+ls
+make clean
+make all
 exit
