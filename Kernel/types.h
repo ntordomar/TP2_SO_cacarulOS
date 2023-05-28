@@ -3,6 +3,7 @@
 #define RUNNING 2
 
 #include <stdint.h>
+#include <stddef.h>
 
 typedef struct memoryBlock {
     uint64_t * base;
@@ -21,6 +22,7 @@ typedef struct processType {
 
 typedef struct PCB {
     size_t priority;
+    size_t ticks;
     processType * process;
 } PCB;
 

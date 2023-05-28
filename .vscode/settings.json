@@ -32,7 +32,10 @@
         "heap.h": "c",
         "types.h": "c",
         "video.h": "c",
-        "moduleloader.h": "c"
+        "moduleloader.h": "c",
+        "string": "c",
+        "stdlib.h": "c",
+        "queueadt.h": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

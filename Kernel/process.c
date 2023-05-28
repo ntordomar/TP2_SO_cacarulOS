@@ -1,6 +1,6 @@
 #include "./include/process.h"
 #include <video.h>
-int biggerPidAvailable = 4;
+int biggerPidAvailable = 1;
 
 int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, char ** args, void* code){
     if(code == NULL || name == NULL){
@@ -19,8 +19,13 @@ int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, ch
         return -1;
     }
     strcpy(process->name, name);
+    if(parent == -1){
+        process->parent = getCurrentPid(); //getCurrentPid(); // esta funcion va a estar implementada en el scheduler
+    }else{
+        process->parent = parent;
+    }
+
     
-    process->parent = 0; //getCurrentPid(); // esta funcion va a estar implementada en el scheduler
 
     process->heap = (uint64_t *)malloc(sizeof(memoryBlock));
     if(process->heap == NULL){

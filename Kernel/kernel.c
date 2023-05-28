@@ -8,11 +8,12 @@
 #include <interrupts.h>
 #include <speaker.h>
 #include <process.h>
-// #include "./Scheduler/scheduler.h"
+#include <time.h>
+// #include <scheduler.h>
 
 int borrar();
 int borrar3();
-int borrar2 = 300;
+int borrar2();
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
@@ -57,7 +58,8 @@ void * initializeKernelBinary()
 	clearBSS(&bss, &endOfKernel - &bss);
 	return getStackBase();
 }
-
+int pid;
+int shPid;
 int main()
 {
 
@@ -67,14 +69,16 @@ int main()
 	// draw_string(100,100,"EJEMPLIN", 10, GREEN, BLACK);
 	// while(1);
 	initScheduler(1);
-	int pid = createProcess("borrar", 0, 4*4096, 4*4096, shellArgs, &borrar); // CAMBIOS
-	int shPid = createProcess("shell", 0, 4*4096, 4*4096, shellArgs, &borrar3); // CAMBIOS
-	includeTerminal(shPid);
+	 pid = createProcess("borrar", 0, 4096, 4096, shellArgs, &borrar2); // CAMBIOS
+	createProcess("jua", 0, 4096, 4096, shellArgs, &borrar); // CAMBIOS
+	 shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3); // CAMBIOS
+	changePriority(shPid, MIN_PRIORITY);
+	includeTerminal(pid);
 	
 	// ((EntryPoint)sampleCodeModuleAddress)(); //Calling sampleCodeModule's main address
 	while(1){
-		draw_string(100,100,"1", 2, GREEN, BLACK);
-		draw_string(100,100,"0", 2, GREEN, BLACK);
+		// draw_string(100,100,"1", 2, GREEN, BLACK);
+		// draw_string(100,100,"0", 2, GREEN, BLACK);
 	}
 	return 0;
 }
@@ -82,15 +86,24 @@ int main()
 int borrar(){
     
     while(1){
-	draw_string(300,100,"EJEMPLIN", 0x0F, GREEN, BLACK);	
+	draw_char(10,200,'.', GREEN, BLACK);
+	draw_char(10,200,'-', GREEN, BLACK);		
 	}
     return 0;
+}
+int borrar2(){
+	 while(1){
+	draw_char(10,400,'.', GREEN, BLACK);
+	draw_char(10,400,'-', GREEN, BLACK);		
+	}
+	return 0;
 }
 
 int borrar3(){
 
-	while(1){
-		draw_string(500,100,"HOLA", 0x0F, GREEN, BLACK);
+	 while(1){
+	draw_char(10,600,'.', GREEN, BLACK);
+	draw_char(10,600,'-', GREEN, BLACK);		
 	}
     return 0;
 }

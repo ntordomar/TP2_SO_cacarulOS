@@ -33,7 +33,7 @@ EXTERN keyHandler
 EXTERN getStackBase
 EXTERN switchProcess
 EXTERN schedulerIsEnabled
-EXTERN getRegistersDebugger
+EXTERN hasMoreTicks
 
 
 SECTION .text
@@ -213,7 +213,12 @@ _irq00Handler:
 	call schedulerIsEnabled
 	cmp rax,0
 	je .noSwitch
-
+; cambia, si se cumplieron los 5*priorityQ[process.priority]
+	; tenemos que crear una funcion que nos retorne 1 si es hora de cambiar
+	call hasMoreTicks
+	cmp rax, 1
+	je .noSwitch
+	
 	mov rdi, rsp ; Paso como argumento el stack pointer actual para poder intercambiar el proceso
 	mov rsi, ss
 	call switchProcess
