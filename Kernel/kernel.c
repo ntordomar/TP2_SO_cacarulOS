@@ -11,9 +11,9 @@
 #include <time.h>
 // #include <scheduler.h>
 
-int borrar();
-int borrar3();
-int borrar2();
+int borrar(char ** args);
+int borrar3(char ** args);
+int borrar2(char ** args);
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
@@ -59,6 +59,7 @@ void * initializeKernelBinary()
 	return getStackBase();
 }
 int pid;
+int pid2;
 int shPid;
 int main()
 {
@@ -66,13 +67,11 @@ int main()
 	load_idt(); //Setup idt before terminal runs
 	save_original_regs();
 	restore_stack();
-	// draw_string(100,100,"EJEMPLIN", 10, GREEN, BLACK);
-	// while(1);
-	initScheduler(1);
-	 pid = createProcess("borrar", 0, 4096, 4096, shellArgs, &borrar2); // CAMBIOS
-	createProcess("jua", 0, 4096, 4096, shellArgs, &borrar); // CAMBIOS
-	 shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3); // CAMBIOS
-	changePriority(shPid, MIN_PRIORITY);
+	initScheduler();
+	 pid = createProcess("borrar", 0, 4096, 4096, shellArgs, &borrar);
+	 pid2= createProcess("jua", 0, 4096, 4096, shellArgs, &borrar2);
+	 shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
+
 	includeTerminal(pid);
 	
 	// ((EntryPoint)sampleCodeModuleAddress)(); //Calling sampleCodeModule's main address
@@ -83,27 +82,34 @@ int main()
 	return 0;
 }
 
-int borrar(){
+int borrar(char ** args) {
     
-    while(1){
-	draw_char(10,200,'.', GREEN, BLACK);
-	draw_char(10,200,'-', GREEN, BLACK);		
+    
+	for(int i = 0; i<100000; i++){
+	draw_char(10,200,'C', GREEN, BLACK);
+	draw_char(10,200,'D', GREEN, BLACK);		
 	}
+	killProcess(pid2);
+	killProcess(shPid);
+	hold(8*18);
+	createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
     return 0;
 }
-int borrar2(){
-	 while(1){
-	draw_char(10,400,'.', GREEN, BLACK);
-	draw_char(10,400,'-', GREEN, BLACK);		
+int borrar2(char ** args) {
+	
+	while(1){
+		draw_char(10,400,'A', GREEN, BLACK);
+		draw_char(10,400,'B', GREEN, BLACK);
 	}
+	
 	return 0;
 }
 
-int borrar3(){
+int borrar3(char ** args) {
 
 	 while(1){
-	draw_char(10,600,'.', GREEN, BLACK);
-	draw_char(10,600,'-', GREEN, BLACK);		
+	draw_char(10,600,'E', GREEN, BLACK);
+	draw_char(10,600,'F', GREEN, BLACK);		
 	}
     return 0;
 }

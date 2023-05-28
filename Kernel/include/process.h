@@ -15,5 +15,6 @@
 #define CANT_REGISTER 15
 
 int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, char ** args, void * code);
-int createProcessStack(uint64_t * code, char** args, uint64_t * stackStart);
 int getNewPid();
+int killProcess(int pid);
+void processWrapper(int code(char **args), char ** arg);

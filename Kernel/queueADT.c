@@ -104,7 +104,7 @@ PCB* dequeueByData(Queue* queue, int pid) {
             if (prev != NULL)
                 prev->next = current->next;
 
-            // free(current);
+            free(current);
             return deletedData;
         }
 

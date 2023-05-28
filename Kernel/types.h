@@ -1,6 +1,8 @@
 #define READY 0
 #define BLOCKED 1
 #define RUNNING 2
+#define ZOMBIE 3
+#define DEAD 4
 
 #include <stdint.h>
 #include <stddef.h>
@@ -18,6 +20,7 @@ typedef struct processType {
     memoryBlock * heap;
     memoryBlock * stack;
     int status;
+    int return_value;
 } processType;
 
 typedef struct PCB {

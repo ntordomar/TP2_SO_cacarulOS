@@ -35,7 +35,8 @@
         "moduleloader.h": "c",
         "string": "c",
         "stdlib.h": "c",
-        "queueadt.h": "c"
+        "queueadt.h": "c",
+        "*.tcc": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

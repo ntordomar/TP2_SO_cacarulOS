@@ -55,47 +55,41 @@ int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, ch
     // LO AGREGO A MI LISTA DE PROCESOS. ANALIZAR TODOS JUNTOS, TIPO PARA QUE QUEREMOS ESO SI YA LO TENEMOS EN EL SCHEDULER
     // ahora deberia agregarlo a la lista en el scheduler, y tmb deberia crear toda la estructura del stack
     // createProcessStack(code, args, (uint64_t *)process->stack->base + process->stack->size);  
-    process->stack->current = createStack((char *)process->stack->base+process->stack->size,code,args);
+    process->stack->current = createStack((char *)process->stack->base+process->stack->size,code,args,&processWrapper);
     addProcess(process);
     return process->pid;
 }
 
-int createProcessStack(uint64_t * code, char** args, uint64_t * stackStart){
-//     *(STACKPOS(RDI)) = (uint64_t *) args;
-
-//     for (int i = 7; i<21 ; i++){
-//         if (i != 12) {
-//             *(STACKPOS(i*8)) = 1;
-//         }
-//     }
-
-//     // pisamos el valor de RDI, puesto que ahi va a estar el puntero a los argumentos
-//     // *(STACKPOS(RDI)) = (uint8_t *) args;
-
-//     *(STACKPOS(RIP)) = (uint64_t *) code;
-//     *(STACKPOS(CS)) = 0x8;
-//     *(STACKPOS(RFLAGS)) = 0x202;
-//     *(STACKPOS(RSP)) = (uint64_t*)stackStart-8; // mirar grafico para mejor entendimiento
-//     *(STACKPOS(SS)) = 0x0;
-//     *(STACKPOS(8)) = (uint64_t) &getRegistersDebugger;
-
-
-//     // el stack start va a ser donde empieza el stack, la posicion mas alta de memoria, dsps va a bajar.
-//     // abajo de todo 
-//     /*  
-//                      0000000000
-//                      12ava -> RDI          (stackStart - 1*12)           
-//                      . . .
-//                      . . .
-//                      . . .
-//                      SEGUNDO BLOQUE (2)
-//             RSP ->   PRIMER BLOQUE (stackStart - 1 * 8)
-//       stackStart ->  FFFFFFFFFF
-//     */
-   return 0;
-}
 
 int getNewPid(){
     return biggerPidAvailable++;
 
 }
+
+int killProcess(int pid){
+
+    PCB * processPCB = findPcbEntry(pid);
+
+    if(processPCB == NULL || processPCB->process == NULL){
+        return -1;
+    }
+
+    if (findPcbEntry(processPCB->process->parent) == NULL) {
+        processPCB->process->status = DEAD;
+    } else {
+        processPCB->process->status = ZOMBIE;
+    }
+    
+    if(pid == getCurrentPid()){    
+        forceScheduler();
+    }
+    return 0;
+}
+
+void processWrapper(int code(char **args), char ** args){
+    int ret = code(args);
+    draw_char(300, 300, 'A', GREEN, BLACK);
+    killProcess(getCurrentPid());
+    draw_char(300, 350, 'B', GREEN, BLACK);
+}
+

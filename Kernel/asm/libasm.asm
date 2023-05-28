@@ -11,6 +11,8 @@ GLOBAL getRDI
 GLOBAL getRegisters
 GLOBAL getMemory
 
+
+
 extern sysInterruptions
 section .text
 	
@@ -70,7 +72,6 @@ getHours:
 	mov rsp,rbp
 	pop rbp
 	ret
-
 
 getKey:
 	push rbp

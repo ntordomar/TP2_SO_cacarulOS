@@ -17,6 +17,7 @@ GLOBAL restore_stack
 GLOBAL createStack
 GLOBAL save_original_regs
 GLOBAL forceChangeOfProcess
+GLOBAL forceScheduler
 
 ;----------------------
 ;inforeg and exceptions arrays of registers.
@@ -35,6 +36,7 @@ EXTERN switchProcess
 EXTERN schedulerIsEnabled
 EXTERN hasMoreTicks
 
+EXTERN debug
 
 SECTION .text
 
@@ -352,30 +354,31 @@ restore_stack:
 	mov rbx,[prevBS]
 	ret
 
-createStack: ;RDI EL STACK - RSI CODE - RDX ARGS
+createStack: ;RDI EL STACK - RSI CODE - RDX ARGS - R10 WRAPPER
 	mov r8,rsp ; preservo viejo RSP
 	mov rsp,rdi
 	push 0x0 ; el SS
 	push rdi ; el RSP
 	push 0x202 ; el RFLAGS
 	push 0x8 ; el CS
-	push rsi ; el RIP
+
+	push rcx ; el RIP ahora es el wrapper.
+
 	push 0x0 ; el RAX
-	mov rdi,rdx ; los argumentos
 	push 0x1 ;rbx
-    push 0x2
-    push 0x3
-    push 0x4
-    push rdx ; no tocar, son los argumentos
-    push 0x6
-    push 0x7
-    push 0x8
-    push 0x9
-    push 0x10
-    push 0x11
-    push 0x12
-    push 0x13
-    push 0x14
+    push 0x2 ;rcx
+    push 0x3 ; rdx
+    push 0x4 ;rbp
+    push RSI ; RDI->PRIMER ARGUMENTO WRAPPER (code)
+    push RDX ; RSI->SEGUNDO ARGUMENTO WRAPPER. (args del code)
+    push 0x7 ; r8
+    push 0x8 ; r9
+    push 0x9 ; r10
+    push 0x10 ; r11
+    push 0x11 ; r12
+    push 0x12 ; r13
+    push 0x13 ; r14
+    push 0x14 ; r15
 	mov rax,rsp ; el RSP
 	mov rsp,r8 ; restauro el RSP
 	ret
@@ -385,6 +388,10 @@ forceChangeOfProcess:
 	popState
 	iretq
 
+forceScheduler:
+	call debug
+	int 20h
+	ret
 
 SECTION .data
 	capturedReg dq 0	;regs captured -> 1. regs not captured yet -> 0

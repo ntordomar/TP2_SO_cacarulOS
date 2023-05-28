@@ -10,7 +10,7 @@
 
 
 uint8_t schedulerIsEnabled();
-void initScheduler(int pid);
+void initScheduler();
 void includeTerminal(int pid);
 void addProcess(processType * process);
 void stopProcess(uint64_t * stackPointer, uint64_t * stackSegment);

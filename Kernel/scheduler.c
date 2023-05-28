@@ -16,7 +16,7 @@ uint8_t schedulerIsEnabled() {
     return enabled;
 }
 
-void initScheduler(int pid) {
+void initScheduler() {
     for(int i = MIN_PRIORITY; i <= MAX_PRIORITY; i++) {
         queues[i] = createQueue();
     }
@@ -77,9 +77,17 @@ PCB* findNextAvailableProcess() {
 uint64_t * switchProcess(uint64_t * stackPointer, uint64_t * stackSegment) {
     stopProcess(stackPointer, stackSegment);
     schNode * nextAvailableProcess;
-    nextAvailableProcess = findNextAvailableProcess(); 
-    currentPCB->process->status = READY; // el proceso actual pasa a estar ready
-    currentPCB->ticks = 0;
+    nextAvailableProcess = findNextAvailableProcess();
+    if (currentPCB->process->status == RUNNING) {
+        currentPCB->process->status = READY; // el proceso actual pasa a estar ready
+        currentPCB->ticks = 0;    
+    } else if (currentPCB->process->status == DEAD) {
+        dequeueByData(queues[currentPCB->priority],currentPCB->process->pid);
+        // freeProcess(currentPCB->process);
+        free(currentPCB);
+    }
+
+    
     currentPCB = nextAvailableProcess; // el proceso actual es el que encontre.
     currentPCB->process->status = RUNNING; // el proceso actual pasa a estar running
     return  currentPCB->process->stack->current;
@@ -115,6 +123,7 @@ void changePriority(int pid, int newPriority) {
 }
 
 int hasMoreTicks() {
+    if(currentPCB->process->status != RUNNING) return 0;
     if(currentPCB->ticks >= priorityQuantum[currentPCB->priority] * QUANTUM) {
         return 0;
     } else {
@@ -123,3 +132,7 @@ int hasMoreTicks() {
     }
 }       
 
+void removeProcess(PCB * pcb) {
+    dequeueByData(queues[pcb->priority], pcb->process->pid);
+    cantProcess--;
+}

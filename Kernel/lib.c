@@ -108,6 +108,6 @@ char * strcpy(char* destination, const char* source){
     return ptr;
 }
 
-void getRegistersDebugger(){
+void debug(){
     return;
 }
