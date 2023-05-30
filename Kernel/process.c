@@ -125,5 +125,3 @@ void processWrapper(int code(char **args), char **args)
     killProcess(getCurrentPid());
     draw_char(300, 350, 'B', GREEN, BLACK);
 }
-
-

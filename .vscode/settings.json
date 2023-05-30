@@ -36,7 +36,8 @@
         "string": "c",
         "stdlib.h": "c",
         "queueadt.h": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "cstring": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

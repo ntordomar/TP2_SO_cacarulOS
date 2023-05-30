@@ -1,5 +1,3 @@
-cd root
-clear
 make all
 make clean
 make all
@@ -497,4 +495,6 @@ exit
 make all
 cd root
 make all
+exit
+man sem_signal
 exit
