@@ -1,30 +1,3 @@
-make all
-./run.sh 
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make all
-make all
-make all
-clear
-make all
-clear
-make all
-make all
-exeit
-exit
 cd root
 clear
 make all
@@ -496,5 +469,32 @@ exit
 cd root
 ls
 make clean
+make all
+exit
+cd root
+make clean
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+CD ROOT
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+make all
+cd root
 make all
 exit

@@ -21,3 +21,4 @@ PCB * findPcbEntry(int pid);
 int getCurrentPid();
 void changePriority(int pid, int newPriority);
 int hasMoreTicks();
+PCB* getIdleProcessPCB();
