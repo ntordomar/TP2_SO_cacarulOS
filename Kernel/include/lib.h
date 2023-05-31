@@ -8,7 +8,7 @@ void * memcpy(void * destination, const void * source, uint64_t length);
 void itoa(uint64_t value, char* buffer, uint16_t base);
 int strlen(char * s);
 char * strcpy(char* destination, const char* source);
-
+int strcmp(char * s1, char * s2);
 char *cpuVendor(char *result);
 
 //from libasm.asm
