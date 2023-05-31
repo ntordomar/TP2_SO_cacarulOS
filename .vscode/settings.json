@@ -37,7 +37,8 @@
         "stdlib.h": "c",
         "queueadt.h": "c",
         "*.tcc": "c",
-        "cstring": "c"
+        "cstring": "c",
+        "semaphore.h": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

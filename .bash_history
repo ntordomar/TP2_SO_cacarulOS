@@ -1,23 +1,4 @@
 make all
-make clean
-make all
-exit
-cd root
-make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
 exit
 cd root
 make all
@@ -497,4 +478,23 @@ cd root
 make all
 exit
 man sem_signal
+exit
+cd root
+make all
+exit
+cd root
+make clean
+make all
+clear
+make clean
+clear
+make all
+make clean
+make all
+exit
+cd root
+make all
+make all
+cd root
+make all
 exit
