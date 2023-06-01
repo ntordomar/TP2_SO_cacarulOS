@@ -7,7 +7,7 @@ semaphoreType *semaphores;
 
 void semInit()
 {
-    semaphores = (semaphoreType *) malloc(sizeof(semaphoreType) * SEM_MAX);
+    semaphores = (semaphoreType *)malloc(sizeof(semaphoreType) * SEM_MAX);
     int i;
     // Initialize all semaphores to NULL
     for (i = 0; i < SEM_MAX; i++)
@@ -38,7 +38,8 @@ sem_t semCreate(char *name, int initValue)
     return i;
 }
 
-sem_t semOpen(char *nameSem) {
+sem_t semOpen(char *nameSem)
+{
     int i = 0;
     // Find semaphore with given name
     while (i < SEM_MAX && (semaphores[i].name == NULL || strcmp(semaphores[i].name, nameSem) != 0))
@@ -50,40 +51,40 @@ sem_t semOpen(char *nameSem) {
         // No semaphore with given name
         return -1;
     }
-    if(semaphores[i].destroying)
+    if (semaphores[i].destroying)
     {
         return -1;
     }
-    
+
     semaphores[i].activeProcesses[getCurrentPid()] = 1;
     semaphores[i].activeProcessCant++;
     return i;
 }
 
-int semClose(sem_t semId){
-    if (semId > SEM_MAX || semId<0 || semaphores[semId].name == NULL || semaphores[semId].activeProcesses[getCurrentPid()] == 0 )
+int semClose(sem_t semId)
+{
+    if (semId > SEM_MAX || semId < 0 || semaphores[semId].name == NULL || semaphores[semId].activeProcesses[getCurrentPid()] == 0)
     {
         return -1;
     }
 
-    
-
     semaphores[semId].activeProcesses[getCurrentPid()] = 0;
     semaphores[semId].activeProcessCant--;
 
-    if(semaphores[semId].activeProcessCant == 0)
+    if (semaphores[semId].activeProcessCant == 0)
     {
-        if(semaphores[semId].destroying)
+        if (semaphores[semId].destroying)
         {
             unblockProcess(semaphores[semId].destroyerPID);
         }
     }
     return 1;
-}   
+}
 
-int semDestroy(sem_t semId){
+int semDestroy(sem_t semId)
+{
 
-    if ( semaphores[semId].name == NULL || semaphores[semId].destroying)
+    if (semaphores[semId].name == NULL || semaphores[semId].destroying)
     {
         return -1;
     }
@@ -91,11 +92,11 @@ int semDestroy(sem_t semId){
     semaphores[semId].destroyerPID = getCurrentPid();
     semaphores[semId].destroying = 1;
 
-
-    if(semaphores[semId].activeProcessCant != 0){
+    if (semaphores[semId].activeProcessCant != 0)
+    {
         blockProcess(getCurrentPid());
     }
-    
+
     // already unblocked
     free(semaphores[semId].name);
     destroyQueue(semaphores[semId].blockedProcesses);
@@ -103,10 +104,11 @@ int semDestroy(sem_t semId){
     return 0;
 }
 
-
-void cleanSemaphore(int semId){
+void cleanSemaphore(int semId)
+{
     semaphores[semId].name = NULL;
-    for(int j = 0; j<MAX_CANT_PROCESSES; j++){
+    for (int j = 0; j < MAX_CANT_PROCESSES; j++)
+    {
         semaphores[semId].activeProcesses[j] = 0;
     }
     semaphores[semId].destroyerPID = -1;
@@ -116,45 +118,59 @@ void cleanSemaphore(int semId){
 
 int semWait(sem_t semId)
 {
-    if (semId < 0 || semId > SEM_MAX){
+    if (semId < 0 || semId > SEM_MAX)
+    {
         return -1;
     }
-    
+
     mutexLock(semId);
-    if(semaphores[semId].value != 0) 
+    if (semaphores[semId].value != 0)
     {
         semaphores[semId].value--;
         mutexUnlock(semId);
-
-    } else {
+    }
+    else
+    {
         enqueue(semaphores[semId].blockedProcesses, getCurrentPCB());
         mutexUnlock(semId);
         blockProcess(getCurrentPid());
-    }  
-    
+    }
 }
 
 int semPost(sem_t semId)
 {
-    if (semId < 0 || semId > SEM_MAX){
+    if (semId < 0 || semId > SEM_MAX)
+    {
         return -1;
     }
-    
+
     mutexLock(semId);
     int semValue = semaphores[semId].value;
-    if(isEmpty(semaphores[semId].blockedProcesses)){
+    if (isEmpty(semaphores[semId].blockedProcesses))
+    {
         semaphores[semId].value++;
     }
     mutexUnlock(semId);
-    if(semValue == 0)
+    if (semValue == 0)
     {
-        PCB* unblockedProcess = dequeue(semaphores[semId].blockedProcesses);
+        PCB *unblockedProcess = dequeue(semaphores[semId].blockedProcesses);
 
-        if(unblockedProcess != NULL)
+        if (unblockedProcess != NULL)
         {
             unblockProcess(unblockedProcess->process->pid);
         }
-        
     }
-    
+}
+
+int semSet(int semId, int value)
+{
+    if (semId < 0 || semId > SEM_MAX)
+    {
+        return -1;
+    }
+
+    mutexLock(semId);
+    semaphores[semId].value = value;
+    mutexUnlock(semId);
+    return 0;
 }

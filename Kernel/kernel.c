@@ -14,7 +14,7 @@
 #include <borrador.h>
 // #include <scheduler.h>
 int testProcess(char **args);
-int tp2(char ** args);
+int tp2(char **args);
 int borrar(char **args);
 int borrar3(char **args);
 int borrar2(char **args);
@@ -30,12 +30,10 @@ static const uint64_t PageSize = 0x1000;
 static void *const sampleCodeModuleAddress = (void *)0x400000;
 static void *const sampleDataModuleAddress = (void *)0x500000;
 
-typedef int (*EntryPoint)(); 	
+typedef int (*EntryPoint)();
 
 char *shellArgs[] = {"shell", NULL};
 char *idleArgs[] = {"idle", NULL};
-
-
 
 void clearBSS(void *bssAddress, uint64_t bssSize)
 {
@@ -80,7 +78,6 @@ int main()
 	createProcess("proc2", 0, 4096, 4096, shellArgs, &proc2);
 	createProcess("proc3", 0, 4096, 4096, shellArgs, &proc3);
 	// shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
-
 
 	/* --- IDLE PROCESS --- */
 	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle);
@@ -143,11 +140,10 @@ int borrar3(char **args)
 	return 0;
 }
 
-
-
-
-int tp2(char ** args){
-	for(int i = 0; i < 10000; i++){
+int tp2(char **args)
+{
+	for (int i = 0; i < 10000; i++)
+	{
 		draw_char(600, 200, 'A', RED, BLACK);
 		draw_char(600, 200, 'B', RED, BLACK);
 	}

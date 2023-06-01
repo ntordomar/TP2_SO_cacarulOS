@@ -1,11 +1,3 @@
-make all
-exit
-cd root
-make clean
-make all
-exit
-make clean
-cd root
 make cleaen
 clean
 make clean
@@ -498,3 +490,11 @@ exit
 cd root
 gdb
 gdb
+cd root
+make all
+exit
+cd root
+gdb
+cd root
+make clean
+exit
