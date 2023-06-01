@@ -4,6 +4,7 @@
 #include <video.h>
 
 semaphoreType *semaphores;
+int anonymousSemId = 0;
 
 void semInit()
 {
@@ -19,7 +20,7 @@ void semInit()
 
 sem_t semCreate(char *name, int initValue)
 {
-    int i = 0;
+    int i = FIRST_USER_SEM;
     // Find first free position in the array
     while (i < SEM_MAX && semaphores[i].name != NULL)
     {
@@ -38,9 +39,19 @@ sem_t semCreate(char *name, int initValue)
     return i;
 }
 
+sem_t semCreateAnonymous(int initValue)
+{
+    semaphores[anonymousSemId].name = "CacarulOS";
+    semaphores[anonymousSemId].value = initValue;
+    semaphores[anonymousSemId].blockedProcesses = createQueue();
+    // semaphores[anonymousSemId].activeProcesses[getCurrentPid()] = 1;
+    semaphores[anonymousSemId].activeProcessCant++;
+    return anonymousSemId++;
+}
+
 sem_t semOpen(char *nameSem)
 {
-    int i = 0;
+    int i = FIRST_USER_SEM;
     // Find semaphore with given name
     while (i < SEM_MAX && (semaphores[i].name == NULL || strcmp(semaphores[i].name, nameSem) != 0))
     {
@@ -164,12 +175,21 @@ int semPost(sem_t semId)
 
 int semSet(int semId, int value)
 {
-    if (semId < 0 || semId > SEM_MAX)
+    if (semId < 0 || semId > SEM_MAX || value < 0)
     {
         return -1;
     }
 
     mutexLock(semId);
+    if (semaphores[semId].value == 0)
+    {
+        mutexUnlock(semId);
+        for (int i = 0; i < value; i++)
+        {
+            semPost(semId);
+        }
+        return 0;
+    }
     semaphores[semId].value = value;
     mutexUnlock(semId);
     return 0;

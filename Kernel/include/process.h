@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdint.h>
 
 
 #define MAX_CANT_PROCESSES 100
@@ -13,3 +12,4 @@ void processWrapper(int code(char **args), char ** arg);
 int blockProcess(int pid);
 int blockProcess(int pid);
 int unblockProcess(int pid);
+void setFileDescriptor(int pid, int index, int value);

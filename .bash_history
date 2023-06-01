@@ -1,78 +1,3 @@
-make cleaen
-clean
-make clean
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make clean
-make all
-ecit
-exit
-cd root
-make clean
-make all
-exit
-ls
-cd root
-make all 
-exit
-cd root
-ls
-make all
-make clean
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-gdb
-gdb
-gfb
-gdb
-gdb
-gdb
-c
-q
-clear
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdv
-gdb
-gdb
-gdb
-clear
-exit
 cd root
 make clean
 make all
@@ -497,4 +422,79 @@ cd root
 gdb
 cd root
 make clean
+exit
+cd root
+make clean
+make all
+make clean
+make all
+make clean
+make all
+make clean
+make all
+exit
+cd root
+make clean
+make all
+make all
+make clean
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+clean
+clear
+make clean
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+exit
+cd root
+make all
+exit
+cd rooy
+cd root
+make clean
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
 exit

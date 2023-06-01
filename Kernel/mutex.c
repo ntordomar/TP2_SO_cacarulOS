@@ -32,7 +32,7 @@ void mutexCreate(mutex_t mutexID)
     }
         
     mutexArray[mutexID].blockedProcesses = createQueue();
-    mutexArray[mutexID].value = 1;
+    mutexArray[mutexID].value = 0;
     mutexArray[mutexID].currentOwnerPID = -1;
 }
 

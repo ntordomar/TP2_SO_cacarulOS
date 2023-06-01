@@ -1,10 +1,12 @@
 #include <syscalls.h>
-#include <stdint.h>
 #include <video.h>
 #include <keyBoardHandler.h>
 #include <lib.h>
 #include <time.h>
 #include <speaker.h>
+#include <process.h>
+#include <scheduler.h>
+#include <pipe.h>
 
 extern uint8_t capturedReg;
 extern const uint64_t registers[17];
@@ -27,12 +29,28 @@ void _0_empty(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
 
 void _1_write(uint64_t x, uint64_t y, uint64_t c, uint64_t len, uint64_t color)
 {
-    draw_string(x, y, (char *)c, len, color, BLACK);
+    PCB *currentProcessPCB = getCurrentPCB();
+    if (currentProcessPCB->process->fd[FD_WRITE] == SHELL)
+    {
+        draw_string(x, y, (char *)c, len, color, BLACK);
+    }
+    else
+    {
+        pipeWrite(currentProcessPCB->process->fd[FD_WRITE], (char *)c, len);
+    }
 }
 
 void _2_read(uint64_t buffer, uint64_t length, uint64_t r3, uint64_t r4, uint64_t r5)
 {
-    ((char *)buffer)[0] = nextElement();
+    PCB *currentProcessPCB = getCurrentPCB();
+    if (currentProcessPCB->process->fd[FD_READ] == SHELL)
+    {
+        ((char *)buffer)[0] = nextElement();
+    }
+    else
+    {
+        pipeRead(currentProcessPCB->process->fd[FD_READ], (char *)buffer, length);
+    }
 }
 
 void _3_draw_rectangle(uint64_t x, uint64_t y, uint64_t w, uint64_t h, uint64_t color)

@@ -1,25 +1,21 @@
 #include <borrador.h>
 #include <video.h>
-#include "./include/sync.h"
+#include <pipe.h>
+#include <scheduler.h>
+#include <process.h>
+#include <heap.h>
 
 int proc2(char **args)
 {
-
-	int semp2 = semOpen("tordox");
-
-	semWait(semp2);
-	for (int i = 0; i < 10000; i++)
+	int pipe = getPipeIdByName(10);
+	setFileDescriptor(getCurrentPid(), FD_READ, pipe);
+	char *buff = malloc(5);
+	pipeRead(pipe, buff, 5);
+	while (1)
 	{
-		draw_char(10, 60, 'A', RED, BLACK);
-		draw_char(10, 60, 'B', RED, BLACK);
+		draw_string(100, 100, buff, 5, RED, BLACK);
+		draw_char(300, 100, 'O', GREEN, BLACK);
 	}
-	semPost(semp2);
-	for (int i = 0; i < 20000; i++)
-	{
-		draw_char(10, 60, 'A', GREEN, BLACK);
-		draw_char(10, 60, 'B', GREEN, BLACK);
-	}
-	semClose(semp2);
 
 	return 0;
 }

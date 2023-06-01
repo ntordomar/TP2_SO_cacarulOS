@@ -43,7 +43,10 @@
         "sync.h": "c",
         "__locale": "c",
         "typeinfo": "c",
-        "compare": "c"
+        "compare": "c",
+        "pipe.h": "c",
+        "borrador.h": "c",
+        "idle.h": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

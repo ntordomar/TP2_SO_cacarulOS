@@ -62,6 +62,11 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->stack->current = process->stack->base + process->stack->size;
     process->status = READY;
 
+    //Setting IN OUT and ERROR file descriptors to the shell as default.
+    process->fd[FD_READ] = SHELL;
+    process->fd[FD_WRITE] = SHELL;
+    process->fd[FD_ERROR] = SHELL;
+
     // A PARTIR DE ESTE PUNTO YA PUSIMOS TODA LA INFORMACION ADENTRO DEL PROCESO.
     // LO AGREGO A MI LISTA DE PROCESOS. ANALIZAR TODOS JUNTOS, TIPO PARA QUE QUEREMOS ESO SI YA LO TENEMOS EN EL SCHEDULER
     // ahora deberia agregarlo a la lista en el scheduler, y tmb deberia crear toda la estructura del stack
@@ -102,8 +107,8 @@ int killProcess(int pid)
     return 0;
 }
 
-
-int blockProcess(int pid){
+int blockProcess(int pid)
+{
 
     PCB *processPCB = findPcbEntry(pid);
 
@@ -118,11 +123,12 @@ int blockProcess(int pid){
     {
         forceScheduler();
     }
-    
+
     return 0;
 }
 
-int unblockProcess(int pid){
+int unblockProcess(int pid)
+{
     PCB *processPCB = findPcbEntry(pid);
 
     if (processPCB == NULL || processPCB->process == NULL)
@@ -138,4 +144,9 @@ void processWrapper(int code(char **args), char **args)
 {
     int ret = code(args);
     killProcess(getCurrentPid());
+}
+
+void setFileDescriptor(int pid, int index, int value)
+{
+    findPcbEntry(pid)->process->fd[index] = value;
 }

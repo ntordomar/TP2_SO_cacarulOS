@@ -7,7 +7,8 @@
 
 typedef int sem_t;
 
-#define SEM_MAX 100
+#define SEM_MAX 200
+#define FIRST_USER_SEM 100
 
 typedef struct
 {
@@ -28,6 +29,7 @@ int semWait(sem_t semId);                   // Decrements semaphore, or blocks p
 int semPost(sem_t semId);                   // Increments semaphore
 void semInit();                             // Initializes the semaphore array
 int semSet(int semId, int value);           // Sets the value of the semaphore
+sem_t semCreateAnonymous(int initValue);    // Creates an anonymous semaphore
 
 typedef int mutex_t;
 

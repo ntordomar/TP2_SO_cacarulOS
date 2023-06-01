@@ -128,6 +128,8 @@ enterCriticalRegion:
 	mov rsp, rbp
 	pop rbp
 
+	ret
+
 ;void getMemory(int memoryPos, unsigned char * res)
 ;RDI la memoryPos RSI res
 getMemory:
