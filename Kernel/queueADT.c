@@ -1,4 +1,5 @@
 #include <queueADT.h>
+#include <heap.h>
 
 // Crear una nueva cola
 Queue *createQueue()
@@ -47,7 +48,7 @@ PCB *dequeue(Queue *queue)
 {
     if (isEmpty(queue))
     {
-        return -1; // Valor centinela para indicar una cola vacía
+        return NULL; // Valor centinela para indicar una cola vacía
     }
     Node *temp = queue->front;
     int data = temp->data;

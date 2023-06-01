@@ -1,4 +1,5 @@
 #include "./include/scheduler.h"
+#include "heap.h"
 int priorityQuantum[6] = {1, 16, 8, 4, 2, 1};
 
 PCB *currentPCB;
@@ -125,6 +126,10 @@ PCB *findPcbEntry(int pid)
 int getCurrentPid()
 {
     return currentPCB->process->pid;
+}
+
+PCB* getCurrentPCB(){
+    return currentPCB;
 }
 
 void changePriority(int pid, int newPriority)

@@ -10,8 +10,11 @@
 #include <process.h>
 #include <time.h>
 #include <idle.h>
+#include "./include/sync.h"
+#include <borrador.h>
 // #include <scheduler.h>
-
+int testProcess(char **args);
+int tp2(char ** args);
 int borrar(char **args);
 int borrar3(char **args);
 int borrar2(char **args);
@@ -27,10 +30,12 @@ static const uint64_t PageSize = 0x1000;
 static void *const sampleCodeModuleAddress = (void *)0x400000;
 static void *const sampleDataModuleAddress = (void *)0x500000;
 
-typedef int (*EntryPoint)();
+typedef int (*EntryPoint)(); 	
 
 char *shellArgs[] = {"shell", NULL};
 char *idleArgs[] = {"idle", NULL};
+
+
 
 void clearBSS(void *bssAddress, uint64_t bssSize)
 {
@@ -68,9 +73,15 @@ int main()
 	save_original_regs();
 	restore_stack();
 	initScheduler();
-	pid = createProcess("borrar", 0, 4096, 4096, shellArgs, &borrar);
-	pid2 = createProcess("jua", 0, 4096, 4096, shellArgs, &borrar2);
-	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
+	semInit();
+
+	semCreate("mutex", 1);
+	draw_char(10, 400, 'C', RED, BLACK);
+	pid = createProcess("proc1", 0, 4096, 4096, shellArgs, &proc1);
+	createProcess("proc2", 0, 4096, 4096, shellArgs, &proc2);
+	createProcess("proc3", 0, 4096, 4096, shellArgs, &proc3);
+	// shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
+
 
 	/* --- IDLE PROCESS --- */
 	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle);
@@ -91,14 +102,14 @@ int borrar(char **args)
 {
 
 	hold(4 * 18);
-	toggleBlockProcess(pid2);
+	blockProcess(pid2);
 
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < 50000; i++)
 	{
 		draw_char(10, 200, 'C', RED, BLACK);
 		draw_char(10, 200, 'D', RED, BLACK);
 	}
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < 50000; i++)
 	{
 		draw_char(10, 200, 'C', GREEN, BLACK);
 		draw_char(10, 200, 'D', GREEN, BLACK);
@@ -130,5 +141,18 @@ int borrar3(char **args)
 		draw_char(10, 600, 'E', GREEN, BLACK);
 		draw_char(10, 600, 'F', GREEN, BLACK);
 	}
+	return 0;
+}
+
+
+
+
+int tp2(char ** args){
+	for(int i = 0; i < 10000; i++){
+		draw_char(600, 200, 'A', RED, BLACK);
+		draw_char(600, 200, 'B', RED, BLACK);
+	}
+	int semaux = semOpen("pruebax");
+	semPost(semaux);
 	return 0;
 }

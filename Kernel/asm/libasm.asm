@@ -10,6 +10,8 @@ GLOBAL hlt
 GLOBAL getRDI
 GLOBAL getRegisters
 GLOBAL getMemory
+GLOBAL enterCriticalRegion
+
 
 
 
@@ -116,6 +118,15 @@ hlt:
 	hlt
 	ret
 
+enterCriticalRegion:
+	push rbp
+	mov rbp, rsp
+
+	mov eax, 1
+	xchg eax, [rdi]
+
+	mov rsp, rbp
+	pop rbp
 
 ;void getMemory(int memoryPos, unsigned char * res)
 ;RDI la memoryPos RSI res

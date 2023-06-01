@@ -1,5 +1,8 @@
 #include "./include/process.h"
 #include <video.h>
+#include "../include/heap.h"
+#include "../include/lib.h"
+#include "../include/scheduler.h"
 int biggerPidAvailable = 1;
 
 int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code)
@@ -99,8 +102,9 @@ int killProcess(int pid)
     return 0;
 }
 
-int toggleBlockProcess(int pid)
-{
+
+int blockProcess(int pid){
+
     PCB *processPCB = findPcbEntry(pid);
 
     if (processPCB == NULL || processPCB->process == NULL)
@@ -108,13 +112,25 @@ int toggleBlockProcess(int pid)
         return -1;
     }
 
-    int oldProcessStatus = processPCB->process->status;
-    processPCB->process->status = (oldProcessStatus == BLOCKED) ? READY : BLOCKED;
+    processPCB->process->status = BLOCKED;
 
     if (pid == getCurrentPid())
     {
         forceScheduler();
     }
+    
+    return 0;
+}
+
+int unblockProcess(int pid){
+    PCB *processPCB = findPcbEntry(pid);
+
+    if (processPCB == NULL || processPCB->process == NULL)
+    {
+        return -1;
+    }
+
+    processPCB->process->status = READY;
     return 0;
 }
 

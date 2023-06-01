@@ -38,7 +38,12 @@
         "queueadt.h": "c",
         "*.tcc": "c",
         "cstring": "c",
-        "semaphore.h": "c"
+        "semaphore.h": "c",
+        "mutex.h": "c",
+        "sync.h": "c",
+        "__locale": "c",
+        "typeinfo": "c",
+        "compare": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

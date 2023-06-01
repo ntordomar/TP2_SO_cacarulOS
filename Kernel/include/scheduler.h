@@ -1,6 +1,5 @@
 #include <stddef.h>
 #include <stdint.h>
-#include "heap.h"
 #include <queueADT.h>
 
 #define MAX_PRIORITY 5
@@ -19,3 +18,4 @@ int getCurrentPid();
 void changePriority(int pid, int newPriority);
 int hasMoreTicks();
 PCB *getIdleProcessPCB();
+PCB* getCurrentPCB();

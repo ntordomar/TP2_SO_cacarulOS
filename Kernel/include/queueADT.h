@@ -1,5 +1,5 @@
 #include "../types.h"
-#include <heap.h>
+
 // Estructura para el nodo de la cola
 typedef struct node {
     PCB* data;
