@@ -35,12 +35,10 @@ sem_t semCreate(char *name, int initValue)
     strcpy(semaphores[i].name, name);
     semaphores[i].value = initValue;
     semaphores[i].blockedProcesses = createQueue();
-    draw_char(800, 300, 'T', RED, BLACK);
     return i;
 }
 
 sem_t semOpen(char *nameSem) {
-    draw_string(500, 300, nameSem, 6, RED, BLACK);
     int i = 0;
     // Find semaphore with given name
     while (i < SEM_MAX && (semaphores[i].name == NULL || strcmp(semaphores[i].name, nameSem) != 0))

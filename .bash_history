@@ -1,99 +1,4 @@
 make all
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make clean & make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make akk
-make all
-exit
-cd root
-make all
-exit
-make all
-cd root
-make all
-exit
-cd root 
-make clean
-make all
-exit
-cd root
-make all
-exit
-make all
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-ls
-make all
-exit
-cd root
-ls
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd rott
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-exit
-cd root
-make all
 exit
 cd root
 make clean
@@ -498,3 +403,98 @@ exit
 cd root
 make all
 exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make al
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+gdb
+cd root
+make all
+exit
+cd root
+make all
+exit
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+gdb
+gdb

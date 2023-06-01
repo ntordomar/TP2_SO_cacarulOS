@@ -17,6 +17,7 @@ int getMinutes();
 int getHours();
 char getKey();
 void _sti();
+void _cli();
 void hlt();
 void outb(int memoryMap, int output); 
 int inb(int memoryMap); // both inb and outb functions are used for beep, and to write/read in a memory position.

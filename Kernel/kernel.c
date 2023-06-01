@@ -75,8 +75,7 @@ int main()
 	initScheduler();
 	semInit();
 
-	semCreate("mutex", 1);
-	draw_char(10, 400, 'C', RED, BLACK);
+	semCreate("tordox", 1);
 	pid = createProcess("proc1", 0, 4096, 4096, shellArgs, &proc1);
 	createProcess("proc2", 0, 4096, 4096, shellArgs, &proc2);
 	createProcess("proc3", 0, 4096, 4096, shellArgs, &proc3);
