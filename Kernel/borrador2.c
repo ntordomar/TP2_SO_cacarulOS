@@ -11,7 +11,13 @@ int proc2(char **args)
 	setFileDescriptor(getCurrentPid(), FD_READ, pipe);
 	char *buff = malloc(5);
 	pipeRead(pipe, buff, 5);
-	while (1)
+	for(int i = 0; i< 10000; i++)
+	{
+		draw_string(100, 100, buff, 5, RED, BLACK);
+		draw_char(300, 100, 'O', GREEN, BLACK);
+	}
+	pipeRead(pipe, buff, 5);
+	for(int i = 0; i< 10000; i++)
 	{
 		draw_string(100, 100, buff, 5, RED, BLACK);
 		draw_char(300, 100, 'O', GREEN, BLACK);

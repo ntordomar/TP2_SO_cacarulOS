@@ -80,7 +80,7 @@ int main()
 	pid = createProcess("proc1", 0, 4096, 4096, shellArgs, &proc1);
 	
 	createProcess("proc2", 0, 4096, 4096, shellArgs, &proc2);
-		// createProcess("proc3", 0, 4096, 4096, shellArgs, &proc3);
+		createProcess("proc3", 0, 4096, 4096, shellArgs, &proc3);
 		// shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
 
 		/* --- IDLE PROCESS --- */
