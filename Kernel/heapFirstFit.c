@@ -120,3 +120,11 @@ void initHeap(){
     firstBlock->nextFreeBlock = NULL;
     usingHeap = 1;
 }
+
+memoryInfo * getHeapInfo(){
+    memoryInfo * inf = (memoryInfo*) malloc(sizeof(memoryInfo));
+    inf->total = TOTALHEAPSIZE;
+    inf->used = TOTALHEAPSIZE - freeMemory;
+    inf->free = freeMemory;
+    return inf;
+}

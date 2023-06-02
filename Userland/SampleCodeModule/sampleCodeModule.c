@@ -10,21 +10,26 @@
 #include <lettersize.h>
 #include <exceptions.h>
 #include <drawings.h>
+#include <user_syscalls.h>
+#include <stddef.h>
 void help();
 void clear();
 void backspace();
 void newLine();
 void tron();
 void piano();
+void process();
 char *v = (char *)0xB8000 + 79 * 2;
 
-static char *commandList[] = {"HELP", "TRON", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PIANO"};
-static void (*commandFunctions[])(char *param) = {help, tron, lettersize, clear, time, inforeg, memory, divideByZero, opCode, piano};
+static char *commandList[] = {"HELP", "TRON", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PIANO", "PROCESS"};
+static void (*commandFunctions[])(char *param) = {help, tron, lettersize, clear, time, inforeg, memory, divideByZero, opCode, piano, process};
 
-static int commandCount = 10;
+static int commandCount = 11;
 
 static char lineBuffer[256] = {0};
 static int lineCantChar = 0;
+
+int proc(char ** args);
 
 void analizeCommand()
 {
@@ -46,8 +51,14 @@ void analizeCommand()
     lineCantChar = 0;
 }
 
+void process(){
+    char ** args = {"holaaaa", NULL};
+    sys_create_process("holaaaa",args, &proc, 1);
+}
+
 void help()
 {
+
     printf(GREEN, "Welcome to cacarulOS help. The following available commands are:\n\n\n");
     printf(GREEN, "COMMAND name:   USE:\n");
     printf(WHITE, "HELP:       SHOWS YOU THE AVAILABLE COMMANDS, AND THEIR USAGE\n");
@@ -75,10 +86,17 @@ void tron()
     clear();
 }
 
+int proc(char ** args){
+    for(int i = 0; i<100000; i++){
+    printf(BLUE,"Hola soy un proceso\n");
+    printf(GREEN,"Hola soy un proceso\n");
+    }
+}
+
 int main()
 {
     setCharSize(3);
-    setCursorPosition(300, 250);
+    setCursorPosition(270, 250);
     printf(WHITE, "Welcome to cacarulOS");
     cacarulo(430, 400);
     setCharSize(1);

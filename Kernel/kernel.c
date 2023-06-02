@@ -10,23 +10,16 @@
 #include <process.h>
 #include <time.h>
 #include <idle.h>
-#include "./include/sync.h"
-#include <borrador.h>
+// #include "./include/sync.h"
 #include <pipe.h>
-// #include <scheduler.h>
 
-// int testProcess(char **args);
-// int tp2(char **args);
-// int borrar(char **args);
-// int borrar3(char **args);
-// int borrar2(char **args);
 extern uint8_t text;
 extern uint8_t rodata;
 extern uint8_t data;
 extern uint8_t bss;
 extern uint8_t endOfKernelBinary;
 extern uint8_t endOfKernel;
-
+int shPid;
 static const uint64_t PageSize = 0x1000;
 
 static void *const sampleCodeModuleAddress = (void *)0x400000;
@@ -60,9 +53,7 @@ void *initializeKernelBinary()
 	clearBSS(&bss, &endOfKernel - &bss);
 	return getStackBase();
 }
-int pid;
-int pid2;
-int shPid;
+
 
 int idlePid;
 
@@ -74,26 +65,14 @@ int main()
 	restore_stack();
 	initScheduler();
 	semInit();
-	pipeInit();
-
-	// semCreate("tordox", 1);
-	pid = createProcess("proc1", 0, 4096, 4096, shellArgs, &proc1);
-	
-	createProcess("proc2", 0, 4096, 4096, shellArgs, &proc2);
-		createProcess("proc3", 0, 4096, 4096, shellArgs, &proc3);
-		// shPid = createProcess("shell", 0, 4096, 4096, shellArgs, &borrar3);
+	pipeInit();	
+	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress,1);
 
 		/* --- IDLE PROCESS --- */
-	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle);
+	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle,1);
 	changePriority(idlePid, 0);
 
-	includeTerminal(pid);
-
-	// ((EntryPoint)sampleCodeModuleAddress)(); //Calling sampleCodeModule's main address
-	while (1)
-	{
-		// draw_string(100,100,"1", 2, GREEN, BLACK);
-		// draw_string(100,100,"0", 2, GREEN, BLACK);
-	}
+	includeTerminal(shPid);
+	
 	return 0;
 }

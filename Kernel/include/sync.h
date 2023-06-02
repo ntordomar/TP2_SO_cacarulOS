@@ -1,4 +1,5 @@
-#include <queueADT.h>
+#include <scheduler.h>
+
 #include "./process.h"
 // Se abre y me uno con el nombre
 // cuando se abre un semaphore se agrega a la primer posicion del vector libre
@@ -30,6 +31,7 @@ int semPost(sem_t semId);                   // Increments semaphore
 void semInit();                             // Initializes the semaphore array
 int semSet(int semId, int value);           // Sets the value of the semaphore
 sem_t semCreateAnonymous(int initValue);    // Creates an anonymous semaphore
+semInfo* semPrint(sem_t semId);
 
 typedef int mutex_t;
 

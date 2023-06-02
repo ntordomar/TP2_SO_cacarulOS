@@ -256,3 +256,4 @@ void printf(int color, char * str, ...) {
 int isDigit(char c){
     return c >= '0' && c<= '9';
 }
+

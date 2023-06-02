@@ -1,6 +1,5 @@
 #include <pipe.h>
 #include <sync.h>
-#include <heap.h>
 
 pipeType pipeArray[MAX_PIPES];
 

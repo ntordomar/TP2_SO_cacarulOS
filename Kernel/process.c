@@ -1,11 +1,11 @@
 #include "./include/process.h"
 #include <video.h>
-#include "../include/heap.h"
+// #include "../include/heap.h"
 #include "../include/lib.h"
 #include "../include/scheduler.h"
 int biggerPidAvailable = 1;
 
-int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code)
+int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code, char foreground)
 {
     if (code == NULL || name == NULL)
     {
@@ -66,6 +66,8 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->fd[FD_READ] = SHELL;
     process->fd[FD_WRITE] = SHELL;
     process->fd[FD_ERROR] = SHELL;
+
+    process->foreground = foreground;
 
     // A PARTIR DE ESTE PUNTO YA PUSIMOS TODA LA INFORMACION ADENTRO DEL PROCESO.
     // LO AGREGO A MI LISTA DE PROCESOS. ANALIZAR TODOS JUNTOS, TIPO PARA QUE QUEREMOS ESO SI YA LO TENEMOS EN EL SCHEDULER
@@ -149,4 +151,19 @@ void processWrapper(int code(char **args), char **args)
 void setFileDescriptor(int pid, int index, int value)
 {
     findPcbEntry(pid)->process->fd[index] = value;
+}
+
+
+processInfo * getProcessInfo(int pid) 
+{
+    PCB *processPCB = findPcbEntry(pid);
+    processInfo * info = (processInfo *)malloc(sizeof(processInfo));
+    info->pid = pid;
+    info->parent = processPCB->process->parent;
+    info->state = processPCB->process->status;
+    info->foreground = processPCB->process->foreground;
+    info->name = malloc(strlen(processPCB->process->name) + 1);
+    info->name = strcpy(info->name, processPCB->process->name);
+    info->rsp = processPCB->process->stack->current;
+    info->rbp = processPCB->process->stack->base;
 }

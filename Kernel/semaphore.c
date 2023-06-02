@@ -1,7 +1,8 @@
 #include "./include/sync.h"
 #include <lib.h>
-#include <heap.h>
+// #include <heap.h>
 #include <video.h>
+
 
 semaphoreType *semaphores;
 int anonymousSemId = 0;
@@ -193,4 +194,15 @@ int semSet(int semId, int value)
     semaphores[semId].value = value;
     mutexUnlock(semId);
     return 0;
+}
+
+semInfo * semPrint(sem_t semId){
+    semaphoreType semAsked =  semaphores[semId];
+    semInfo * toRet = malloc(sizeof(semInfo));
+    toRet->activeProcessCant = semAsked.activeProcessCant;
+    toRet->name = malloc(strlen(semAsked.name +1));
+    strcpy(toRet->name,semAsked.name);
+    toRet->semValue = semAsked.value;
+    toRet->tryingToDestroy = semAsked.destroying;
+    return toRet;   
 }
