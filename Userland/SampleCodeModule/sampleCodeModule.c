@@ -12,17 +12,27 @@
 #include <drawings.h>
 #include <user_syscalls.h>
 #include <stddef.h>
+#include <tests.h>
 void help();
 void clear();
 void backspace();
 void newLine();
 void tron();
 void piano();
-void process();
-char *v = (char *)0xB8000 + 79 * 2;
 
-static char *commandList[] = {"HELP", "TRON", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PIANO", "PROCESS"};
-static void (*commandFunctions[])(char *param) = {help, tron, lettersize, clear, time, inforeg, memory, divideByZero, opCode, piano, process};
+char *v = (char *)0xB8000 + 79 * 2;
+void test_processes_wrapper(char * param){
+    char ** args;
+    args = sys_malloc(2*sizeof(char*),args);
+    args[0] = sys_malloc(10*sizeof(char),args[0]);
+    if(args == NULL || args[0] == NULL) printf(BLUE,"ERROR\n");
+    strcpy(args[0],param);
+    args[1] = NULL;
+    sys_create_process("processes_test",args, &test_processes, 1);
+
+}
+static char *commandList[] = {"HELP", "TRON", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PIANO", "TESTPROC"};
+static void (*commandFunctions[])(char *param) = {help, tron, lettersize, clear, time, inforeg, memory, divideByZero, opCode, piano, test_processes_wrapper};
 
 static int commandCount = 11;
 

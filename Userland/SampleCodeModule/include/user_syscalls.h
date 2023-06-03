@@ -15,7 +15,7 @@ uint64_t sys_get_regs(int * captured, int * regs);
 
 // NEW SYSCALLS
 
-uint64_t sys_create_process(char * name, char ** args, char * code, int foreground);
+uint64_t sys_create_process(char * name, char ** args, void * code, int foreground);
 uint64_t sys_malloc(int size, void * ptr);
 uint64_t sys_free(void * ptr);
 uint64_t sys_get_pid();

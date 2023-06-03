@@ -96,11 +96,18 @@ int killProcess(int pid)
     if (findPcbEntry(processPCB->process->parent) == NULL)
     {
         processPCB->process->status = DEAD;
+        dequeueByData(queues[processPCB->priority], processPCB);
     }
     else
     {
         processPCB->process->status = ZOMBIE;
     }
+
+    free(processPCB->process->name);
+    free(processPCB->process->heap->base);
+    free(processPCB->process->heap);
+    free(processPCB->process->stack->base);
+    free(processPCB->process->stack);
 
     if (pid == getCurrentPid())
     {

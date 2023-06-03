@@ -148,7 +148,7 @@ uint64_t _14_create_process(uint64_t name, uint64_t args, uint64_t code, uint64_
 uint64_t _15_malloc(uint64_t size, uint64_t ptr, uint64_t r3, uint64_t r4, uint64_t r5) 
 {
    ptr = malloc(size);
-   return ptr == NULL;
+   return ptr;
 }
 
 uint64_t _16_free(uint64_t ptr, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)

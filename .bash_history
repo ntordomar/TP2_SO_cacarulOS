@@ -1,98 +1,3 @@
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-make clean
-make clear
-cd root
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cdroot
-cd root
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-gdb
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make clean
-cd toolchain
-make all
-make clean
-make all
-cd ..
-cd Toolchain
-make all
-make clean
-make all
-cd ..
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make all
-make clean
-make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
 cd root
 make all 
 eit
@@ -498,3 +403,98 @@ exit
 cd root
 make all
 exit
+cd root
+make all
+exit
+cd rot
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make clean
+make all
+make all
+make clean
+clear
+make all
+make all
+make all
+clear
+make all
+make all
+clear
+make all
+clear
+make all
+make all
+clear
+make clean
+clear
+make all
+make clean
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make a;;
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+xeit
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd rot
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+gdb
+gdb
+gdb
+gdb
+gsb
+gdb
+gdb
+gsb
+gdb
+gdb
+gdb
+gdb
