@@ -50,7 +50,9 @@
         "syscalls.h": "c",
         "userlib.h": "c",
         "keyboardhandler.h": "c",
-        "shared.h": "c"
+        "shared.h": "c",
+        "idtloader.h": "c",
+        "interrupts.h": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

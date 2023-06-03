@@ -2,7 +2,6 @@
 #include <video.h>
 #include <lib.h>
 #include <moduleLoader.h>
-#include <naiveConsole.h>
 #include <idtLoader.h>
 #include <syscalls.h>
 #include <interrupts.h>
@@ -54,7 +53,6 @@ void *initializeKernelBinary()
 	return getStackBase();
 }
 
-
 int idlePid;
 
 int main()
@@ -65,14 +63,16 @@ int main()
 	restore_stack();
 	initScheduler();
 	semInit();
-	pipeInit();	
-	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress,1);
+	pipeInit();
 
-		/* --- IDLE PROCESS --- */
-	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle,1);
+	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress, 1);
+
+	/* --- IDLE PROCESS --- */
+	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle, 1);
 	changePriority(idlePid, 0);
 
 	includeTerminal(shPid);
 	
+
 	return 0;
 }

@@ -1,5 +1,6 @@
 #include "./include/scheduler.h"
 #include "heap.h"
+#include <keyBoardHandler.h>
 int priorityQuantum[6] = {1, 16, 8, 4, 2, 1};
 
 PCB *currentPCB;
@@ -27,6 +28,7 @@ void includeTerminal(int pid)
 {
     currentPCB = findPcbEntry(pid);
     currentPCB->process->status = RUNNING;
+    keyboardHandlerInit();
     enabled = 1;
     forceChangeOfProcess(currentPCB->process->stack->current);
 }
