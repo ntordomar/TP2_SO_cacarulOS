@@ -6,6 +6,7 @@
 
 semaphoreType *semaphores;
 int anonymousSemId = 0;
+int userAlreadyExists(char *name);
 
 void semInit()
 {
@@ -21,6 +22,7 @@ void semInit()
 
 sem_t semCreate(char *name, int initValue)
 {
+    if(userAlreadyExists(name)) return -1;
     int i = FIRST_USER_SEM;
     // Find first free position in the array
     while (i < SEM_MAX && semaphores[i].name != NULL)
@@ -205,4 +207,15 @@ semInfo * semPrint(sem_t semId){
     toRet->semValue = semAsked.value;
     toRet->tryingToDestroy = semAsked.destroying;
     return toRet;   
+}
+
+int userAlreadyExists(char *name){
+    for(int i = FIRST_USER_SEM; i<SEM_MAX; i++){
+        if(strcmp(name,semaphores[i].name) == 0) 
+        {
+            return 1;
+        }
+        
+    }
+    return 0;
 }
