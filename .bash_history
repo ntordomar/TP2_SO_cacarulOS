@@ -1,36 +1,3 @@
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make all
 exit
 cd root
 make all
@@ -486,6 +453,39 @@ make clean
 clear
 make all
 exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+gdb
+gdb
+gdb
+gdb
+gdb
 cd root
 make all
 exit

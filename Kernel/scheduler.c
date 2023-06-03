@@ -52,6 +52,10 @@ void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
 {
     currentPCB->process->stack->current = stackPointer; // guardo el stack pointer del proceso actual // CAMBIOS
     currentPCB->process->stack->base = stackSegment;
+    if (currentPCB->priority == IDLE_PRIORITY)
+    {
+        return;
+    }
     if (currentPCB->ticks == priorityQuantum[currentPCB->priority] * QUANTUM) // process runed the whole quantum
     {
         // the process used all its quantum
@@ -61,15 +65,16 @@ void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
         }
         else
         {
+
             dequeueByData(queues[currentPCB->priority], currentPCB->process->pid);
             enqueue(queues[currentPCB->priority], currentPCB);
         }
     }
     else // process didnt run the whole quantum
     {
-        if(currentPCB->priority < MAX_PRIORITY)
+        if (currentPCB->priority < MAX_PRIORITY)
         {
-            int newPriority = currentPCB->priority + (int)(1/(currentPCB->ticks/priorityQuantum[currentPCB->priority] * QUANTUM));
+            int newPriority = currentPCB->priority + (int)(1 / (currentPCB->ticks / priorityQuantum[currentPCB->priority] * QUANTUM));
             changePriority(currentPCB->process->pid, newPriority);
         }
         else
@@ -102,8 +107,12 @@ PCB *findNextAvailableProcess()
 
 uint64_t *switchProcess(uint64_t *stackPointer, uint64_t *stackSegment)
 {
+    // if (currentPCB->priority != IDLE_PRIORITY) // Check if its the idle process.
+    // {
     stopProcess(stackPointer, stackSegment);
-    schNode *nextAvailableProcess;
+    // }
+
+    PCB *nextAvailableProcess;
     nextAvailableProcess = findNextAvailableProcess();
     if (currentPCB->process->status == RUNNING)
     {
@@ -141,7 +150,8 @@ int getCurrentPid()
     return currentPCB->process->pid;
 }
 
-PCB* getCurrentPCB(){
+PCB *getCurrentPCB()
+{
     return currentPCB;
 }
 

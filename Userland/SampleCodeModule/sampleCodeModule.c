@@ -97,8 +97,8 @@ int main()
 {
     setCharSize(3);
     setCursorPosition(270, 250);
-    printf(WHITE, "Welcome to cacarulOS");
-    cacarulo(430, 400);
+    // printf(WHITE, "Welcome to cacarulOS");
+    // cacarulo(430, 400);
     setCharSize(1);
     clear();
     printf(WHITE, "Welcome to cacarulo's terminal. To see available commands, write HELP, followed by an enter.");
@@ -109,7 +109,6 @@ int main()
     while (1)
     {
 
-        hold(1);
         char c = getChar(); // We continously ask if there is a new char to print
 
         if (c != -1 && c != 0)

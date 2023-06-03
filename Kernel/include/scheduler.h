@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <queueADT.h>
 
+#define IDLE_PRIORITY 0
 #define MAX_PRIORITY 5
 #define MIN_PRIORITY 1
 #define QUANTUM 5 // 5 ticks del timer es 1 quantum
