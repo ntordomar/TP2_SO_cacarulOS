@@ -62,7 +62,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->stack->current = process->stack->base + process->stack->size;
     process->status = READY;
 
-    //Setting IN OUT and ERROR file descriptors to the shell as default.
+    // Setting IN OUT and ERROR file descriptors to the shell as default.
     process->fd[FD_READ] = SHELL;
     process->fd[FD_WRITE] = SHELL;
     process->fd[FD_ERROR] = SHELL;
@@ -139,6 +139,10 @@ int unblockProcess(int pid)
     }
 
     processPCB->process->status = READY;
+    if (getCurrentPCB()->priority == -1)
+    {
+        forceScheduler();
+    }
     return 0;
 }
 
@@ -153,11 +157,10 @@ void setFileDescriptor(int pid, int index, int value)
     findPcbEntry(pid)->process->fd[index] = value;
 }
 
-
-processInfo * getProcessInfo(int pid) 
+processInfo *getProcessInfo(int pid)
 {
     PCB *processPCB = findPcbEntry(pid);
-    processInfo * info = (processInfo *)malloc(sizeof(processInfo));
+    processInfo *info = (processInfo *)malloc(sizeof(processInfo));
     info->pid = pid;
     info->parent = processPCB->process->parent;
     info->state = processPCB->process->status;

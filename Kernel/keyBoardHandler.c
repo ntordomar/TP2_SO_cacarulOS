@@ -3,7 +3,7 @@
 #include <lib.h>
 #include <sync.h>
 
-#define BUFFER_SIZE 256
+#define BUFFER_SIZE 1024
 
 static char buff[BUFFER_SIZE] = {0}; // Defining a circular vector that we use as keyboard buffer
 

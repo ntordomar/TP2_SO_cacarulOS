@@ -5,15 +5,6 @@ exit
 cd root
 make all
 exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
 make clean
 make clear
 cd root
@@ -486,6 +477,15 @@ gdb
 gdb
 gdb
 gdb
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
 cd root
 make all
 exit

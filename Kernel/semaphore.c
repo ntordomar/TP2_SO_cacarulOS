@@ -3,7 +3,6 @@
 // #include <heap.h>
 #include <video.h>
 
-
 semaphoreType *semaphores;
 int anonymousSemId = 0;
 int userAlreadyExists(char *name);
@@ -22,7 +21,8 @@ void semInit()
 
 sem_t semCreate(char *name, int initValue)
 {
-    if(userAlreadyExists(name)) return -1;
+    if (userAlreadyExists(name))
+        return -1;
     int i = FIRST_USER_SEM;
     // Find first free position in the array
     while (i < SEM_MAX && semaphores[i].name != NULL)
@@ -164,7 +164,6 @@ int semPost(sem_t semId)
     {
         semaphores[semId].value++;
     }
-    mutexUnlock(semId);
     if (semValue == 0)
     {
         PCB *unblockedProcess = dequeue(semaphores[semId].blockedProcesses);
@@ -174,6 +173,7 @@ int semPost(sem_t semId)
             unblockProcess(unblockedProcess->process->pid);
         }
     }
+    mutexUnlock(semId);
 }
 
 int semSet(int semId, int value)
@@ -198,24 +198,26 @@ int semSet(int semId, int value)
     return 0;
 }
 
-semInfo * semPrint(sem_t semId){
-    semaphoreType semAsked =  semaphores[semId];
-    semInfo * toRet = malloc(sizeof(semInfo));
+semInfo *semPrint(sem_t semId)
+{
+    semaphoreType semAsked = semaphores[semId];
+    semInfo *toRet = malloc(sizeof(semInfo));
     toRet->activeProcessCant = semAsked.activeProcessCant;
-    toRet->name = malloc(strlen(semAsked.name +1));
-    strcpy(toRet->name,semAsked.name);
+    toRet->name = malloc(strlen(semAsked.name + 1));
+    strcpy(toRet->name, semAsked.name);
     toRet->semValue = semAsked.value;
     toRet->tryingToDestroy = semAsked.destroying;
-    return toRet;   
+    return toRet;
 }
 
-int userAlreadyExists(char *name){
-    for(int i = FIRST_USER_SEM; i<SEM_MAX; i++){
-        if(strcmp(name,semaphores[i].name) == 0) 
+int userAlreadyExists(char *name)
+{
+    for (int i = FIRST_USER_SEM; i < SEM_MAX; i++)
+    {
+        if (strcmp(name, semaphores[i].name) == 0)
         {
             return 1;
         }
-        
     }
     return 0;
 }

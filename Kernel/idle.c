@@ -8,8 +8,6 @@ void idle()
 
     while (1)
     {
-        draw_char(200, 200, 'A', RED, BLACK);
-        draw_char(200, 200, 'B', RED, BLACK);
-        // hlt();
+        hlt();
     }
 }

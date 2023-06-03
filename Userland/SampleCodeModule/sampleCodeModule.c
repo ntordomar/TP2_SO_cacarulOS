@@ -26,7 +26,7 @@ static void (*commandFunctions[])(char *param) = {help, tron, lettersize, clear,
 
 static int commandCount = 11;
 
-static char lineBuffer[256] = {0};
+static char lineBuffer[1024] = {0};
 static int lineCantChar = 0;
 
 int proc(char ** args);
