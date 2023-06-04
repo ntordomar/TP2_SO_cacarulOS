@@ -155,7 +155,7 @@ PCB *getCurrentPCB()
     return currentPCB;
 }
 
-void changePriority(int pid, int newPriority)
+int changePriority(int pid, int newPriority)
 {
     PCB *processToChange = findPcbEntry(pid);
 
@@ -173,6 +173,7 @@ void changePriority(int pid, int newPriority)
         processToChange->priority = newPriority;
     }
     enqueue(queues[processToChange->priority], processToChange);
+    return 0;
 }
 
 int hasMoreTicks()

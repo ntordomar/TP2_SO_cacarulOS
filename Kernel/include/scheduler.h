@@ -16,7 +16,7 @@ PCB *findNextAvailableProcess();
 uint64_t *switchProcess(uint64_t *stackPointer, uint64_t *stackSegment);
 PCB *findPcbEntry(int pid);
 int getCurrentPid();
-void changePriority(int pid, int newPriority);
+int changePriority(int pid, int newPriority);
 int hasMoreTicks();
 PCB *getIdleProcessPCB();
 PCB* getCurrentPCB();

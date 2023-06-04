@@ -1,5 +1,9 @@
 #include <userlandApps.h>
 
 int nice(char ** args){
-    return setNiceness(args[0], args[1]);
+    int pid = atoi(args[0]);
+    int nice = atoi(args[1]);
+    setNiceness(pid, nice);
+    printf(BLUE, "VOLVI6\n");
+    return 0;
 }

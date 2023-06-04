@@ -277,5 +277,12 @@ void * malloc(int size){
 }
 
 int setNiceness(int pid, int prio){
-    return sys_nice(pid, prio);
+    sys_nice(pid, prio);
+    printf(BLUE, "Volvi 4 \n");
+    return 0;
+}
+
+int setBlock(int pid){
+    sys_block(pid);
+    return 0;
 }

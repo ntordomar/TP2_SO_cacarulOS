@@ -21,25 +21,27 @@ static int commandCount = 13;
 static char lineBuffer[1024] = {0};
 static int lineCantChar = 0;
 
-static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE","TESTPROCESS"};
-static int (*commandFunctions[])(char ** param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, test_processes};
-
-char ** args = {"help", NULL};
+static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK"};
+static int (*commandFunctions[])(char ** param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block};
 
 void analizeCommand()
 {
     char argument[50];
+    char argument2[50];
     divideString(lineBuffer, argument, ' ');
+    divideString(argument, argument2, ' ');
     for (int i = 0; i < commandCount; i++)
     {
         if (strcmp(lineBuffer, commandList[i]) == 0)
         { // If theres a match, the command function gets called
 
             char ** args;
-            args = sys_malloc(2*sizeof(char*),args); //CAMBIAR A QUE NO SEA LA SYSCALL!
+            args = sys_malloc(3*sizeof(char*),args); //CAMBIAR A QUE NO SEA LA SYSCALL!
             args[0] = sys_malloc(50, args[0]);
             strcpy(args[0], argument);
-            args[1] = NULL;
+            args[1] = sys_malloc(50, args[1]);
+            strcpy(args[1], argument2);
+            args[2] = NULL;
             sys_create_process(commandList[i], args, commandFunctions[i], 1);
             // (*commandFunctions[i])(argument); // CAMBIAR A CREAR UN PROCESO CON EL CODIGO 
             lineCantChar = 0;

@@ -42,8 +42,10 @@ int killProcess(int pid);
 int * getProcesses();
 processInfo * getProcessInfo(int pid);
 void * malloc(int size);
+int setBlock(int pid);
 
 int setNiceness(int pid, int prio);
+
 
 //https://www.techiedelight.com/implement-strcpy-function-c/
 char * strcpy(char* destination, const char* source);
