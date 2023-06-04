@@ -17,12 +17,12 @@
 void analizeCommand();
 
 
-static int commandCount = 11;
+static int commandCount = 13;
 static char lineBuffer[1024] = {0};
 static int lineCantChar = 0;
 
-static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE"};
-static int (*commandFunctions[])(char ** param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice};
+static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE","TESTPROCESS"};
+static int (*commandFunctions[])(char ** param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, test_processes};
 
 char ** args = {"help", NULL};
 

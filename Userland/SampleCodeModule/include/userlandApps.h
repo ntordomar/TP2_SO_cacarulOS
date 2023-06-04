@@ -16,5 +16,6 @@ int help(char ** args);
 int loop(char ** args);
 int kill(char ** args);
 int nice(char ** args);
+int test_processes(char ** args);
 
 #endif
