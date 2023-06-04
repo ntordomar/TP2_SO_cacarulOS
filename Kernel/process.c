@@ -1,8 +1,8 @@
-#include "./include/process.h"
 #include <video.h>
 // #include "../include/heap.h"
 #include "../include/lib.h"
-#include "../include/scheduler.h"
+#include <sync.h>
+void freeProcess(PCB *processPCB);
 int biggerPidAvailable = 1;
 
 int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code, char foreground)
@@ -74,6 +74,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     // ahora deberia agregarlo a la lista en el scheduler, y tmb deberia crear toda la estructura del stack
     // createProcessStack(code, args, (uint64_t *)process->stack->base + process->stack->size);
     process->stack->current = createStack((char *)process->stack->base + process->stack->size, code, args, &processWrapper);
+    process->semId = semCreateAnonymous(0);
     addProcess(process);
     return process->pid;
 }
@@ -94,23 +95,20 @@ int killProcess(int pid)
     }
 
     // if it is already a zombie or dead, do nothing
-    if (processPCB->process->status == ZOMBIE || processPCB->process->status == DEAD)
-    {
-        return -1;
-    }
+    
 
-    if (findPcbEntry(processPCB->process->parent) == NULL)
+    if (findPcbEntry(processPCB->process->parent) == NULL || processPCB->process->status == ZOMBIE)
     {
         processPCB->process->status = DEAD;
+        Queue ** q = getQueues();
+        removeProcess(processPCB);
+        freeProcess(processPCB);
     }
     else
     {
         processPCB->process->status = ZOMBIE;
-        free(processPCB->process->heap->base);
-        free(processPCB->process->heap);
-        // free(processPCB->process->stack->base);
-        free(processPCB->process->stack);
-        // free(processPCB->process->name);
+        semPost(processPCB->process->semId);
+
     }
 
     if (pid == getCurrentPid())
@@ -118,6 +116,17 @@ int killProcess(int pid)
         forceScheduler();
     }
     return 0;
+}
+
+int killCurrentForeground() {
+    PCB *currentPCB = getCurrentPCB();
+    if(currentPCB == NULL)
+        return -1;
+    // kill process that is running in foreground if it is not the shell
+    if(currentPCB->process->foreground && currentPCB->process->pid != 1) {
+        return killProcess(currentPCB->process->pid);
+    }
+    return -1;
 }
 
 int blockProcess(int pid)
@@ -160,7 +169,8 @@ int unblockProcess(int pid)
 void processWrapper(int code(char **args), char **args)
 {
     int ret = code(args);
-    killProcess(getCurrentPid());
+    int pid = getCurrentPid();
+    killProcess(pid);
 }
 
 void setFileDescriptor(int pid, int index, int value)
@@ -192,7 +202,17 @@ int waitpid(int pid)
     {
         return -1;
     }
-    // Espero a que termine
-    // semWait(childProcess->semId);
-    // return changeState(childProcess->pid, TERMINATED);
+    int pidRetValue = processToWait->process->pid;
+    semWait(processToWait->process->semId);
+    killProcess(processToWait->process->pid);
+    return pidRetValue;
+}
+
+void freeProcess(PCB *processPCB){
+    free(processPCB->process->stack->base);
+    free(processPCB->process->heap->base);
+    free(processPCB->process->heap);
+    free(processPCB->process->stack);
+    free(processPCB->process->name);
+    free(processPCB->process);
 }

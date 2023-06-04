@@ -13,7 +13,7 @@ typedef struct blockLink // This is the structure of a free block
 // Keeping a list of free blocks and a list of allocated blocks
 blockLink headBlock; // The first block of the free heap
 
-uint64_t *heapMemory[TOTALHEAPSIZE]; // The start of the heap
+uint64_t *heapMemory = 0x600000; // The start of the heap
 
 size_t freeMemory = 0; // The amount of free memory in the heap
 
@@ -78,6 +78,7 @@ void free(void *ptr)
 {
 
     blockLink *blockToFree = (blockLink *)((uint64_t *)ptr - sizeof(blockLink));
+    int blockFreedSize = blockToFree->blockSize;
 
     blockLink *prev = &headBlock;
     blockLink *curr = headBlock.nextFreeBlock;
@@ -117,7 +118,7 @@ void free(void *ptr)
         freeMemory += sizeof(blockLink);
     }
 
-    freeMemory += blockToFree->blockSize;
+    freeMemory += blockFreedSize;
 }
 
 void initHeap()

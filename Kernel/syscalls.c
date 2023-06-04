@@ -201,8 +201,7 @@ uint64_t _24_get_proc_info(uint64_t pid, uint64_t r2, uint64_t r3, uint64_t r4, 
 
 uint64_t _25_waitpid(uint64_t pid, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
 {
-    // return waitpid(pid);
-    return 0;
+    return waitpid((int)pid);
 }
 
 uint64_t _26_sem_open(uint64_t name, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
@@ -263,5 +262,5 @@ uint64_t _36_pipe_create_anonymous(uint64_t r1, uint64_t r2, uint64_t r3, uint64
 
 uint64_t _37_pids_array(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
 {
-    return (uint64_t)getPidsArray();
+    return getPidsArray();
 }

@@ -58,7 +58,10 @@ pipe_t pipeCreateAnonymous()
 
 int pipeWrite(pipe_t id, const char *src, unsigned int count)
 {
-
+    if (pipeArray[id].eof)
+    {
+        return -1;
+    }
     for (int i = 0; i < count; i++)
     {
         semWait(pipeArray[id].writeSemId);
@@ -124,4 +127,11 @@ pipe_t getPipeIdByName(int name)
         }
     }
     return -1;
+}
+
+void sendEOFToCurrent() {
+    PCB * pcb = getForegroundProcess();
+    if (pcb->process->fd[FD_WRITE] != -1) {
+        sendEOFSignal(pcb->process->fd[FD_WRITE]);
+    }
 }

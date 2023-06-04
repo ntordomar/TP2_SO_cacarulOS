@@ -1,11 +1,9 @@
 #include <userlandApps.h>
 
-int mem(char **args)
-{
-    memoryInfo *currentMemory = getMemoryInfo();
-    printf(GREEN, "\nCurrent Memory Status:\n");
-    printf(WHITE, "Total Memory: %d\n", currentMemory->total);
-    printf(WHITE, "Used Memory: %d\n", currentMemory->used);
-    printf(WHITE, "Free Memory: %d\n", currentMemory->free);
+int mem(char ** args){
+    memoryInfo * memInfo = getMemoryInfo();
+    printf(WHITE, "Total memory: %d\n", memInfo->total);
+    printf(WHITE, "Used memory: %d\n", memInfo->used);
+    printf(WHITE, "Free memory: %d\n", memInfo->free);
     return 0;
 }

@@ -20,3 +20,7 @@ int changePriority(int pid, int newPriority);
 int hasMoreTicks();
 PCB *getIdleProcessPCB();
 PCB *getCurrentPCB();
+Queue ** getQueues();
+void removeProcess(PCB *pcb);
+
+PCB * getForegroundProcess();

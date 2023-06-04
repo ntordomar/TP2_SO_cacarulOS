@@ -1,9 +1,9 @@
 #ifndef USERLANDAPPS_H
 #define USERLANDAPPS_H
-// #include <common.h>
+
 #include <userStdF.h>
 
-void sh();
+int sh();
 void clear();
 void backspace();
 void newLine();
@@ -19,5 +19,8 @@ int nice(char **args);
 int test_processes(char **args);
 int block(char **args);
 int mem(char **args);
+int findAndExecProcess(char * command, char * arg1, char * arg2, char fg);
+int cat(char ** args);
+int filter(char ** args);
 
 #endif

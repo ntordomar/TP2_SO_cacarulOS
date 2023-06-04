@@ -16,58 +16,98 @@
 
 void analizeCommand();
 
-static int commandCount = 13;
+
+static int commandCount = 17;
 static char lineBuffer[1024] = {0};
 static int lineCantChar = 0;
 
-static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK"};
-static int (*commandFunctions[])(char **param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block};
+static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK", "MEM","TESTPROCESS", "CAT","FILTER"};
+static int (*commandFunctions[])(char **param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block, mem,test_processes, cat,filter};
+
+
+int findAndExecProcess(char * command, char * arg1, char * arg2, char fg){
+    for (int i = 0; i < commandCount; i++)
+        {
+            if (strcmp(lineBuffer, commandList[i]) == 0)
+            { 
+                char **args;
+                args = sys_malloc(3 * sizeof(char *), args); 
+
+                if (arg1 != NULL){
+                    args[0] = sys_malloc(50, args[0]);
+                    strcpy(args[0], arg1);
+                } else args[0] = NULL;
+
+                if (arg2 != NULL){
+                    args[1] = sys_malloc(50, args[1]);
+                    strcpy(args[1], arg2);
+                } else args[1] = NULL;
+            
+                args[2] = NULL;
+                int pid = sys_create_process(commandList[i], args, commandFunctions[i], fg);
+            
+                if (pid == -1){
+                    printf(WHITE, "Could not create process \n");
+                } else {
+                    sys_waitpid(pid);
+                }
+                lineCantChar = 0;
+                return pid;
+            }
+        }
+    
+    printf(WHITE, "%s not found \n",command);
+    return 0;
+}
 
 void analizeCommand()
 {
-
-    // si hay un pipe en el string
-            //
-
-
-    
-    // Si hay un & en el string
-            //
-
-    // sino, el caso normal que ya funca
-
-    char argument[50];
-    char argument2[50];
-    divideString(lineBuffer, argument, ' ');
-    divideString(argument, argument2, ' ');
-
-
-
-    for (int i = 0; i < commandCount; i++)
+    int i = 0;
+    int foundPipe = 0;
+    while (i < lineCantChar && !foundPipe)
     {
-        if (strcmp(lineBuffer, commandList[i]) == 0)
-        { // If theres a match, the command function gets called
-
-            char **args;
-            args = sys_malloc(3 * sizeof(char *), args); // CAMBIAR A QUE NO SEA LA SYSCALL!
-            args[0] = sys_malloc(50, args[0]);
-            strcpy(args[0], argument);
-            args[1] = sys_malloc(50, args[1]);
-            strcpy(args[1], argument2);
-            args[2] = NULL;
-            sys_create_process(commandList[i], args, commandFunctions[i], 1);
-            // (*commandFunctions[i])(argument); // CAMBIAR A CREAR UN PROCESO CON EL CODIGO
-            lineCantChar = 0;
-
-            return;
+        if (lineBuffer[i] == '/')
+        {
+            foundPipe = 1;
         }
+        i++;
     }
 
-    printf(WHITE, "%s COMMAND NOT FOUND\n", lineBuffer);
-    lineCantChar = 0;
+    char bg = 0;
+
+    if (lineBuffer[lineCantChar -1] == ';'){
+        bg = 1;
+    }
+
+    if (foundPipe) {
+        char command1[50] = {0};    
+        char command2[50] = {0};
+        divideString(lineBuffer, command1, '/');
+        divideString(command1, command2, ' ');
+
+        int pid = findAndExecProcess(lineBuffer, NULL, NULL, 1);
+        if (pid != -1){
+            int pid2 = findAndExecProcess(command1, NULL, NULL, 1);
+        }
+    } else {
+        char arg1[50] = {0};    
+        char arg2[50] = {0};
+        divideString(lineBuffer, arg1, ' ');
+        divideString(arg1, arg2, ' ');
+        int pid = findAndExecProcess(lineBuffer, arg1, arg2, 1);
+    }
+    
+    
+    
+
+
+    //Caso 2: Existe un & en el texto
+        //Agarro el texto hasta el & y busco proc con ese nombre
+
+
 }
 
-void sh()
+int sh()
 {
     setCharSize(3);
     setCursorPosition(270, 250);
@@ -108,4 +148,5 @@ void sh()
             }
         }
     }
+    return 0;
 }

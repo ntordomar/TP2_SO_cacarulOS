@@ -1,3 +1,6 @@
+#define CTRL 29 //ascii for ctrl key
+#define RELEASE 128 // el offset entre el codigo de una tecla y el codigo del release de esa tecla
+
 static const char keyBoardTable[256] =
     {
         0, 27, '1', '2', '3', '4', '5', '6', '7', '8',
@@ -20,3 +23,6 @@ void keyHandler();
 char nextElement();
 
 void keyboardHandlerInit();
+
+//from interrupts.asm
+void _snapshot_registers();

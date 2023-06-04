@@ -149,3 +149,7 @@ uint64_t sys_pipe_create_anonymus(){
 uint64_t sys_pids_array(){
     return sys_int_80((uint64_t)37, 0, 0, 0, 0, 0);
 }
+
+
+
+

@@ -4,8 +4,8 @@
 int priorityQuantum[6] = {1, 16, 8, 4, 2, 1};
 
 PCB *currentPCB;
+PCB *foregroundProcess;
 
-schList processes = NULL;
 size_t cantProcess = 0;
 uint8_t enabled = 0;
 
@@ -40,18 +40,20 @@ void addProcess(processType *process)
     pcb->priority = MAX_PRIORITY;
     pcb->process = process;
     pcb->ticks = 0; // QUANTUM*priorityQuantum[pcb->priority];
-    schNode *node = (schNode *)malloc(sizeof(schNode));
-    node->processControlBlock = pcb;
+
+    // Set the current foreground process
+    if(pcb->process->pid != 0 && pcb->process->pid != 1 && pcb->process->foreground == 1){
+        foregroundProcess = pcb;
+    }
 
     // Adding process to the max priority queue.
-    enqueue(queues[node->processControlBlock->priority], node->processControlBlock);
+    enqueue(queues[pcb->priority], pcb);
     cantProcess++;
 }
 
 void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
 {
     currentPCB->process->stack->current = stackPointer; // guardo el stack pointer del proceso actual // CAMBIOS
-    currentPCB->process->stack->base = stackSegment;
     if (currentPCB->priority == IDLE_PRIORITY)
     {
         return;
@@ -213,4 +215,13 @@ int *getPidsArray()
     }
     pids[cantProcess - 1] = -1;
     return pids;
+}
+
+Queue ** getQueues(){
+    return queues;
+}
+
+PCB * getForegroundProcess()
+{
+    return foregroundProcess;
 }

@@ -18,6 +18,7 @@ GLOBAL createStack
 GLOBAL save_original_regs
 GLOBAL forceChangeOfProcess
 GLOBAL forceScheduler
+GLOBAL _snapshot_registers
 
 ;----------------------
 ;inforeg and exceptions arrays of registers.
@@ -257,11 +258,10 @@ _irq00Handler:
 
 ;Keyboard
 _irq01Handler:
+	irqHandlerMaster 1
+
+_snapshot_registers:
 	pushState
-	mov rax, 0
-	in al, 0x60
-	cmp al, 0x1D ; ctrl key
-	jne noCtrl
 	
 	; saving an array of registers: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, R8, R9, R10, R11, R12, R13
 	; R14, R15, RIP
@@ -293,12 +293,6 @@ _irq01Handler:
 	mov byte [capturedReg], 1
 	jmp exit
 
-noCtrl:
-	cmp al, 0x9D	; checking if the key is a ctrl release
-	je exit
-	mov rdi, rax
-	call keyHandler
-	jmp exit
 	
 exit:
 	; signal pic EOI (End of Interrupt)
@@ -406,7 +400,6 @@ forceChangeOfProcess:
 	iretq
 
 forceScheduler:
-	call debug
 	int 20h
 	ret
 

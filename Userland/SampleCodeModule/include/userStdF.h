@@ -19,6 +19,8 @@
 #define LETTER_WIDTH 8
 #define LETTER_HEIGHT 16
 
+#define EOF -1
+
 #include <stdint.h>
 char getChar();
 void itoa(int value, char *buffer, int base);

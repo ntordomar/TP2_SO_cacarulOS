@@ -61,7 +61,15 @@
         "atomic": "c",
         "ios": "c",
         "system_error": "c",
-        "lettersize.h": "c"
+        "lettersize.h": "c",
+        "memory_resource": "c",
+        "__availability": "c",
+        "__config": "c",
+        "__string": "c",
+        "optional": "c",
+        "numeric": "c",
+        "sstream": "c",
+        "cmath": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

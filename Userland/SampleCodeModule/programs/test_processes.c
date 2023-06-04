@@ -91,5 +91,8 @@ int test_processes(char ** args) {
           p_rqs[rq].state = RUNNING;
         }
     }
+    for(int i = 0; i<max_processes; i++){
+      sys_kill(p_rqs[i].pid);
+    }
   }
 }

@@ -23,9 +23,9 @@ static const uint64_t PageSize = 0x1000;
 
 static void *const sampleCodeModuleAddress = (void *)0x400000;
 static void *const sampleDataModuleAddress = (void *)0x500000;
-
+int init (char ** args);
 typedef int (*EntryPoint)();
-
+int prueba(char ** args);
 char *shellArgs[] = {"shell", NULL};
 char *idleArgs[] = {"idle", NULL};
 
@@ -66,12 +66,13 @@ int main()
 	pipeInit();
 
 	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress, 1);
-
+	
 	/* --- IDLE PROCESS --- */
 	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle, 1);
 	changePriority(idlePid, 0);
 
 	includeTerminal(shPid);
+	
 	
 
 	return 0;

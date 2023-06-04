@@ -306,7 +306,6 @@ int killProcess(int pid)
 
 int *getProcesses()
 {
-    // printf(PINK, "LOCOOOO \n");
     return (int *)sys_pids_array();
 }
 

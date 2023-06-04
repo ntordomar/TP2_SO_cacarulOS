@@ -10,3 +10,4 @@ int pipeRead(pipe_t id, char *dest, unsigned int count);
 void pipeDestroy(pipe_t id);
 void sendEOFSignal(pipe_t id);
 pipe_t getPipeIdByName(int name);
+void sendEOFToCurrent();

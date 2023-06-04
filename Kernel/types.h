@@ -9,6 +9,9 @@
 #define FD_ERROR 2
 #define SHELL 0 // FD of shell process
 
+#define SHELL_PID 0
+#define IDLE_PID 1
+
 #include <stdint.h>
 #include <stddef.h>
 
@@ -30,6 +33,7 @@ typedef struct processType
     int return_value;
     int fd[3];      
     char foreground;
+    int semId;
 } processType;
 
 typedef struct PCB
@@ -39,13 +43,6 @@ typedef struct PCB
     processType *process;
 } PCB;
 
-typedef struct schNode
-{
-    PCB *processControlBlock;
-    struct schList *next;
-} schNode;
-
-typedef schNode *schList;
 
 typedef struct
 {
