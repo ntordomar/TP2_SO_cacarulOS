@@ -138,3 +138,16 @@ PCB *dequeueByData(Queue *queue, int pid)
 
     return NULL; // Valor sentinela para indicar que el proceso no fue encontrado
 }
+
+int retPids(Queue *queue, int * pids)
+{
+    Node *current = queue->front;
+    int i = 0;
+    while (current != NULL)
+    {
+        pids[i] = current->data->process->pid;
+        i++;
+        current = current->next;
+    }
+    return i;
+}

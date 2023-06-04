@@ -15,7 +15,8 @@ static uint64_t (*sysFunctions[])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_
     _1_write, _2_read, _3_draw_rectangle, _4_clear_screen, _5_write_char, _6_get_seconds, _7_get_minutes, _8_get_hours,
     _9_set_font_size, _10_beep, _11_get_ticks, _12_get_mem, _13_get_regs , _14_create_process, _15_malloc, _16_free, _17_getpid,
     _18_kill, _19_exit, _20_nice, _21_block,_22_resume,_23_heap_info,_24_get_proc_info,_25_waitpid,_26_sem_open,_27_sem_close,
-    _28_sem_destroy,_29_pipe_open,_30_pipe_destroy,_31_sem_print};
+    _28_sem_destroy,_29_pipe_open,_30_pipe_destroy,_31_sem_print, _32_sem_create, _33_sem_wait , _34_sem_post, _35_pipe_create, 
+    _36_pipe_create_anonymous, _37_pids_array};
 
 uint64_t sys_call_handler(uint64_t mode, uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
 { // pasamos todos ints, en el caso en el que sea un numero, se lee como un numero, en el caso de que esa una direccion de memoria, se castea a la que se necesita :)
@@ -148,7 +149,7 @@ uint64_t _14_create_process(uint64_t name, uint64_t args, uint64_t code, uint64_
 uint64_t _15_malloc(uint64_t size, uint64_t ptr, uint64_t r3, uint64_t r4, uint64_t r5) 
 {
    ptr = malloc(size);
-   return ptr == NULL;
+   return ptr;
 }
 
 uint64_t _16_free(uint64_t ptr, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
@@ -240,4 +241,8 @@ uint64_t _35_pipe_create(uint64_t name, uint64_t r2, uint64_t r3, uint64_t r4, u
 
 uint64_t _36_pipe_create_anonymous(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
     return pipeCreateAnonymous();
+}
+
+uint64_t _37_pids_array(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5) {
+    return (uint64_t) getPidsArray();
 }

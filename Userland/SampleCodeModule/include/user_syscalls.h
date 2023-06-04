@@ -38,3 +38,4 @@ uint64_t sys_sem_wait(int semId);
 uint64_t sys_sem_post(int semId);
 uint64_t sys_pipe_create(char * name);
 uint64_t sys_pipe_create_anonymus();
+uint64_t sys_pids_array();

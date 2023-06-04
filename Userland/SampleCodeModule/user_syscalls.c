@@ -145,3 +145,7 @@ uint64_t sys_pipe_create(char * name){
 uint64_t sys_pipe_create_anonymus(){
     return sys_int_80((uint64_t)36, 0, 0, 0, 0, 0);
 }
+
+uint64_t sys_pids_array(){
+    return sys_int_80((uint64_t)37, 0, 0, 0, 0, 0);
+}

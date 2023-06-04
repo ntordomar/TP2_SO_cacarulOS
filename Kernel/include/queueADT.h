@@ -22,3 +22,4 @@ PCB* peek(Queue* queue);
 PCB* findElement(Queue* queue);
 PCB* findElementByPid(Queue* queue, int pid);
 PCB* dequeueByData(Queue* queue, int pid);
+int retPids(Queue *queue, int * pids);

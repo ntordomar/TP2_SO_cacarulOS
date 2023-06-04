@@ -75,3 +75,5 @@ uint64_t _34_sem_post(uint64_t semId, uint64_t r2, uint64_t r3, uint64_t r4, uin
 uint64_t _35_pipe_create(uint64_t name, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
 
 uint64_t _36_pipe_create_anonymous(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
+
+uint64_t _37_pids_array(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);

@@ -1,3 +1,6 @@
+
+#include <common.h>
+
 #define BLACK 0x000000
 #define GREEN 0x00FF00
 #define RED 0xFF0000
@@ -35,7 +38,12 @@ void setCursorPosition(int x, int y);
 void printf(int color, char * str, ...);
 int atoi(char* str);
 int isDigit(char c);
+int killProcess(int pid);
+int * getProcesses();
+processInfo * getProcessInfo(int pid);
+void * malloc(int size);
 
+int setNiceness(int pid, int prio);
 
 //https://www.techiedelight.com/implement-strcpy-function-c/
 char * strcpy(char* destination, const char* source);

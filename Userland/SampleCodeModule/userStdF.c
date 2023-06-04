@@ -16,9 +16,6 @@ char getChar(){
 }
 
 
-
-
-
 void itoa(int value, char *buffer, int base) {
     char *myBuff = buffer;
     int digits = 0;
@@ -257,3 +254,28 @@ int isDigit(char c){
     return c >= '0' && c<= '9';
 }
 
+int killProcess(int pid){
+    printf(BLUE, "Volvi 2 \n");
+    sys_kill(pid);
+    printf(BLUE, "Volvi 3 \n");
+    return 0;
+}
+
+int * getProcesses(){
+    // printf(PINK, "LOCOOOO \n");
+    return (int *)sys_pids_array();
+}
+
+processInfo * getProcessInfo(int pid){
+    return (processInfo *) sys_process_info(pid);
+}
+
+void * malloc(int size){
+    void * ptr;
+    ptr = sys_malloc(size, ptr);
+    return ptr;
+}
+
+int setNiceness(int pid, int prio){
+    return sys_nice(pid, prio);
+}

@@ -200,3 +200,16 @@ PCB *getIdleProcessPCB()
 {
     return peek(queues[0]); // es una lista oculta donde unicamente esta el idle process
 }
+
+int * getPidsArray()
+{
+    int *pids = (int *)malloc(sizeof(int) * cantProcess);
+    int i = MIN_PRIORITY;
+    int cantPids = 0;
+    for (; i <= MAX_PRIORITY; i++)
+    {
+        cantPids += retPids(queues[i], pids+cantPids);
+    }
+    pids[cantProcess-1] = -1;
+    return pids;
+}

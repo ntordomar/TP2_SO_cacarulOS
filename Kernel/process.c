@@ -93,6 +93,11 @@ int killProcess(int pid)
         return -1;
     }
 
+    // if it is already a zombie or dead, do nothing
+    if(processPCB->process->status == ZOMBIE || processPCB->process->status == DEAD){
+        return -1;
+    }
+
     if (findPcbEntry(processPCB->process->parent) == NULL)
     {
         processPCB->process->status = DEAD;
@@ -100,6 +105,11 @@ int killProcess(int pid)
     else
     {
         processPCB->process->status = ZOMBIE;
+        free(processPCB->process->heap->base);
+        free(processPCB->process->heap);
+        // free(processPCB->process->stack->base);
+        free(processPCB->process->stack);
+        free(processPCB->process->name);
     }
 
     if (pid == getCurrentPid())
@@ -164,9 +174,11 @@ processInfo *getProcessInfo(int pid)
     info->pid = pid;
     info->parent = processPCB->process->parent;
     info->state = processPCB->process->status;
+    info->priority = processPCB->priority;
     info->foreground = processPCB->process->foreground;
     info->name = malloc(strlen(processPCB->process->name) + 1);
     info->name = strcpy(info->name, processPCB->process->name);
     info->rsp = processPCB->process->stack->current;
     info->rbp = processPCB->process->stack->base;
+    return info;
 }
