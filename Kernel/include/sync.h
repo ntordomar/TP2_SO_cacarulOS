@@ -8,7 +8,7 @@
 
 typedef int sem_t;
 
-#define SEM_MAX 200
+#define SEM_MAX 300
 #define FIRST_USER_SEM 100
 
 typedef struct

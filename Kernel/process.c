@@ -94,7 +94,8 @@ int killProcess(int pid)
     }
 
     // if it is already a zombie or dead, do nothing
-    if(processPCB->process->status == ZOMBIE || processPCB->process->status == DEAD){
+    if (processPCB->process->status == ZOMBIE || processPCB->process->status == DEAD)
+    {
         return -1;
     }
 
@@ -109,7 +110,7 @@ int killProcess(int pid)
         free(processPCB->process->heap);
         // free(processPCB->process->stack->base);
         free(processPCB->process->stack);
-        free(processPCB->process->name);
+        // free(processPCB->process->name);
     }
 
     if (pid == getCurrentPid())
@@ -181,4 +182,17 @@ processInfo *getProcessInfo(int pid)
     info->rsp = processPCB->process->stack->current;
     info->rbp = processPCB->process->stack->base;
     return info;
+}
+
+int waitpid(int pid)
+{
+    PCB *processToWait = findPcbEntry(pid);
+
+    if (processToWait == NULL)
+    {
+        return -1;
+    }
+    // Espero a que termine
+    // semWait(childProcess->semId);
+    // return changeState(childProcess->pid, TERMINATED);
 }
