@@ -12,7 +12,7 @@ typedef struct P_rq {
   int32_t pid;
   enum State state;
 } p_rq;
-
+int fdDefault[2] = {0,0};
 int test_processes(char ** args) {
   printf(RED,args[0]);
   uint8_t rq;
@@ -40,7 +40,7 @@ int test_processes(char ** args) {
 
     // Create max_processes processes
     for (rq = 0; rq < max_processes; rq++) {
-      p_rqs[rq].pid = sys_create_process("endless_loop", argvAux, &endless_loop, 1);
+      p_rqs[rq].pid = sys_create_process("endless_loop", argvAux, &endless_loop, 1,fdDefault);
 
       if (p_rqs[rq].pid == -1) {
         printf(RED,"test_processes: ERROR creating process\n");

@@ -65,8 +65,6 @@ int atoi(char *str)
     return res;
 }
 
-
-
 int strcmp(char *s1, char *s2)
 { // returns 0 if there are the same string. both strings null terminated
     int i = 0;
@@ -92,19 +90,27 @@ int strlen(char *s)
 void print(char *buffer, int color)
 {
     int len = strlen(buffer);
+    int stdout = sys_get_current_stdout();
     for (int i = 0; i < len; i++)
     {
-        if ((Xpos + (charSize * LETTER_WIDTH)) >= SCREEN_WIDTH)
-        { // If we get to the end of the screen we re-adjust x and y pos to begin a new line
-            Xpos = 0;
-            Ypos += charSize * LETTER_HEIGHT;
+        if (stdout == 0)
+        {
+            if ((Xpos + (charSize * LETTER_WIDTH)) >= SCREEN_WIDTH)
+            { // If we get to the end of the screen we re-adjust x and y pos to begin a new line
+                Xpos = 0;
+                Ypos += charSize * LETTER_HEIGHT;
+            }
+            if ((Ypos + (charSize * LETTER_HEIGHT)) >= SCREEN_HEIGHT)
+            { // 'scrolling' functionality
+                clear();
+            }
+            sys_write_char(Xpos, Ypos, buffer[i], color);
+            Xpos += LETTER_WIDTH * charSize;
         }
-        if ((Ypos + (charSize * LETTER_HEIGHT)) >= SCREEN_HEIGHT)
-        { // 'scrolling' functionality
-            clear();
+        else
+        {
+            sys_write_char(Xpos, Ypos, buffer[i], color);
         }
-        sys_write_char(Xpos, Ypos, buffer[i], color);
-        Xpos += LETTER_WIDTH * charSize;
     }
 }
 
@@ -298,9 +304,7 @@ int isDigit(char c)
 
 int killProcess(int pid)
 {
-    printf(BLUE, "Volvi 2 \n");
     sys_kill(pid);
-    printf(BLUE, "Volvi 3 \n");
     return 0;
 }
 
@@ -339,7 +343,12 @@ int setBlock(int pid)
     return 0;
 }
 
-memoryInfo * getMemoryInfo()
+memoryInfo *getMemoryInfo()
 {
     return (memoryInfo *)sys_heap_info();
+}
+
+int pipeCreateAnonymous()
+{
+    return (int)sys_pipe_create_anonymous();
 }

@@ -31,7 +31,7 @@ typedef struct processType
     memoryBlock *stack;
     int status;
     int return_value;
-    int fd[3];      
+    int fd[3];
     char foreground;
     int semId;
 } processType;
@@ -42,7 +42,6 @@ typedef struct PCB
     size_t ticks;
     processType *process;
 } PCB;
-
 
 typedef struct
 {

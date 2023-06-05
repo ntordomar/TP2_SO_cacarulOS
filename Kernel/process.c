@@ -5,7 +5,7 @@
 void freeProcess(PCB *processPCB);
 int biggerPidAvailable = 1;
 
-int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code, char foreground)
+int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code, char foreground, int * fds)
 {
     if (code == NULL || name == NULL)
     {
@@ -63,8 +63,8 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->status = READY;
 
     // Setting IN OUT and ERROR file descriptors to the shell as default.
-    process->fd[FD_READ] = SHELL;
-    process->fd[FD_WRITE] = SHELL;
+    process->fd[FD_READ] = fds[0];
+    process->fd[FD_WRITE] = fds[1];
     process->fd[FD_ERROR] = SHELL;
 
     process->foreground = foreground;
@@ -95,12 +95,11 @@ int killProcess(int pid)
     }
 
     // if it is already a zombie or dead, do nothing
-    
 
     if (findPcbEntry(processPCB->process->parent) == NULL || processPCB->process->status == ZOMBIE)
     {
         processPCB->process->status = DEAD;
-        Queue ** q = getQueues();
+        Queue **q = getQueues();
         removeProcess(processPCB);
         freeProcess(processPCB);
     }
@@ -108,7 +107,6 @@ int killProcess(int pid)
     {
         processPCB->process->status = ZOMBIE;
         semPost(processPCB->process->semId);
-
     }
 
     if (pid == getCurrentPid())
@@ -118,15 +116,16 @@ int killProcess(int pid)
     return 0;
 }
 
-int killCurrentForeground() {
-    PCB *currentPCB = getCurrentPCB();
-    if(currentPCB == NULL)
+int killCurrentForeground(int semId)
+{
+    PCB *currentPCB = getForegroundProcess();
+    if (currentPCB == NULL)
         return -1;
+        if(currentPCB->process->status == BLOCKED){
+            semSet(semId, 1);
+        }
     // kill process that is running in foreground if it is not the shell
-    if(currentPCB->process->foreground && currentPCB->process->pid != 1) {
-        return killProcess(currentPCB->process->pid);
-    }
-    return -1;
+    return killProcess(currentPCB->process->pid);
 }
 
 int blockProcess(int pid)
@@ -208,7 +207,8 @@ int waitpid(int pid)
     return pidRetValue;
 }
 
-void freeProcess(PCB *processPCB){
+void freeProcess(PCB *processPCB)
+{
     free(processPCB->process->stack->base);
     free(processPCB->process->heap->base);
     free(processPCB->process->heap);

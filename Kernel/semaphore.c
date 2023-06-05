@@ -7,7 +7,12 @@ semaphoreType *semaphores;
 int anonymousSemId = 0;
 int userAlreadyExists(char *name);
 
-void semInit()
+// void dequeueForeground(sem_t semId){
+//     dequeueByData(semaphores[semId].blockedProcesses,getForegroundProcess());
+
+// }
+
+    void semInit()
 {
     semaphores = (semaphoreType *)malloc(sizeof(semaphoreType) * SEM_MAX);
     int i;

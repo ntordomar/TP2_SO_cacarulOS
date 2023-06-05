@@ -23,11 +23,13 @@ static const uint64_t PageSize = 0x1000;
 
 static void *const sampleCodeModuleAddress = (void *)0x400000;
 static void *const sampleDataModuleAddress = (void *)0x500000;
-int init (char ** args);
+int init(char **args);
 typedef int (*EntryPoint)();
-int prueba(char ** args);
+int prueba(char **args);
 char *shellArgs[] = {"shell", NULL};
 char *idleArgs[] = {"idle", NULL};
+
+int fdDefault[] = {0, 0};
 
 void clearBSS(void *bssAddress, uint64_t bssSize)
 {
@@ -65,15 +67,12 @@ int main()
 	semInit();
 	pipeInit();
 
-	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress, 1);
-	
+	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress, 1, fdDefault);
+
 	/* --- IDLE PROCESS --- */
-	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle, 1);
+	idlePid = createProcess("idle", 0, 4096, 4096, idleArgs, &idle, 1, fdDefault);
 	changePriority(idlePid, 0);
 
 	includeTerminal(shPid);
-	
-	
-
 	return 0;
 }

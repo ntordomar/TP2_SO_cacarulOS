@@ -1,23 +1,25 @@
 #include <userlandApps.h>
+#include <user_syscalls.h>
 
 #define SIZE 1024
 
-int cat(char ** args)
+int cat(char **args)
 {
     char buff[SIZE] = {0};
     char c;
-    int i = 0, j =0;
-    while((c = getChar()) != EOF)
+    int i = 0;
+    int j = 0;
+    while ((c = getChar()) != EOF)
     {
         if (c == 8)
-            { // 8 is ascii's basckspace
-                if (i != 0)
-                {
-                    backspace();
-                    i--;
-                }
+        { // 8 is ascii's basckspace
+            if (i != 0)
+            {
+                backspace();
+                i--;
             }
-        else if(c == '\n')
+        }
+        else if (c == '\n')
         {
             printf(WHITE, "\n");
             while (j != i)
@@ -28,14 +30,15 @@ int cat(char ** args)
             i = 0;
             j = 0;
             printf(WHITE, "\n");
-        } else {
-            if(i != SIZE)
+        }
+        else
+        {
+            if (i != SIZE)
             {
                 buff[i] = c;
                 printChar(buff[i], WHITE);
                 i++;
             }
-            
         }
     }
 

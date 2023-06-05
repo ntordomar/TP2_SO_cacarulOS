@@ -1,16 +1,16 @@
 #include <stdint.h>
 
-uint64_t sys_call_handler(uint64_t mode, uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5 );
+uint64_t sys_call_handler(uint64_t mode, uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
 
-uint64_t _0_empty(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5);
+uint64_t _0_empty(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
 
 uint64_t _1_write(uint64_t x, uint64_t y, uint64_t c, uint64_t len, uint64_t fd);
 
 uint64_t _2_read(uint64_t buffer, uint64_t length, uint64_t r3, uint64_t r4, uint64_t r5);
 
-uint64_t _3_draw_rectangle (uint64_t x, uint64_t y, uint64_t w, uint64_t h, uint64_t color);
+uint64_t _3_draw_rectangle(uint64_t x, uint64_t y, uint64_t w, uint64_t h, uint64_t color);
 
-uint64_t _4_clear_screen(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4,uint64_t r5);
+uint64_t _4_clear_screen(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
 
 uint64_t _5_write_char(uint64_t x, uint64_t y, uint64_t c, uint64_t fd, uint64_t r5);
 
@@ -30,7 +30,7 @@ uint64_t _12_get_mem(uint64_t memoryPos, uint64_t buff, uint64_t r3, uint64_t r4
 
 uint64_t _13_get_regs(uint64_t wasCaptured, uint64_t registers, uint64_t r3, uint64_t r4, uint64_t r5);
 
-uint64_t _14_create_process(uint64_t name, uint64_t args, uint64_t code, uint64_t foreground, uint64_t r5);
+uint64_t _14_create_process(uint64_t name, uint64_t args, uint64_t code, uint64_t foreground, uint64_t fds);
 
 uint64_t _15_malloc(uint64_t size, uint64_t ptr, uint64_t r3, uint64_t r4, uint64_t r5);
 
@@ -77,3 +77,5 @@ uint64_t _35_pipe_create(uint64_t name, uint64_t r2, uint64_t r3, uint64_t r4, u
 uint64_t _36_pipe_create_anonymous(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
 
 uint64_t _37_pids_array(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);
+
+uint64_t _38_get_current_stdout(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5);

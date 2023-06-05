@@ -42,7 +42,7 @@ void addProcess(processType *process)
     pcb->ticks = 0; // QUANTUM*priorityQuantum[pcb->priority];
 
     // Set the current foreground process
-    if(pcb->process->pid != 0 && pcb->process->pid != 1 && pcb->process->foreground == 1){
+    if(pcb->process->pid != 1 && pcb->process->pid != 2 && pcb->process->foreground == 1){
         foregroundProcess = pcb;
     }
 

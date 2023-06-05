@@ -45,9 +45,10 @@ processInfo *getProcessInfo(int pid);
 void *malloc(int size);
 void free(void *ptr);
 int setBlock(int pid);
+int pipeCreateAnonymous();
 
 int setNiceness(int pid, int prio);
-memoryInfo * getMemoryInfo();
+memoryInfo *getMemoryInfo();
 
 // https://www.techiedelight.com/implement-strcpy-function-c/
 char *strcpy(char *destination, const char *source);
