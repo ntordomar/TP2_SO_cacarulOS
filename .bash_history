@@ -1,24 +1,3 @@
-exit
-cd root
-make all
-exit
-cd root
-make all
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-gdb
 gdb
 gdb
 cd root
@@ -484,6 +463,27 @@ cd root
 make all
 exit
 cd
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+exit
+cd root
 make all
 exit
 cd root

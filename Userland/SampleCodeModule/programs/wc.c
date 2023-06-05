@@ -14,6 +14,6 @@ int wc(char **args)
             printChar(c, WHITE);
         }
     }
-    printf(WHITE, "\nLa cantidad de lineas escritas fueron: %d\n", counter);
-    return;
+    printf(WHITE, "\nTotal lines: %d\n", counter);
+    return 0;
 }

@@ -4,6 +4,7 @@
 pipeType pipeArray[MAX_PIPES];
 
 int maxPipeName = 1;
+int firstEOF = 1;
 
 void pipeInit()
 {
@@ -58,7 +59,7 @@ pipe_t pipeCreateAnonymous()
 
 int pipeWrite(pipe_t id, const char *src, unsigned int count)
 {
-    if (pipeArray[id].eof)
+    if (pipeArray[id].eof && !firstEOF)
     {
         return -1;
     }
@@ -69,6 +70,13 @@ int pipeWrite(pipe_t id, const char *src, unsigned int count)
         if (pipeArray[id].writePos == BUFFER_PIPE_SIZE)
         {
             pipeArray[id].writePos = 0;
+        }
+        if(firstEOF && pipeArray[id].eof){
+            firstEOF = 0;
+            pipeArray[id].pipeBuffer[pipeArray[id].writePos++] = EOF;
+            pipeArray[id].leftToRead++;
+            semPost(pipeArray[id].readSemId);
+
         }
 
         pipeArray[id].pipeBuffer[pipeArray[id].writePos++] = (char)src[i];
@@ -82,6 +90,7 @@ int pipeRead(pipe_t id, char *dest, unsigned int count)
 {
     if (pipeArray[id].eof && pipeArray[id].leftToRead == 0)
     {
+        dest[0] = EOF;
         return -1;
     }
 
@@ -95,6 +104,13 @@ int pipeRead(pipe_t id, char *dest, unsigned int count)
         }
 
         dest[i] = pipeArray[id].pipeBuffer[pipeArray[id].readPos++];
+
+        if(dest[i]== EOF){
+            pipeArray[id].leftToRead--;
+            semPost(pipeArray[id].writeSemId);
+            return -1;
+        }
+
         pipeArray[id].leftToRead--;
         semPost(pipeArray[id].writeSemId);
     }
@@ -133,9 +149,9 @@ pipe_t getPipeIdByName(int name)
 void sendEOFToCurrent()
 {
     PCB *pcb = getForegroundProcess();
-    if (pcb->process->fd[FD_WRITE] != -1)
+    if (pcb->process->fd[FD_READ] != -1)
     {
-        sendEOFSignal(pcb->process->fd[FD_WRITE]);
+        sendEOFSignal(pcb->process->fd[FD_READ]);
     }
 
 }

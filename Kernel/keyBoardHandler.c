@@ -55,7 +55,7 @@ void keyHandler()
             // _snapshot_registers();
             break;
         case 'D':
-            if (getForegroundProcess()->process->fd[1] != 0)
+            if (getForegroundProcess()->process->fd[0] != 0)
                 sendEOFToCurrent();
             else
             {
