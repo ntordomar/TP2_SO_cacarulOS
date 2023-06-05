@@ -1,161 +1,3 @@
-gdb
-gdb
-cd root
-make all
-exit
-cd root
-make all
-exit
-make clean
-make all
-cd root
-make clean
-make all
-make clean
-clear
-make all
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-make clean
-make all
-exit
-cd root
-make all
-make clean
-make all
-make clean
-make all
-exit
-cd root
-make all
-make clean
-make all
-make all
-make clean
-make all
-exit
-cd root
-make all
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd rooy
-cd root
-make all
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exiet
-exit
-cd root
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd roo
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make clean
-make all
-exit
-cd root
-make all
-exit
-cd root
-make al
-make all
-exit
-cd root
-make all
-exit
-cd root
-make clean
-make all
-make clean
-clear
-make all
-make clean
-clear
-make all
-make clean
-make all
-eit
-exit
-cd root
-make all
-exit
-cd root
-make all
-cd root
-make all
-exit
-cd root
-make all
-exit
-cd root
-make all
-clear
-make clean
-clear
-make all
-exit
-cd root
-make all
-exit
-cd root
 make clean
 make all
 exit
@@ -497,4 +339,162 @@ make all
 exit
 cd root
 make all
+exit
+cd root
+make all
+exit
+cd root
+make all
+make all
+cleaer
+clear
+make all
+clear
+make all
+make all
+clear
+make all
+make all
+clear
+make all
+make all
+clear
+make all
+make all
+make all
+clear
+make clean
+clear
+make all
+make all
+make all
+clear
+make clean
+clear
+make all
+make all
+make all
+exit
+cd root
+make all
+make all
+clear
+make clean
+make all
+make all
+clear
+make clean
+make all
+make clean
+make all
+clear
+make clean
+clear
+make all
+make clean
+clear
+make all
+make all
+exit
+cd root
+gdb
+gdb
+ggdb
+gdb
+gdb
+gdb
+gdb
+gdb
+cd rot
+cd root
+gdb
+cd root
+make all
+make clean
+make all
+exit
+cd root
+make all
+clear
+make clean
+clear
+make clean
+clear
+make all
+make clean
+clear
+make all
+clear
+make clean
+clear
+make all
+clear
+make clean
+clear
+make all
+exit
+cd root
+make all MM=BUDDY
+clear
+make all MM=STANDARD
+make clean
+clear
+make all MM=BUDDY
+make clean
+clear
+make all MM=STANDARD
+exit
+cd root
+make clean
+clear
+make all MM=BUDDY
+make all MM=BUDDY
+make all MM=BUDDY
+clear
+make all MM=BUDDY
+clear
+make clean
+clear
+make all MM=BUDDY
+make clean
+make all MM=STANDARD
+make clean
+make all MM=STANDARD
+make clean
+make all MM=STANDARD
+exit
+cd root
+gdb
+cd root
+make clean
+clear
+make all
+make clean
+clear
+make all MM=STANDARD
+make clean
+clear
+make all MM=BUDDY
+make clean
+make all MM=BUDDY
+clear
+make clean
+clear
+make all MM=BUDDY
+clear
+make clean
+make clean
+clear
+cd Toolchain
+make clean
+make all
+cd ..
+make clear
+clear
+make all MM=BUDDY
+make clear]
+make clear
+make clean
+make clean
+make all MM=BUDDY
 exit

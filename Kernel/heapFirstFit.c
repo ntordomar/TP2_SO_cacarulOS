@@ -1,3 +1,5 @@
+#ifdef STANDARD
+
 #include "./include/heap.h"
 #include "./include/interrupts.h"
 #include <stddef.h>
@@ -140,3 +142,5 @@ memoryInfo *getHeapInfo()
     info->free = freeMemory;
     return info;
 }
+
+#endif

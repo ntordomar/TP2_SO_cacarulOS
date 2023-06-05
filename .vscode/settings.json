@@ -69,7 +69,9 @@
         "optional": "c",
         "numeric": "c",
         "sstream": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "buddymemmanager.h": "c",
+        "btree.h": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,
