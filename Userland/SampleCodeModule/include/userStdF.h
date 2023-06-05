@@ -52,3 +52,10 @@ memoryInfo *getMemoryInfo();
 
 // https://www.techiedelight.com/implement-strcpy-function-c/
 char *strcpy(char *destination, const char *source);
+
+int semPost(int semId);
+int semWait(int semId);
+int semCreate(int semId, int value);
+int semCreateAnonymous(int value);
+int semClose(int semId);
+int semDestroy(int semId);

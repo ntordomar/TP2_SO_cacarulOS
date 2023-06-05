@@ -268,3 +268,8 @@ uint64_t _38_get_current_stdout(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t 
 {
     return getCurrentPCB()->process->fd[1];
 }
+
+uint64_t _39_sem_create_anonymous(uint64_t initValue, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
+{
+    return semCreateAnonymous((int)initValue);
+}

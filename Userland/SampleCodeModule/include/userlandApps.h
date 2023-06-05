@@ -23,5 +23,6 @@ int findAndExecProcess(char * command, char * arg1, char * arg2, char fg, int * 
 int cat(char ** args);
 int filter(char ** args);
 int wc(char **args);
+int phylo(char ** arguments);
 
 #endif

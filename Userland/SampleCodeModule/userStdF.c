@@ -352,3 +352,32 @@ int pipeCreateAnonymous()
 {
     return (int)sys_pipe_create_anonymous();
 }
+
+int semPost(int semId)
+{
+    return sys_sem_post(semId);
+}
+
+int semWait(int semId)
+{
+    return sys_sem_wait(semId);
+}
+
+int semCreate(int semId, int value)
+{
+    return sys_sem_create(semId, value);
+}
+
+int semCreateAnonymous(int value)
+{
+    return sys_sem_create_anonymous(value);
+}
+
+int semClose(int semId)
+{
+    return sys_sem_close(semId);
+}
+int semDestroy(int semId)
+{
+    return sys_sem_destroy(semId);
+}

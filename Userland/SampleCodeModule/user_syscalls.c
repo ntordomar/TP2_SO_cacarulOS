@@ -189,3 +189,8 @@ uint64_t sys_get_current_stdout()
 {
     return sys_int_80((uint64_t)38, 0, 0, 0, 0, 0);
 }
+
+uint64_t sys_sem_create_anonymous(int initValue)
+{
+    return sys_int_80((uint64_t)39, (uint64_t)initValue, 0, 0, 0, 0);
+}

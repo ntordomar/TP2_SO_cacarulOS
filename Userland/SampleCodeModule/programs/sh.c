@@ -16,14 +16,13 @@
 
 void analizeCommand();
 
-static int commandCount = 18;
+static int commandCount = 19;
 static char lineBuffer[1024] = {0};
 static int lineCantChar = 0;
 
-static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK", "MEM", "TESTPROCESS", "CAT", "FILTER", "WC"};
-static int (*commandFunctions[])(char **param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block, mem, test_processes, cat, filter, wc};
+static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK", "MEM", "TESTPROCESS", "CAT", "FILTER", "WC","PHYLO"};
+static int (*commandFunctions[])(char **param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block, mem, test_processes, cat, filter, wc, phylo};
 
-char isForeground = 1;
 int fds[2] = {0, 0};
 
 int findAndExecProcess(char *command, char *arg1, char *arg2, char fg, int *fds)
@@ -76,6 +75,8 @@ void analizeCommand()
 {
     int i = 0;
     int foundPipe = 0;
+    
+    char isForeground = 1;
     while (i < lineCantChar && !foundPipe)
     {
         if (lineBuffer[i] == '/')
@@ -125,7 +126,7 @@ void analizeCommand()
         char arg2[50] = {0};
         divideString(lineBuffer, arg1, ' ');
         divideString(arg1, arg2, ' ');
-        int pid = findAndExecProcess(lineBuffer, arg1, arg2, 1, fds);
+        int pid = findAndExecProcess(lineBuffer, arg1, arg2, isForeground, fds);
         if (pid != -1)
         {
             sys_waitpid(pid);

@@ -1,10 +1,3 @@
-make clean
-make all
-exit
-cd roout
-cd root
-make all
-exit
 cd root
 make all
 exit
@@ -497,4 +490,11 @@ make clear
 make clean
 make clean
 make all MM=BUDDY
+exit
+cd root
+make all MM=STANDARD
+exit
+cd root
+make all
+make all MM=STANDARD
 exit
