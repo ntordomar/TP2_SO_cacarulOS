@@ -5,14 +5,14 @@
 
 #define CANT_REGISTER 15
 
-int createProcess(char * name, int parent, size_t heapSize, size_t stackSize, char ** args, void * code, char foreground, int * fds);
+int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code, char foreground, int *fds);
 int getNewPid();
 int killProcess(int pid);
-void processWrapper(int code(char **args), char ** arg);
+void processWrapper(int code(char **args), char **arg);
 int blockProcess(int pid);
 int unblockProcess(int pid);
 void setFileDescriptor(int pid, int index, int value);
-processInfo * getProcessInfo(int pid);
+processInfo *getProcessInfo(int pid);
 int waitpid(int pid);
 int killCurrentForeground(int semId);
 int killChildren(int ppid);

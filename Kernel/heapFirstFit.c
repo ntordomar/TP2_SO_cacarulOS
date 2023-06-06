@@ -10,14 +10,14 @@
 
 typedef struct blockLink // This is the structure of a free block
 {
-    struct blockLink *nextFreeBlock; // The next free block in the list. 
-    size_t blockSize;                // The size of the free block. 
+    struct blockLink *nextFreeBlock; // The next free block in the list.
+    size_t blockSize;                // The size of the free block.
 } blockLink;
 
 // Keeping a list of free blocks and a list of allocated blocks
 blockLink headBlock; // The first block of the free heap
 
-uint64_t *heapMemory = (uint64_t *) (uintptr_t) 0x600000; // The start of the heap
+uint64_t *heapMemory = (uint64_t *)(uintptr_t)0x600000; // The start of the heap
 
 size_t freeMemory = 0; // The amount of free memory in the heap
 
@@ -55,7 +55,7 @@ void *malloc(size_t wantedBlockSize)
 
     // Found a block big enough
     if (currentBlock->blockSize - wantedBlockSize > 2 * sizeof(blockLink))
-    { 
+    {
         // Dividing the block
         blockLink *newBlock = (blockLink *)((uint64_t *)currentBlock + sizeof(blockLink) + wantedBlockSize);
         newBlock->blockSize = currentBlock->blockSize - wantedBlockSize - sizeof(blockLink);
@@ -140,7 +140,8 @@ void initHeap()
 memoryInfo *getHeapInfo()
 {
     memoryInfo *info = (memoryInfo *)malloc(sizeof(memoryInfo));
-    if(info == NULL) {
+    if (info == NULL)
+    {
         return NULL;
     }
     info->total = TOTALHEAPSIZE;

@@ -1,4 +1,4 @@
-#define CTRL 29 //ascii for ctrl key
+#define CTRL 29 // ascii for ctrl key
 
 static const char keyBoardTable[256] =
     {
@@ -23,5 +23,5 @@ char nextElement();
 
 void keyboardHandlerInit();
 
-//from interrupts.asm
+// from interrupts.asm
 void _snapshot_registers();

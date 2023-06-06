@@ -40,16 +40,17 @@ void addProcess(processType *process)
 {
     // insert schNodes into the list with a priority of zero
     PCB *pcb = (PCB *)malloc(sizeof(PCB));
-    if(pcb == NULL)
+    if (pcb == NULL)
     {
-        return NULL;
+        return;
     }
     pcb->priority = MAX_PRIORITY;
     pcb->process = process;
     pcb->ticks = 0;
 
     // Set the current foreground process
-    if(pcb->process->pid != 1 && pcb->process->pid != 2 && pcb->process->foreground == 1){
+    if (pcb->process->pid != 1 && pcb->process->pid != 2 && pcb->process->foreground == 1)
+    {
         foregroundProcess = pcb->process->pid;
     }
 
@@ -60,7 +61,7 @@ void addProcess(processType *process)
 
 void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
 {
-    currentPCB->process->stack->current = stackPointer; 
+    currentPCB->process->stack->current = stackPointer;
     if (currentPCB->priority == IDLE_PRIORITY)
     {
         return;
@@ -83,7 +84,7 @@ void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
     {
         if (currentPCB->priority < MAX_PRIORITY)
         {
-            int newPriority = currentPCB->priority + (int)(1 / (double) (currentPCB->ticks / priorityQuantum[currentPCB->priority] * QUANTUM));
+            int newPriority = currentPCB->priority + (int)(1 / (double)(currentPCB->ticks / priorityQuantum[currentPCB->priority] * QUANTUM));
             changePriority(currentPCB->process->pid, newPriority);
         }
         else
@@ -116,7 +117,7 @@ PCB *findNextAvailableProcess()
 
 uint64_t *switchProcess(uint64_t *stackPointer, uint64_t *stackSegment)
 {
-   
+
     stopProcess(stackPointer, stackSegment);
     PCB *nextAvailableProcess;
     nextAvailableProcess = findNextAvailableProcess();
@@ -158,7 +159,7 @@ int changePriority(int pid, int newPriority)
 {
     PCB *processToChange = findPcbEntry(pid);
 
-    if(processToChange == NULL)
+    if (processToChange == NULL)
     {
         return -1;
     }
@@ -210,7 +211,7 @@ PCB *getIdleProcessPCB()
 int *getPidsArray()
 {
     int *pids = (int *)malloc(sizeof(int) * cantProcess);
-    if(pids == NULL)
+    if (pids == NULL)
     {
         return NULL;
     }
@@ -224,7 +225,8 @@ int *getPidsArray()
     return pids;
 }
 
-Queue ** getQueues(){
+Queue **getQueues()
+{
     return queues;
 }
 
@@ -238,6 +240,3 @@ void yield()
     currentPCB->ticks = priorityQuantum[currentPCB->priority] * QUANTUM;
     forceScheduler();
 }
-
-
-

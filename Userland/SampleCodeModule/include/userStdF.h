@@ -32,7 +32,7 @@ void printChar(char c, int color);
 void newLine();
 void divideString(char *command, char *param, char delim);
 void backspace();
-int clear(char ** args);
+int clear(char **args);
 void setCharSize(int size);
 void resetTerminal();
 void setCursorPosition(int x, int y);
@@ -55,7 +55,7 @@ char *strcpy(char *destination, const char *source);
 
 int semPost(int semId);
 int semWait(int semId);
-int semCreate(char * semName, int value);
+int semCreate(char *semName, int value);
 int semCreateAnonymous(int value);
 int semClose(int semId);
 int semDestroy(int semId);

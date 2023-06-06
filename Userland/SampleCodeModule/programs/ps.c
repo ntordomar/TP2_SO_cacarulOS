@@ -8,7 +8,7 @@ int ps(char **args)
     processInfo *p;
     int *pids = getProcesses();
     char *status = malloc(10);
-    if(status == NULL)
+    if (status == NULL)
     {
         free(pids);
         return -1;

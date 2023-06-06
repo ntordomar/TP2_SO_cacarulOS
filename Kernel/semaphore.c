@@ -9,7 +9,7 @@ void cleanSemaphore(int semId);
 int userAlreadyExists(char *name);
 sem_t findMinmumFreeId();
 
-    void semInit()
+void semInit()
 {
     semaphores = (semaphoreType *)malloc(sizeof(semaphoreType) * SEM_MAX);
     int i;
@@ -44,9 +44,12 @@ sem_t semCreate(char *name, int initValue)
     return i;
 }
 
-sem_t findMinmumFreeId(){
-    for(int i = 0 ; i<FIRST_USER_SEM; i++){
-        if(semaphores[i].name == NULL){
+sem_t findMinmumFreeId()
+{
+    for (int i = 0; i < FIRST_USER_SEM; i++)
+    {
+        if (semaphores[i].name == NULL)
+        {
             return i;
         }
     }
@@ -56,7 +59,8 @@ sem_t findMinmumFreeId(){
 sem_t semCreateAnonymous(int initValue)
 {
     sem_t auxId = findMinmumFreeId();
-    if(auxId == -1) return -1;
+    if (auxId == -1)
+        return -1;
     semaphores[auxId].name = "CacarulOS";
     semaphores[auxId].value = initValue;
     semaphores[auxId].blockedProcesses = createQueue();
@@ -86,15 +90,15 @@ sem_t semOpen(char *nameSem)
     return i;
 }
 
-sem_t openAnonymous(sem_t semId){
+sem_t openAnonymous(sem_t semId)
+{
     if (semaphores[semId].destroying)
     {
         return -1;
     }
-    semaphores[semId].activeProcesses[ getCurrentPid() ] = 1;
+    semaphores[semId].activeProcesses[getCurrentPid()] = 1;
     semaphores[semId].activeProcessCant++;
     return 0;
-
 }
 
 int semClose(sem_t semId)
@@ -104,10 +108,9 @@ int semClose(sem_t semId)
         return -1;
     }
 
-    semaphores[semId].activeProcesses[ getCurrentPid() ] = 0;
+    semaphores[semId].activeProcesses[getCurrentPid()] = 0;
     semaphores[semId].activeProcessCant--;
 
-    
     return 0;
 }
 
@@ -136,7 +139,6 @@ void cleanSemaphore(int semId)
     semaphores[semId].destroyerPID = -1;
     semaphores[semId].destroying = 0;
     semaphores[semId].activeProcessCant = 0;
-    
 }
 
 int semWait(sem_t semId)
@@ -213,13 +215,13 @@ semInfo *semPrint(sem_t semId)
 {
     semaphoreType semAsked = semaphores[semId];
     semInfo *toRet = malloc(sizeof(semInfo));
-    if(toRet == NULL) 
+    if (toRet == NULL)
     {
         return NULL;
     }
     toRet->activeProcessCant = semAsked.activeProcessCant;
-    toRet->name = malloc(strlen(semAsked.name)+1);
-    if(toRet->name == NULL)
+    toRet->name = malloc(strlen(semAsked.name) + 1);
+    if (toRet->name == NULL)
     {
         free(toRet);
         return NULL;

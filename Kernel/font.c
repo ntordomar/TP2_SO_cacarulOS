@@ -6,8 +6,8 @@
 #include <font.h>
 
 static unsigned char __font_bitmap__[] = {
-//  32 $20 'space'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  32 $20 'space'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -24,8 +24,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  33 $21 'exclam'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  33 $21 'exclam'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___XX___,
@@ -42,8 +42,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  34 $22 'quotedbl'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  34 $22 'quotedbl'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	_XX__XX_,
 	_XX__XX_,
@@ -60,8 +60,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  35 $23 'numbersign'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  35 $23 'numbersign'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -78,8 +78,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  36 $24 'dollar'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  36 $24 'dollar'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	___XX___,
 	___XX___,
 	_XXXXX__,
@@ -96,8 +96,8 @@ static unsigned char __font_bitmap__[] = {
 	___XX___,
 	________,
 	________,
-//  37 $25 'percent'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  37 $25 'percent'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -114,8 +114,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  38 $26 'ampersand'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  38 $26 'ampersand'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXX___,
@@ -132,8 +132,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  39 $27 'quotesingle'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  39 $27 'quotesingle'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	__XX____,
 	__XX____,
@@ -150,8 +150,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  40 $28 'parenleft'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  40 $28 'parenleft'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	____XX__,
@@ -168,8 +168,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  41 $29 'parenright'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  41 $29 'parenright'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XX____,
@@ -186,8 +186,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  42 $2a 'asterisk'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  42 $2a 'asterisk'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -204,8 +204,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  43 $2b 'plus'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  43 $2b 'plus'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -222,8 +222,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  44 $2c 'comma'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  44 $2c 'comma'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -240,8 +240,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  45 $2d 'hyphen'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  45 $2d 'hyphen'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -258,8 +258,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  46 $2e 'period'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  46 $2e 'period'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -276,8 +276,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  47 $2f 'slash'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  47 $2f 'slash'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -294,8 +294,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  48 $30 'zero'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  48 $30 'zero'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXX___,
@@ -312,8 +312,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  49 $31 'one'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  49 $31 'one'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___XX___,
@@ -330,8 +330,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  50 $32 'two'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  50 $32 'two'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -348,8 +348,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  51 $33 'three'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  51 $33 'three'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -366,8 +366,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  52 $34 'four'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  52 $34 'four'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	____XX__,
@@ -384,8 +384,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  53 $35 'five'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  53 $35 'five'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXXX_,
@@ -402,8 +402,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  54 $36 'six'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  54 $36 'six'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXX___,
@@ -420,8 +420,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  55 $37 'seven'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  55 $37 'seven'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXXX_,
@@ -438,8 +438,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  56 $38 'eight'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  56 $38 'eight'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -456,8 +456,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  57 $39 'nine'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  57 $39 'nine'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -474,8 +474,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  58 $3a 'colon'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  58 $3a 'colon'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -492,8 +492,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  59 $3b 'semicolon'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  59 $3b 'semicolon'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -510,8 +510,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  60 $3c 'less'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  60 $3c 'less'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -528,8 +528,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  61 $3d 'equal'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  61 $3d 'equal'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -546,8 +546,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  62 $3e 'greater'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  62 $3e 'greater'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -564,8 +564,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  63 $3f 'question'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  63 $3f 'question'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -582,8 +582,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  64 $40 'at'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  64 $40 'at'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -600,8 +600,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  65 $41 'A'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  65 $41 'A'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___X____,
@@ -618,8 +618,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  66 $42 'B'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  66 $42 'B'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXX__,
@@ -636,8 +636,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  67 $43 'C'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  67 $43 'C'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXXX__,
@@ -654,8 +654,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  68 $44 'D'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  68 $44 'D'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXX___,
@@ -672,8 +672,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  69 $45 'E'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  69 $45 'E'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXXX_,
@@ -690,8 +690,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  70 $46 'F'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  70 $46 'F'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXXX_,
@@ -708,8 +708,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  71 $47 'G'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  71 $47 'G'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXXX__,
@@ -726,8 +726,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  72 $48 'H'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  72 $48 'H'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XX___XX_,
@@ -744,8 +744,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  73 $49 'I'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  73 $49 'I'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXXX__,
@@ -762,8 +762,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  74 $4a 'J'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  74 $4a 'J'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___XXXX_,
@@ -780,8 +780,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  75 $4b 'K'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  75 $4b 'K'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXX__XX_,
@@ -798,8 +798,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  76 $4c 'L'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  76 $4c 'L'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXX____,
@@ -816,8 +816,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  77 $4d 'M'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  77 $4d 'M'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XX___XX_,
@@ -834,8 +834,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  78 $4e 'N'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  78 $4e 'N'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XX___XX_,
@@ -852,8 +852,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  79 $4f 'O'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  79 $4f 'O'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -870,8 +870,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  80 $50 'P'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  80 $50 'P'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXX__,
@@ -888,8 +888,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  81 $51 'Q'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  81 $51 'Q'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -906,8 +906,8 @@ static unsigned char __font_bitmap__[] = {
 	____XXX_,
 	________,
 	________,
-//  82 $52 'R'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  82 $52 'R'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXX__,
@@ -924,8 +924,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  83 $53 'S'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  83 $53 'S'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXX__,
@@ -942,8 +942,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  84 $54 'T'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  84 $54 'T'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXXXXX_,
@@ -960,8 +960,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  85 $55 'U'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  85 $55 'U'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XX___XX_,
@@ -978,8 +978,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  86 $56 'V'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  86 $56 'V'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XX___XX_,
@@ -996,8 +996,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  87 $57 'W'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  87 $57 'W'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XX___XX_,
@@ -1014,8 +1014,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  88 $58 'X'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  88 $58 'X'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XX___XX_,
@@ -1032,8 +1032,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  89 $59 'Y'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  89 $59 'Y'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XX__XX_,
@@ -1050,8 +1050,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  90 $5a 'Z'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  90 $5a 'Z'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXXXXXX_,
@@ -1068,8 +1068,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  91 $5b 'bracketleft'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  91 $5b 'bracketleft'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXXX__,
@@ -1086,8 +1086,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  92 $5c 'backslash'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  92 $5c 'backslash'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1104,8 +1104,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  93 $5d 'bracketright'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  93 $5d 'bracketright'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXXX__,
@@ -1122,8 +1122,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  94 $5e 'asciicircum'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  94 $5e 'asciicircum'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	___X____,
 	__XXX___,
 	_XX_XX__,
@@ -1140,8 +1140,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  95 $5f 'underscore'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  95 $5f 'underscore'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1158,8 +1158,8 @@ static unsigned char __font_bitmap__[] = {
 	XXXXXXXX,
 	________,
 	________,
-//  96 $60 'grave'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  96 $60 'grave'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	__XX____,
 	__XX____,
 	___XX___,
@@ -1176,8 +1176,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  97 $61 'a'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  97 $61 'a'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1194,8 +1194,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  98 $62 'b'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  98 $62 'b'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXX_____,
@@ -1212,8 +1212,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-//  99 $63 'c'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	//  99 $63 'c'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1230,8 +1230,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 100 $64 'd'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 100 $64 'd'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___XXX__,
@@ -1248,8 +1248,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 101 $65 'e'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 101 $65 'e'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1266,8 +1266,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 102 $66 'f'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 102 $66 'f'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXX___,
@@ -1284,8 +1284,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 103 $67 'g'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 103 $67 'g'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1302,8 +1302,8 @@ static unsigned char __font_bitmap__[] = {
 	XX__XX__,
 	_XXXX___,
 	________,
-// 104 $68 'h'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 104 $68 'h'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXX_____,
@@ -1320,8 +1320,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 105 $69 'i'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 105 $69 'i'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___XX___,
@@ -1338,8 +1338,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 106 $6a 'j'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 106 $6a 'j'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_____XX_,
@@ -1356,8 +1356,8 @@ static unsigned char __font_bitmap__[] = {
 	_XX__XX_,
 	__XXXX__,
 	________,
-// 107 $6b 'k'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 107 $6b 'k'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	XXX_____,
@@ -1374,8 +1374,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 108 $6c 'l'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 108 $6c 'l'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	__XXX___,
@@ -1392,8 +1392,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 109 $6d 'm'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 109 $6d 'm'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1410,8 +1410,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 110 $6e 'n'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 110 $6e 'n'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1428,8 +1428,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 111 $6f 'o'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 111 $6f 'o'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1446,8 +1446,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 112 $70 'p'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 112 $70 'p'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1464,8 +1464,8 @@ static unsigned char __font_bitmap__[] = {
 	_XX_____,
 	XXXX____,
 	________,
-// 113 $71 'q'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 113 $71 'q'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1482,8 +1482,8 @@ static unsigned char __font_bitmap__[] = {
 	____XX__,
 	___XXXX_,
 	________,
-// 114 $72 'r'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 114 $72 'r'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1500,8 +1500,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 115 $73 's'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 115 $73 's'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1518,8 +1518,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 116 $74 't'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 116 $74 't'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___X____,
@@ -1536,8 +1536,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 117 $75 'u'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 117 $75 'u'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1554,8 +1554,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 118 $76 'v'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 118 $76 'v'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1572,8 +1572,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 119 $77 'w'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 119 $77 'w'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1590,8 +1590,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 120 $78 'x'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 120 $78 'x'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1608,8 +1608,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 121 $79 'y'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 121 $79 'y'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1626,8 +1626,8 @@ static unsigned char __font_bitmap__[] = {
 	____XX__,
 	XXXXX___,
 	________,
-// 122 $7a 'z'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 122 $7a 'z'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	________,
@@ -1644,8 +1644,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 123 $7b 'braceleft'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 123 $7b 'braceleft'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	____XXX_,
@@ -1662,8 +1662,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 124 $7c 'bar'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 124 $7c 'bar'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	___XX___,
@@ -1680,8 +1680,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 125 $7d 'braceright'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 125 $7d 'braceright'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXX____,
@@ -1698,8 +1698,8 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-// 126 $7e 'asciitilde'
-//	width 8, bbx 0, bby -4, bbw 8, bbh 16
+	// 126 $7e 'asciitilde'
+	//	width 8, bbx 0, bby -4, bbw 8, bbh 16
 	________,
 	________,
 	_XXX_XX_,
@@ -1715,11 +1715,11 @@ static unsigned char __font_bitmap__[] = {
 	________,
 	________,
 	________,
-	________
-};
+	________};
 
-unsigned char * charBitmap(int c) {
-	return (__font_bitmap__+(c-' ')*16);
+unsigned char *charBitmap(int c)
+{
+	return (__font_bitmap__ + (c - ' ') * 16);
 }
 
 #endif

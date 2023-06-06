@@ -197,11 +197,11 @@ uint64_t sys_sem_create_anonymous(int initValue)
     return sys_int_80((uint64_t)39, (uint64_t)initValue, 0, 0, 0, 0);
 }
 
-uint64_t sys_yield() {
+uint64_t sys_yield()
+{
     return sys_int_80((uint64_t)40, 0, 0, 0, 0, 0);
 }
-uint64_t sys_toggle_block(int pid) {
+uint64_t sys_toggle_block(int pid)
+{
     return sys_int_80((uint64_t)41, (uint64_t)pid, 0, 0, 0, 0);
 }
-
-

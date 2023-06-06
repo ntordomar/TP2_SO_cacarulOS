@@ -9,7 +9,7 @@ int loop(char **args)
     {
         print("HELLO CACARULO, I AM THE PROCESS ", WHITE);
         printf(WHITE, "%d", getCurrentPid());
-        printChar('\n',WHITE);
+        printChar('\n', WHITE);
         hold(60);
     }
 }

@@ -1,1 +1,1 @@
-void memory(char * param);
+void memory(char *param);

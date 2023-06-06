@@ -7,7 +7,8 @@
 Queue *createQueue()
 {
     Queue *queue = (Queue *)malloc(sizeof(Queue));
-    if(queue == NULL) {
+    if (queue == NULL)
+    {
         return NULL;
     }
     queue->front = NULL;
@@ -56,7 +57,7 @@ PCB *dequeue(Queue *queue)
         return NULL; // Empty queue
     }
     Node *temp = queue->front;
-    PCB * data = temp->data;
+    PCB *data = temp->data;
     queue->front = queue->front->next;
 
     if (queue->front == NULL)
@@ -143,7 +144,7 @@ PCB *dequeueByData(Queue *queue, int pid)
     return NULL; // Not found
 }
 
-int retPids(Queue *queue, int * pids)
+int retPids(Queue *queue, int *pids)
 {
     Node *current = queue->front;
     int i = 0;
@@ -156,10 +157,10 @@ int retPids(Queue *queue, int * pids)
     return i;
 }
 
-int * dequeueAllChildren(Queue * queue, int ppid)
+int *dequeueAllChildren(Queue *queue, int ppid)
 {
-    int *pids = malloc(sizeof(int)*100);
-    if(pids == NULL)
+    int *pids = malloc(sizeof(int) * 100);
+    if (pids == NULL)
     {
         return NULL;
     }
@@ -174,7 +175,7 @@ int * dequeueAllChildren(Queue * queue, int ppid)
         }
         current = current->next;
     }
-    
+
     pids[dim] = -1;
     return pids;
 }

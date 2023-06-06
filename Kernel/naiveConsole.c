@@ -1,30 +1,27 @@
 #include <naiveConsole.h>
 
+static uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base);
 
-
-static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base);
-
-static char buffer[64] = { '0' };
-static uint8_t * const video = (uint8_t*)(uintptr_t)0xB8000;
-static uint8_t * currentVideo = (uint8_t*)(uintptr_t)0xB8000;
+static char buffer[64] = {'0'};
+static uint8_t *const video = (uint8_t *)(uintptr_t)0xB8000;
+static uint8_t *currentVideo = (uint8_t *)(uintptr_t)0xB8000;
 static const uint32_t width = 80;
-static const uint32_t height = 25 ;
+static const uint32_t height = 25;
 
-void ncPrint(const char * string, int colorNum,int backColor)
+void ncPrint(const char *string, int colorNum, int backColor)
 {
 	int i;
 
 	for (i = 0; string[i] != 0; i++)
-		ncPrintChar(string[i],colorNum,backColor);
+		ncPrintChar(string[i], colorNum, backColor);
 }
 
 void ncPrintChar(char character, int colorNum, int backColor)
 {
 	*currentVideo = character;
-	currentVideo ++;
-	*currentVideo = backColor*16 +colorNum;
-	currentVideo ++;
-	
+	currentVideo++;
+	*currentVideo = backColor * 16 + colorNum;
+	currentVideo++;
 }
 
 void ncNewline()
@@ -49,8 +46,8 @@ void ncPrintBin(uint64_t value)
 
 void ncPrintBase(uint64_t value, uint32_t base)
 {
-    uintToBase(value, buffer, base);
-    //ncPrint(buffer, WHITE,GREEN);
+	uintToBase(value, buffer, base);
+	// ncPrint(buffer, WHITE,GREEN);
 }
 
 void ncClear()
@@ -62,25 +59,24 @@ void ncClear()
 	currentVideo = video;
 }
 
-static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)
+static uint32_t uintToBase(uint64_t value, char *buffer, uint32_t base)
 {
 	char *p = buffer;
 	char *p1, *p2;
 	uint32_t digits = 0;
 
-	//Calculate characters for each digit
+	// Calculate characters for each digit
 	do
 	{
 		uint32_t remainder = value % base;
 		*p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
 		digits++;
-	}
-	while (value /= base);
+	} while (value /= base);
 
 	// Terminate string in buffer.
 	*p = 0;
 
-	//Reverse string in buffer.
+	// Reverse string in buffer.
 	p1 = buffer;
 	p2 = p - 1;
 	while (p1 < p2)
@@ -95,13 +91,16 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base)
 	return digits;
 }
 
-void printBackSpace(){
-	currentVideo-=2;
-	//ncPrint(" ",BLACK,BLACK);
-	currentVideo -=2;
+void printBackSpace()
+{
+	currentVideo -= 2;
+	// ncPrint(" ",BLACK,BLACK);
+	currentVideo -= 2;
 }
-void ncPrintBytes(const char* string, int bytes, char color) {
-	for (int i =0; i<bytes; i++){
-		//ncPrintChar(string[i], color,BLACK);
+void ncPrintBytes(const char *string, int bytes, char color)
+{
+	for (int i = 0; i < bytes; i++)
+	{
+		// ncPrintChar(string[i], color,BLACK);
 	}
 }

@@ -3,12 +3,14 @@
 #include <user_syscalls.h>
 #include <userStdF.h>
 #include <piano.h>
-void pianoPlay(){
+void pianoPlay()
+{
     printf(WHITE, "The notes are: s(C) d(D) f(E) g(F) h(G) j(A) k(B) \n");
     printf(GREEN, "press o  if you want to learn how to play 'Himno de la alegria'\n");
     printf(WHITE, "press x  to exit'\n");
     char c;
-    while(1){
+    while (1)
+    {
         hold(1);
         c = getChar();
         switch (c)
@@ -39,6 +41,6 @@ void pianoPlay(){
             break;
         case 'X':
             return;
+        }
     }
-}
 }

@@ -25,7 +25,7 @@ void keyboardHandlerInit()
 }
 
 char nextElement()
-{ 
+{
     // returns the first element pushed into the buffer in cronological order
     semWait(semId);
     char toRet = buff[front];

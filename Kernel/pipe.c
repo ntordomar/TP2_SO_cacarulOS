@@ -73,12 +73,12 @@ int pipeWrite(pipe_t id, const char *src, unsigned int count)
         {
             pipeArray[id].writePos = 0;
         }
-        if(firstEOF && pipeArray[id].eof){
+        if (firstEOF && pipeArray[id].eof)
+        {
             firstEOF = 0;
             pipeArray[id].pipeBuffer[pipeArray[id].writePos++] = EOF;
             pipeArray[id].leftToRead++;
             semPost(pipeArray[id].readSemId);
-
         }
 
         pipeArray[id].pipeBuffer[pipeArray[id].writePos++] = (char)src[i];
@@ -107,7 +107,8 @@ int pipeRead(pipe_t id, char *dest, unsigned int count)
 
         dest[i] = pipeArray[id].pipeBuffer[pipeArray[id].readPos++];
 
-        if(dest[i]== -1){
+        if (dest[i] == -1)
+        {
             pipeArray[id].leftToRead--;
             semPost(pipeArray[id].writeSemId);
             return -1;
@@ -151,10 +152,9 @@ pipe_t getPipeIdByName(int name)
 
 void sendEOFToCurrent()
 {
-    PCB *pcb = findPcbEntry(getForegroundProcess);
+    PCB *pcb = findPcbEntry(getForegroundProcess());
     if (pcb->process->fd[FD_READ] != -1)
     {
         sendEOFSignal(pcb->process->fd[FD_READ]);
     }
-
 }

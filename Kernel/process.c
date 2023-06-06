@@ -7,7 +7,7 @@
 void freeProcess(PCB *processPCB);
 int biggerPidAvailable = 1;
 
-int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code, char foreground, int * fds)
+int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, char **args, void *code, char foreground, int *fds)
 {
     if (code == NULL || name == NULL)
     {
@@ -20,7 +20,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
         return -1; // There is no memory to create a new process
     }
 
-    process->pid = getNewPid(); 
+    process->pid = getNewPid();
 
     process->name = malloc(strlen(name) + 1);
     if (process->name == NULL)
@@ -31,7 +31,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     strcpy(process->name, name);
     if (parent == -1)
     {
-        process->parent = getCurrentPid(); 
+        process->parent = getCurrentPid();
     }
     else
     {
@@ -45,7 +45,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
         free(process);
         return -1;
     }
-    process->heap->base = (uint64_t *)malloc(heapSize); 
+    process->heap->base = (uint64_t *)malloc(heapSize);
     if (process->heap->base == NULL)
     {
         free(process->heap);
@@ -119,7 +119,6 @@ int killProcess(int pid)
         processPCB->process->status = ZOMBIE;
         semPost(processPCB->process->semId);
         semClose(processPCB->process->semId);
-
     }
 
     if (pid == getCurrentPid())
@@ -137,23 +136,23 @@ int killCurrentForeground(int semId)
         return -1;
 
     // kill process that is running in foreground if it is not the shell
-    if(!killChildren(currentPCB->process->pid)) 
+    if (!killChildren(currentPCB->process->pid))
     {
-        if(currentPCB->process->status == BLOCKED)
+        if (currentPCB->process->status == BLOCKED)
             semSet(semId, 1);
         return killProcess(currentPCB->process->pid);
     }
     return 0;
-    
 }
 
-int killChildren(int ppid) {
+int killChildren(int ppid)
+{
     int count = 0;
-    Queue ** myQueues = getQueues();
+    Queue **myQueues = getQueues();
     for (int i = MIN_PRIORITY; i <= MAX_PRIORITY; i++)
     {
-        int * killedProcesses = dequeueAllChildren(myQueues[i], ppid);
-        for (int j = 0; killedProcesses[j]!= -1 ; j++ )
+        int *killedProcesses = dequeueAllChildren(myQueues[i], ppid);
+        for (int j = 0; killedProcesses[j] != -1; j++)
         {
             killProcess(killedProcesses[j]);
             count++;
@@ -217,7 +216,8 @@ processInfo *getProcessInfo(int pid)
 {
     PCB *processPCB = findPcbEntry(pid);
     processInfo *info = (processInfo *)malloc(sizeof(processInfo));
-    if(info == NULL){
+    if (info == NULL)
+    {
         return NULL;
     }
     info->pid = pid;
@@ -226,7 +226,7 @@ processInfo *getProcessInfo(int pid)
     info->priority = processPCB->priority;
     info->foreground = processPCB->process->foreground;
     info->name = malloc(strlen(processPCB->process->name) + 1);
-    if(info->name == NULL)
+    if (info->name == NULL)
     {
         free(info);
         return NULL;
@@ -240,7 +240,7 @@ processInfo *getProcessInfo(int pid)
 int waitpid(int pid)
 {
     PCB *processToWait = findPcbEntry(pid);
- 
+
     if (processToWait == NULL)
     {
         return -1;
@@ -275,7 +275,7 @@ void toggleBlock(int pid)
     {
         unblockProcess(pid);
     }
-    else if(processPCB->process->status == READY)
+    else if (processPCB->process->status == READY)
     {
         blockProcess(pid);
     }

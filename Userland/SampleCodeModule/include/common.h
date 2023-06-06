@@ -1,18 +1,19 @@
 #include <stdint.h>
 #include <stddef.h>
 
-typedef struct {
-    char * name;
+typedef struct
+{
+    char *name;
     int pid;
     int parent;
-    uint64_t * rsp;
-    uint64_t * rbp;
+    uint64_t *rsp;
+    uint64_t *rbp;
     size_t priority;
     char foreground;
     int state;
 } processInfo;
 
-typedef struct 
+typedef struct
 {
     int total;
     int used;
@@ -21,9 +22,9 @@ typedef struct
 
 typedef struct
 {
-    char * name;
+    char *name;
     int semValue;
     char tryingToDestroy;
     int activeProcessCant;
-    
+
 } semInfo;

@@ -2,7 +2,7 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <userlandApps.h>
 
-int help(char ** args)
+int help(char **args)
 {
     printf(GREEN, "---WELCOME TO THE CACARULOS HELP---");
     printChar('\n', WHITE);

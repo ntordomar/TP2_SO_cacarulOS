@@ -97,7 +97,7 @@ void print(char *buffer, int color)
     {
         if (stdout == 0)
         {
-            if(buffer[i] == '\n')
+            if (buffer[i] == '\n')
             {
                 newLine();
             }
@@ -136,7 +136,7 @@ void backspace()
     sys_write_char(Xpos, Ypos, ' ', WHITE);
 }
 
-int clear(char ** args)
+int clear(char **args)
 {
     sys_clear_screen();
     resetTerminal();
@@ -328,7 +328,7 @@ processInfo *getProcessInfo(int pid)
 void *malloc(int size)
 {
     void *ptr = NULL;
-    ptr = (void*) sys_malloc(size, ptr);
+    ptr = (void *)sys_malloc(size, ptr);
     return ptr;
 }
 
@@ -369,7 +369,7 @@ int semWait(int semId)
     return sys_sem_wait(semId);
 }
 
-int semCreate(char * semName, int value)
+int semCreate(char *semName, int value)
 {
     return sys_sem_create(semName, value);
 }

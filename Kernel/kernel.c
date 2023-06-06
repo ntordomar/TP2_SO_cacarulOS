@@ -67,7 +67,6 @@ int main()
 	initScheduler();
 	semInit();
 	pipeInit();
-	
 
 	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress, 1, fdDefault);
 

@@ -2,62 +2,64 @@
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <stdint.h>
 #include <stddef.h>
-void * memset(void * destination, int32_t c, uint64_t length)
+void *memset(void *destination, int32_t c, uint64_t length)
 {
-	uint8_t chr = (uint8_t)c;
-	char * dst = (char*)destination;
+    uint8_t chr = (uint8_t)c;
+    char *dst = (char *)destination;
 
-	while(length--)
-		dst[length] = chr;
+    while (length--)
+        dst[length] = chr;
 
-	return destination;
+    return destination;
 }
 
-void * memcpy(void * destination, const void * source, uint64_t length)
+void *memcpy(void *destination, const void *source, uint64_t length)
 {
-	/*
-	* memcpy does not support overlapping buffers, so always do it
-	* forwards. (Don't change this without adjusting memmove.)
-	*
-	* For speedy copying, optimize the common case where both pointers
-	* and the length are word-aligned, and copy word-at-a-time instead
-	* of byte-at-a-time. Otherwise, copy by bytes.
-	*
-	* The alignment logic below should be portable. We rely on
-	* the compiler to be reasonably intelligent about optimizing
-	* the divides and modulos out. Fortunately, it is.
-	*/
-	uint64_t i;
+    /*
+     * memcpy does not support overlapping buffers, so always do it
+     * forwards. (Don't change this without adjusting memmove.)
+     *
+     * For speedy copying, optimize the common case where both pointers
+     * and the length are word-aligned, and copy word-at-a-time instead
+     * of byte-at-a-time. Otherwise, copy by bytes.
+     *
+     * The alignment logic below should be portable. We rely on
+     * the compiler to be reasonably intelligent about optimizing
+     * the divides and modulos out. Fortunately, it is.
+     */
+    uint64_t i;
 
-	if ((uint64_t)destination % sizeof(uint32_t) == 0 &&
-		(uint64_t)source % sizeof(uint32_t) == 0 &&
-		length % sizeof(uint32_t) == 0)
-	{
-		uint32_t *d = (uint32_t *) destination;
-		const uint32_t *s = (const uint32_t *)source;
+    if ((uint64_t)destination % sizeof(uint32_t) == 0 &&
+        (uint64_t)source % sizeof(uint32_t) == 0 &&
+        length % sizeof(uint32_t) == 0)
+    {
+        uint32_t *d = (uint32_t *)destination;
+        const uint32_t *s = (const uint32_t *)source;
 
-		for (i = 0; i < length / sizeof(uint32_t); i++)
-			d[i] = s[i];
-	}
-	else
-	{
-		uint8_t * d = (uint8_t*)destination;
-		const uint8_t * s = (const uint8_t*)source;
+        for (i = 0; i < length / sizeof(uint32_t); i++)
+            d[i] = s[i];
+    }
+    else
+    {
+        uint8_t *d = (uint8_t *)destination;
+        const uint8_t *s = (const uint8_t *)source;
 
-		for (i = 0; i < length; i++)
-			d[i] = s[i];
-	}
+        for (i = 0; i < length; i++)
+            d[i] = s[i];
+    }
 
-	return destination;
+    return destination;
 }
 
-void itoa(uint64_t value, char *buffer, uint32_t base) {
+void itoa(uint64_t value, char *buffer, uint32_t base)
+{
     char *p = buffer;
     char *p1, *p2;
     uint32_t digits = 0;
 
     // Calculate characters for each digit
-    do {
+    do
+    {
         uint32_t remainder = value % base;
         *p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
         digits++;
@@ -69,31 +71,35 @@ void itoa(uint64_t value, char *buffer, uint32_t base) {
     // Reverse string in buffer.
     p1 = buffer;
     p2 = p - 1;
-    while (p1 < p2) {
+    while (p1 < p2)
+    {
         char tmp = *p1;
         *p1 = *p2;
         *p2 = tmp;
         p1++;
         p2--;
     }
-
 }
 
-int strlen(char * s) {
-    int counter  = 0;
-    while(s[counter] != 0) counter ++;
+int strlen(char *s)
+{
+    int counter = 0;
+    while (s[counter] != 0)
+        counter++;
     return counter;
 }
 
-char * strcpy(char* destination, const char* source){
+char *strcpy(char *destination, const char *source)
+{
     // return if no memory is allocated to the destination
-    if (destination == 0) {
+    if (destination == 0)
+    {
         return 0;
     }
- 
+
     // take a pointer pointing to the beginning of the destination string
     char *ptr = destination;
- 
+
     // copy the C-string pointed by source into the array
     // pointed by destination
     while (*source != '\0')
@@ -102,25 +108,31 @@ char * strcpy(char* destination, const char* source){
         destination++;
         source++;
     }
- 
+
     // include the terminating null character
     *destination = '\0';
- 
+
     // the destination is returned by standard `strcpy()`
     return ptr;
 }
 
-int strcmp(char * s1, char * s2){
-    if(s1 == NULL || s2 == NULL) return 1;
+int strcmp(char *s1, char *s2)
+{
+    if (s1 == NULL || s2 == NULL)
+        return 1;
     int i = 0;
-    while(s1[i] != 0 && s2[i] != 0){
-        if(s1[i] != s2[i]) return 1;
+    while (s1[i] != 0 && s2[i] != 0)
+    {
+        if (s1[i] != s2[i])
+            return 1;
         i++;
     }
-    if(s1[i] != s2[i]) return 1;
+    if (s1[i] != s2[i])
+        return 1;
     return 0;
 }
 
-void debug(){
+void debug()
+{
     return;
 }

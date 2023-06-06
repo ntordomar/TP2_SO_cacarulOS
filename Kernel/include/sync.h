@@ -27,7 +27,7 @@ int semPost(sem_t semId);                   // Increments semaphore
 void semInit();                             // Initializes the semaphore array
 int semSet(int semId, int value);           // Sets the value of the semaphore
 sem_t semCreateAnonymous(int initValue);    // Creates an anonymous semaphore
-semInfo* semPrint(sem_t semId);
+semInfo *semPrint(sem_t semId);
 sem_t openAnonymous(sem_t semId);
 // void dequeueForeground(sem_t semId);
 
@@ -45,4 +45,3 @@ void mutexUnlock(mutex_t mutexID);
 void mutexCreate(mutex_t mutexID);
 void mutexDelete(mutex_t mutexID);
 void mutexInit();
-
