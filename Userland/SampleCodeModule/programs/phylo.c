@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <user_syscalls.h>
 #include <stdint.h>
 #include <userLib.h>
@@ -11,27 +13,23 @@
 #define HUNGRY      1
 #define EATING      2
 
-
-#define MUTEX 777
-#define PRINT_MUTEX 888
-
 typedef int sem_t;
-int end = 0;
+int last = 0;
 
 int state[MAX_PHYLOS] = { 0 };
 sem_t s[MAX_PHYLOS] = { 0 };
-sem_t safe[MAX_PHYLOS] = { 0 };
+sem_t alt[MAX_PHYLOS] = { 0 };
 int pids[MAX_PHYLOS] = { 0 };
 int currentCount = 0;
 
 int mutexId;
 int printId;
 
-int philosopher(char ** num);
-void takeForks(int i);
+int philo(char ** num);
+void forks(int i);
 void addPhylo();
-void removePhylo();
-void putForks(int i);
+void remove();
+void put(int i);
 void test(int i);
 void eat();
 void think();
@@ -43,7 +41,7 @@ int phylo(char ** arguments) {
     printf(WHITE, "Press R to remove a philosopher.\n");
     printf(RED, "Press Q to quit.\n");
 
-    end = 0;
+    last = 0;
     currentCount = 0;
     mutexId = semCreate("mutex", 1);
     printId = semCreate("print", 1);
@@ -57,22 +55,22 @@ int phylo(char ** arguments) {
     }
 
     char c;
-    while(!end){
+    while(!last){
         c = getChar();
         switch(c){
             case 'A':
-                printf(WHITE, "Adding a philosopher...\n");
+                printf(WHITE, "A new philosofer got hungry hmmmm...\n");
                 hold(5);
                 addPhylo();
                 break;
             case 'R':
-                printf(WHITE, "Removing a philosopher...\n");
+                printf(WHITE, "Philosopher is no longer hungry...\n");
                 hold(5);
-                removePhylo();
+                remove();
                 break;
             case 'Q':
-                printf(WHITE, "Quiting...\n");
-                end = 1;
+                printf(WHITE, "Cacarulo says goodbye\n");
+                last = 1;
                 break;
         }
     }
@@ -82,7 +80,7 @@ int phylo(char ** arguments) {
         sys_kill(pids[i]);
         sys_kill(pids[i]);
         semDestroy(s[i]);
-        semDestroy(safe[i]);
+        semDestroy(alt[i]);
     }
 
     semDestroy(mutexId);
@@ -100,13 +98,22 @@ void addPhylo(){
     } else{
         state[currentCount] = THINKING;
         s[currentCount] = semCreateAnonymous(0);
-        safe[currentCount] = semCreateAnonymous(1);
+        alt[currentCount] = semCreateAnonymous(1);
 
         char string[12] = { "philosopher" };
         char ** philos = { 0 };
 
         char ** args = (char **) malloc(3 * sizeof(char *));
+        if(args == NULL)
+        {
+            return;
+        }
         char * buf = (char *) malloc(8);
+        if(buf == NULL)
+        {
+            free(args);
+            return;
+        }
         itoa(currentCount, buf, 10);
 
         args[0] = (char *) (intptr_t) strcpy(args[0], string);
@@ -114,7 +121,7 @@ void addPhylo(){
         args[2] = NULL;
         philos = args;
         int fds[2] = {0,0};
-        pids[currentCount] = sys_create_process(string, philos, &philosopher, 0, fds);
+        pids[currentCount] = sys_create_process(string, philos, &philo, 0, fds);
         if( pids[currentCount] <= 0) {
             printf(RED, "error creating philosopher. aborting\n");
             return;
@@ -126,18 +133,18 @@ void addPhylo(){
     semPost(mutexId);
 }
 
-void removePhylo(){
+void remove(){
     if(currentCount == MIN_PHYLOS){
         printf(WHITE,"MIN PHYLOS REACHED\n");
         return;
     }
 
-    semWait(safe[currentCount-1]);
+    semWait(alt[currentCount-1]);
     semWait(mutexId);
 
     currentCount--;
-    semClose(safe[currentCount]);
-    semDestroy(safe[currentCount]);
+    semClose(alt[currentCount]);
+    semDestroy(alt[currentCount]);
     killProcess(pids[currentCount]);
     semClose(s[currentCount]);
     semDestroy(s[currentCount]);
@@ -145,21 +152,21 @@ void removePhylo(){
     semPost(mutexId);
 }
 
-int philosopher(char ** num) {
+int philo(char ** num) {
     int i = atoi(num[1]);
-    while(!end) {
-        semWait(safe[i]);
+    while(!last) {
+        semWait(alt[i]);
         think();
-        takeForks(i);
+        forks(i);
         eat();
-        putForks(i);
-        semPost(safe[i]);
+        put(i);
+        semPost(alt[i]);
     }
     return 0;
 }
 
 
-void takeForks(int i) {
+void forks(int i) {
     semWait(mutexId);
     state[i] = HUNGRY;
     test(i);
@@ -168,7 +175,7 @@ void takeForks(int i) {
 }
 
 
-void putForks(int i) {
+void put(int i) {
     semWait(mutexId);
     state[i] = THINKING;
     test(LEFT);

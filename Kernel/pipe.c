@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <pipe.h>
 #include <sync.h>
 
@@ -105,7 +107,7 @@ int pipeRead(pipe_t id, char *dest, unsigned int count)
 
         dest[i] = pipeArray[id].pipeBuffer[pipeArray[id].readPos++];
 
-        if(dest[i]== EOF){
+        if(dest[i]== -1){
             pipeArray[id].leftToRead--;
             semPost(pipeArray[id].writeSemId);
             return -1;
@@ -149,7 +151,7 @@ pipe_t getPipeIdByName(int name)
 
 void sendEOFToCurrent()
 {
-    PCB *pcb = findPcbEntry(getForegroundProcess());
+    PCB *pcb = findPcbEntry(getForegroundProcess);
     if (pcb->process->fd[FD_READ] != -1)
     {
         sendEOFSignal(pcb->process->fd[FD_READ]);

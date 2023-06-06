@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <user_syscalls.h>
 #include <userStdF.h>
 #include <stdint.h>
@@ -338,13 +340,12 @@ void free(void *ptr)
 int setNiceness(int pid, int prio)
 {
     sys_nice(pid, prio);
-    printf(BLUE, "Volvi 4 \n");
     return 0;
 }
 
 int setBlock(int pid)
 {
-    sys_block(pid);
+    sys_toggle_block(pid);
     return 0;
 }
 

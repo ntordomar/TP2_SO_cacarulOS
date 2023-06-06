@@ -16,3 +16,4 @@ processInfo * getProcessInfo(int pid);
 int waitpid(int pid);
 int killCurrentForeground(int semId);
 int killChildren(int ppid);
+void toggleBlock(int pid);

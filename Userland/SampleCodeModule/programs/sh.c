@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
 
 #include <userLib.h>
@@ -31,7 +33,16 @@ int createPipedProcess(char ** args) {
     if(args[0] == NULL || args[1] == NULL) return -1;
     int pipeFd = pipeCreateAnonymous();
     int *fds1 = (int *)malloc(2 * sizeof(int));
+    if(fds1 == NULL) 
+    {
+        return -1;
+    }
     int *fds2 = (int *)malloc(2 * sizeof(int));
+    if(fds2 == NULL)
+    {
+        free(fds1);
+        return -1;
+    }
     fds2[0] = pipeFd;
     fds2[1] = 0;
     fds1[0] = 0;
@@ -76,23 +87,39 @@ int findAndExecProcess(char * line, char piped, int *fds)
         if (strcmp(line, commandList[i]) == 0)
         {
             char **args;
-            args = malloc(2 * sizeof(char *));
+            args = malloc(3 * sizeof(char *));
+            if(args == NULL)
+            {
+                return -1;
+            }
 
-            if (arg1 != NULL && arg1[0] != 0)
+            if (arg1[0] != 0)
             {
                 args[0] = malloc(50);
+                if(args[0] == NULL)
+                {
+                    free(args);
+                    return -1;
+                }
                 strcpy(args[0], arg1);
             }
             else
                 args[0] = NULL;
 
-            if (arg2 != NULL && arg2[0] != 0 )
+            if (arg2[0] != 0 )
             {
                 args[1] = malloc(50);
+                if(args[1] == NULL)
+                {
+                    free(args);
+                    return -1;
+                }
                 strcpy(args[1], arg2);
             }
             else
+            {
                 args[1] = NULL;
+            }
 
             args[2] = NULL;
             int pid = sys_create_process(commandList[i], args, commandFunctions[i], isForeground, fds);
@@ -132,6 +159,10 @@ void analizeCommand()
     }
 
     int *fds = (int *) malloc(2*sizeof(int));
+    if(fds == NULL)
+    {
+        return;
+    }
 
     fds[0]= 0;
     fds[1] = 0;
@@ -140,10 +171,30 @@ void analizeCommand()
     {
         char command1[50] = {0};
         divideString(lineBuffer, command1, '/');
-        char ** args = malloc(100);
-        
-        args[0] = lineBuffer;
-        args[1] = command1;
+        char ** args = malloc(3 * sizeof(char *));
+        if(args == NULL)
+        {
+            free(fds);
+            return;
+        }
+
+        args[0] = malloc(50);
+        if(args[0] == NULL)
+        {
+            free(args);
+            free(fds);
+            return;
+        }
+        strcpy(args[0], lineBuffer);
+        args[1] = malloc(50);
+        if(args[1]==NULL)
+        {
+            free(args);
+            free(fds);
+            return;
+        }
+        strcpy(args[1], command1);
+        args[2] = NULL;
 
 
         int pipePid = sys_create_process("PipedProcess", args, &createPipedProcess, 1, fds);

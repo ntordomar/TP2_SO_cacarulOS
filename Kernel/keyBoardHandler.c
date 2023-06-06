@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <video.h>
 #include <keyBoardHandler.h>
 #include <lib.h>
@@ -39,11 +41,6 @@ void keyHandler()
     if (tecla == CTRL) // If ctrl was pressed, set the control flag to 1
     {
         controlFlag = 1;
-        return;
-    }
-    else if (tecla == CTRL + RELEASE) // If ctrl was pressed but then released, set the control flag to 0
-    {
-        controlFlag = 0;
         return;
     }
     else if (controlFlag) // If ctrl was pressed and then we press another key

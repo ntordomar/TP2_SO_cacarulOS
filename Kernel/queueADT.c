@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <queueADT.h>
 #include <heap.h>
 
@@ -5,6 +7,9 @@
 Queue *createQueue()
 {
     Queue *queue = (Queue *)malloc(sizeof(Queue));
+    if(queue == NULL) {
+        return NULL;
+    }
     queue->front = NULL;
     queue->rear = NULL;
     return queue;
@@ -154,6 +159,10 @@ int retPids(Queue *queue, int * pids)
 int * dequeueAllChildren(Queue * queue, int ppid)
 {
     int *pids = malloc(sizeof(int)*100);
+    if(pids == NULL)
+    {
+        return NULL;
+    }
     int dim = 0;
     Node *current = queue->front;
 

@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "./include/sync.h"
 #include <lib.h>
 #include <video.h>
@@ -211,8 +213,17 @@ semInfo *semPrint(sem_t semId)
 {
     semaphoreType semAsked = semaphores[semId];
     semInfo *toRet = malloc(sizeof(semInfo));
+    if(toRet == NULL) 
+    {
+        return NULL;
+    }
     toRet->activeProcessCant = semAsked.activeProcessCant;
-    toRet->name = malloc(strlen(semAsked.name + 1));
+    toRet->name = malloc(strlen(semAsked.name)+1);
+    if(toRet->name == NULL)
+    {
+        free(toRet);
+        return NULL;
+    }
     strcpy(toRet->name, semAsked.name);
     toRet->semValue = semAsked.value;
     toRet->tryingToDestroy = semAsked.destroying;

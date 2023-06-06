@@ -76,7 +76,8 @@
         "test_util.h": "c",
         "__bit_reference": "c",
         "locale.h": "c",
-        "exceptions.h": "c"
+        "exceptions.h": "c",
+        "shared_mutex": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

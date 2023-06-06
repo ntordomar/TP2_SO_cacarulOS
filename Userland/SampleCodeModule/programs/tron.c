@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <user_syscalls.h>
 #include <tron.h>
 #include <userStdF.h>
@@ -132,10 +134,10 @@ void tronGame(){
             youWin(RED,"PLAYER 1 WINS");
             return;
         }
-         else {
-            matrix[j1X/SQUARE_UNIT][j1Y/SQUARE_UNIT] = 1;
-            matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] = 1;
-        }
+        //  else {
+        //     matrix[j1X/SQUARE_UNIT][j1Y/SQUARE_UNIT] = 1;
+        //     matrix[j2X/SQUARE_UNIT][j2Y/SQUARE_UNIT] = 1;
+        // }
         if(j1X == j2X && j1Y == j2Y){
             youWin(WHITE,"its a tie!");
             return;

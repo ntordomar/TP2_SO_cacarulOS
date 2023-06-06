@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <user_syscalls.h>
 #include <userLib.h>
 
@@ -198,3 +200,8 @@ uint64_t sys_sem_create_anonymous(int initValue)
 uint64_t sys_yield() {
     return sys_int_80((uint64_t)40, 0, 0, 0, 0, 0);
 }
+uint64_t sys_toggle_block(int pid) {
+    return sys_int_80((uint64_t)41, (uint64_t)pid, 0, 0, 0, 0);
+}
+
+

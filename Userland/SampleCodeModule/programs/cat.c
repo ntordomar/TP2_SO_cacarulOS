@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <userlandApps.h>
 #include <user_syscalls.h>
 
@@ -9,7 +11,7 @@ int cat(char **args)
     char c;
     int i = 0;
     int j = 0;
-    while ((c = getChar()) != EOF)
+    while ((c = getChar()) != -1)
     {
         if (c == 8)
         { // 8 is ascii's basckspace

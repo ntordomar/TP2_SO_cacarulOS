@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #ifdef STANDARD
 
 #include "./include/heap.h"
@@ -15,7 +17,7 @@ typedef struct blockLink // This is the structure of a free block
 // Keeping a list of free blocks and a list of allocated blocks
 blockLink headBlock; // The first block of the free heap
 
-uint64_t *heapMemory = (uint64_t *)0x600000; // The start of the heap
+uint64_t *heapMemory = (uint64_t *) (uintptr_t) 0x600000; // The start of the heap
 
 size_t freeMemory = 0; // The amount of free memory in the heap
 
@@ -114,7 +116,7 @@ void free(void *ptr)
     }
 
     // Merging to right
-    if ((uint64_t *)blockToFree + sizeof(blockLink) + blockToFree->blockSize == (uint64_t *)blockToFree->nextFreeBlock)
+    if (blockToFree != NULL && (uint64_t *)blockToFree + sizeof(blockLink) + blockToFree->blockSize == (uint64_t *)blockToFree->nextFreeBlock)
     {
         blockToFree->blockSize += blockToFree->nextFreeBlock->blockSize + sizeof(blockLink);
         blockToFree->nextFreeBlock = blockToFree->nextFreeBlock->nextFreeBlock;
@@ -138,6 +140,9 @@ void initHeap()
 memoryInfo *getHeapInfo()
 {
     memoryInfo *info = (memoryInfo *)malloc(sizeof(memoryInfo));
+    if(info == NULL) {
+        return NULL;
+    }
     info->total = TOTALHEAPSIZE;
     info->used = TOTALHEAPSIZE - freeMemory;
     info->free = freeMemory;

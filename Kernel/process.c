@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include <video.h>
 #include "../include/lib.h"
 #include <sync.h>
@@ -23,6 +25,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->name = malloc(strlen(name) + 1);
     if (process->name == NULL)
     {
+        free(process);
         return -1;
     }
     strcpy(process->name, name);
@@ -38,11 +41,16 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->heap = (memoryBlock *)malloc(sizeof(memoryBlock));
     if (process->heap == NULL)
     {
+        free(process->name);
+        free(process);
         return -1;
     }
     process->heap->base = (uint64_t *)malloc(heapSize); 
     if (process->heap->base == NULL)
     {
+        free(process->heap);
+        free(process->name);
+        free(process);
         return -1;
     }
     process->heap->size = heapSize;
@@ -51,11 +59,20 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->stack = (memoryBlock *)malloc(sizeof(memoryBlock));
     if (process->stack == NULL)
     {
+        free(process->heap->base);
+        free(process->heap);
+        free(process->name);
+        free(process);
         return -1;
     }
     process->stack->base = (uint64_t *)malloc(stackSize);
     if (process->stack->base == NULL)
     {
+        free(process->stack);
+        free(process->heap->base);
+        free(process->heap);
+        free(process->name);
+        free(process);
         return -1;
     }
     process->stack->size = stackSize;
@@ -200,12 +217,20 @@ processInfo *getProcessInfo(int pid)
 {
     PCB *processPCB = findPcbEntry(pid);
     processInfo *info = (processInfo *)malloc(sizeof(processInfo));
+    if(info == NULL){
+        return NULL;
+    }
     info->pid = pid;
     info->parent = processPCB->process->parent;
     info->state = processPCB->process->status;
     info->priority = processPCB->priority;
     info->foreground = processPCB->process->foreground;
     info->name = malloc(strlen(processPCB->process->name) + 1);
+    if(info->name == NULL)
+    {
+        free(info);
+        return NULL;
+    }
     info->name = strcpy(info->name, processPCB->process->name);
     info->rsp = processPCB->process->stack->current;
     info->rbp = processPCB->process->stack->base;
@@ -234,9 +259,24 @@ void freeProcess(PCB *processPCB)
     free(processPCB->process->heap);
     free(processPCB->process->stack);
     free(processPCB->process->name);
-    free(processPCB->process);
     semDestroy(processPCB->process->semId);
+    free(processPCB->process);
     free(processPCB);
 }
 
-
+void toggleBlock(int pid)
+{
+    PCB *processPCB = findPcbEntry(pid);
+    if (processPCB == NULL)
+    {
+        return;
+    }
+    if (processPCB->process->status == BLOCKED)
+    {
+        unblockProcess(pid);
+    }
+    else if(processPCB->process->status == READY)
+    {
+        blockProcess(pid);
+    }
+}

@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "./include/scheduler.h"
 #include "heap.h"
 #include <keyBoardHandler.h>
@@ -38,6 +40,10 @@ void addProcess(processType *process)
 {
     // insert schNodes into the list with a priority of zero
     PCB *pcb = (PCB *)malloc(sizeof(PCB));
+    if(pcb == NULL)
+    {
+        return NULL;
+    }
     pcb->priority = MAX_PRIORITY;
     pcb->process = process;
     pcb->ticks = 0;
@@ -152,6 +158,10 @@ int changePriority(int pid, int newPriority)
 {
     PCB *processToChange = findPcbEntry(pid);
 
+    if(processToChange == NULL)
+    {
+        return -1;
+    }
     dequeueByData(queues[processToChange->priority], pid);
     if (newPriority > MAX_PRIORITY)
     {
@@ -200,6 +210,10 @@ PCB *getIdleProcessPCB()
 int *getPidsArray()
 {
     int *pids = (int *)malloc(sizeof(int) * cantProcess);
+    if(pids == NULL)
+    {
+        return NULL;
+    }
     int i = MIN_PRIORITY;
     int cantPids = 0;
     for (; i <= MAX_PRIORITY; i++)

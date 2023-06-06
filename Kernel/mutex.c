@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "./include/sync.h"
 #include <locale.h>
 #include <lib.h>
@@ -36,7 +38,7 @@ void mutexUnlock(mutex_t mutexID)
 
 void mutexCreate(mutex_t mutexID)
 {
-    if (mutexID > SEM_MAX || mutexID < 0)
+    if (mutexID >= SEM_MAX || mutexID < 0)
     {
         return;
     }
