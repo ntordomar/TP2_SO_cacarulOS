@@ -1,5 +1,4 @@
 #include <userlandApps.h>
-// #include <userStdF.h>
 
 int kill(char ** args){
     int pid = atoi(args[0]);

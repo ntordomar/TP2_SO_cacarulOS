@@ -1,6 +1,6 @@
 #include "user_syscalls.h"
 #include "test_util.h"
-#include <userStdF.h>
+#include <userlandApps.h>
 
 #define MAX_BLOCKS 128
 
@@ -10,7 +10,7 @@ typedef struct MM_rq {
 } mm_rq;
 
 
-void* setmem(void* destination, int32_t c, uint64_t length) {
+void* my_memset(void* destination, int32_t c, uint64_t length) {
     uint8_t chr = (uint8_t)c;
     char* dst = (char*)destination;
     while (length--) {
@@ -28,13 +28,10 @@ int test_mem(char ** args) {
   if (args[1] != NULL)
     return -1;
 
-  printf(BLUE, "%s\n", args[0]);
-  printf(BLUE, "%d\n", satoi(args[0]));
 
   if ((max_memory = satoi(args[0])) <= 0)
     return -1;
   
-  printf(BLUE, "%d\n", max_memory);
 
   while (1) {
     rq = 0;
@@ -55,10 +52,8 @@ int test_mem(char ** args) {
     uint32_t i;
     for (i = 0; i < rq; i++)
       if (mm_rqs[i].address)
-        memset(mm_rqs[i].address, i, mm_rqs[i].size);
+        my_memset(mm_rqs[i].address, i, mm_rqs[i].size);
 
-
-     printf(RED,"memsetee\n");
 
     // Check
     for (i = 0; i < rq; i++)
@@ -68,14 +63,11 @@ int test_mem(char ** args) {
           return -1;
         }
 
-         printf(RED,"memChequee\n");
-
     // Free
     for (i = 0; i < rq; i++)
       if (mm_rqs[i].address)
         free(mm_rqs[i].address);
 
-    printf(RED,"pude salir soy un capo!!!!\n");
   }
   return 0;
 }

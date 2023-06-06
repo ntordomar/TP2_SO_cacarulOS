@@ -74,7 +74,9 @@
         "btree.h": "c",
         "phylo.h": "c",
         "test_util.h": "c",
-        "__bit_reference": "c"
+        "__bit_reference": "c",
+        "locale.h": "c",
+        "exceptions.h": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

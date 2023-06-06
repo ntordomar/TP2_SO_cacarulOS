@@ -1,5 +1,4 @@
 #include <stdio.h>
-// #include "../../Shared/shared.h"
 #include <heap.h>
 
 #define MAX_CANT_PROCESSES 100
@@ -16,3 +15,4 @@ void setFileDescriptor(int pid, int index, int value);
 processInfo * getProcessInfo(int pid);
 int waitpid(int pid);
 int killCurrentForeground(int semId);
+int killChildren(int ppid);

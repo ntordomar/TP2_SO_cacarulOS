@@ -6,4 +6,3 @@ int64_t satoi(char *str);
 void bussy_wait(uint64_t n);
 int endless_loop(char **);
 int endless_loop_print(char ** args);
-// void *memset(void *destination, int32_t c, uint64_t length);

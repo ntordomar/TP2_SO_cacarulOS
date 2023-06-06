@@ -1,1 +1,1 @@
-void lettersize();
+int lettersize(char ** args);

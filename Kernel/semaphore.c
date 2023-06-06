@@ -1,10 +1,9 @@
 #include "./include/sync.h"
 #include <lib.h>
-// #include <heap.h>
 #include <video.h>
 
 semaphoreType *semaphores;
-
+void cleanSemaphore(int semId);
 int userAlreadyExists(char *name);
 sem_t findMinmumFreeId();
 
@@ -102,38 +101,24 @@ int semClose(sem_t semId)
     {
         return -1;
     }
+
+    semaphores[semId].activeProcesses[ getCurrentPid() ] = 0;
+    semaphores[semId].activeProcessCant--;
+
+    
     return 0;
-
-    // semaphores[semId].activeProcesses[ getCurrentPid() ] = 0;
-    // semaphores[semId].activeProcessCant--;
-
-    // if (semaphores[semId].activeProcessCant == 0)
-    // {
-    //     if (semaphores[semId].destroying)
-    //     {
-    //         unblockProcess(semaphores[semId].destroyerPID);
-    //     }
-    // }
-    // return 1;
 }
 
 int semDestroy(sem_t semId)
 {
 
-    // if (semaphores[semId].name == NULL || semaphores[semId].destroying)
-    // {
-    //     return -1;
-    // }
+    if (semaphores[semId].name == NULL || semaphores[semId].destroying)
+    {
+        return -1;
+    }
 
-    // semaphores[semId].destroyerPID = getCurrentPid();
-    // semaphores[semId].destroying = 1;
-
-    // if (semaphores[semId].activeProcessCant > 0)
-    // {
-    //     blockProcess(getCurrentPid());
-    // }
-
-    // already unblocked
+    semaphores[semId].destroyerPID = getCurrentPid();
+    semaphores[semId].destroying = 1;
     destroyQueue(semaphores[semId].blockedProcesses);
     cleanSemaphore(semId);
     return 0;
@@ -149,6 +134,7 @@ void cleanSemaphore(int semId)
     semaphores[semId].destroyerPID = -1;
     semaphores[semId].destroying = 0;
     semaphores[semId].activeProcessCant = 0;
+    
 }
 
 int semWait(sem_t semId)
@@ -170,6 +156,7 @@ int semWait(sem_t semId)
         mutexUnlock(semId);
         blockProcess(getCurrentPid());
     }
+    return 0;
 }
 
 int semPost(sem_t semId)
@@ -195,6 +182,7 @@ int semPost(sem_t semId)
         }
     }
     mutexUnlock(semId);
+    return 0;
 }
 
 int semSet(int semId, int value)

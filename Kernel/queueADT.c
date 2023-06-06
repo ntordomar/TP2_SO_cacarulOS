@@ -1,7 +1,7 @@
 #include <queueADT.h>
 #include <heap.h>
 
-// Crear una nueva cola
+// Create a new Queue
 Queue *createQueue()
 {
     Queue *queue = (Queue *)malloc(sizeof(Queue));
@@ -10,7 +10,7 @@ Queue *createQueue()
     return queue;
 }
 
-// Agregar un elemento a la cola
+// Adding an element to the queue
 void enqueue(Queue *queue, PCB *data)
 {
     Node *newNode = (Node *)malloc(sizeof(Node));
@@ -38,17 +38,17 @@ PCB *peek(Queue *queue)
 {
     if (isEmpty(queue))
     {
-        return -1; // Valor centinela para indicar una cola vacía
+        return NULL; // Indicates an empty queue
     }
     return queue->front->data;
 }
 
-// Eliminar y devolver el elemento de la parte frontal de la cola
+// Deletes and returns the first node
 PCB *dequeue(Queue *queue)
 {
     if (isEmpty(queue))
     {
-        return NULL; // Valor centinela para indicar una cola vacía
+        return NULL; // Empty queue
     }
     Node *temp = queue->front;
     PCB * data = temp->data;
@@ -58,17 +58,17 @@ PCB *dequeue(Queue *queue)
     {
         queue->rear = NULL;
     }
-    // free(temp);
+    free(temp);
     return data;
 }
 
-// Verificar si la cola está vacía
+// Check if the queue is empty
 int isEmpty(Queue *queue)
 {
     return queue->front == NULL;
 }
 
-// Liberar la memoria utilizada por la cola
+// Frees the memory used by the queue
 void destroyQueue(Queue *queue)
 {
     while (!isEmpty(queue))
@@ -90,7 +90,7 @@ PCB *findElement(Queue *queue)
         current = current->next;
     }
 
-    return NULL; // Valor centinela para indicar que el elemento no fue encontrado
+    return NULL; // Not found
 }
 
 PCB *findElementByPid(Queue *queue, int pid)
@@ -105,7 +105,7 @@ PCB *findElementByPid(Queue *queue, int pid)
         current = current->next;
     }
 
-    return NULL; // Valor centinela para indicar que el elemento no fue encontrado
+    return NULL; // Not found
 }
 
 PCB *dequeueByData(Queue *queue, int pid)
@@ -135,7 +135,7 @@ PCB *dequeueByData(Queue *queue, int pid)
         current = current->next;
     }
 
-    return NULL; // Valor centinela para indicar que el proceso no fue encontrado
+    return NULL; // Not found
 }
 
 int retPids(Queue *queue, int * pids)
@@ -149,4 +149,23 @@ int retPids(Queue *queue, int * pids)
         current = current->next;
     }
     return i;
+}
+
+int * dequeueAllChildren(Queue * queue, int ppid)
+{
+    int *pids = malloc(sizeof(int)*100);
+    int dim = 0;
+    Node *current = queue->front;
+
+    while (current != NULL)
+    {
+        if (current->data->process->parent == ppid)
+        {
+            pids[dim++] = current->data->process->pid;
+        }
+        current = current->next;
+    }
+    
+    pids[dim] = -1;
+    return pids;
 }

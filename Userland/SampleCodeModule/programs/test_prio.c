@@ -51,5 +51,5 @@ int test_prio(char ** args) {
   for (i = 0; i < TOTAL_PROCESSES; i++)
     sys_waitpid(pids[i]);
 
-
+return 0;
 }

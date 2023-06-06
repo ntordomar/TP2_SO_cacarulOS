@@ -1,12 +1,13 @@
+
 #include <userlandApps.h>
-// #include <userStdF.h>
 
 int loop(char **args)
 {
     while (1)
     {
-        print("Hello Cacarulo, I am the process ", WHITE);
-        printf(WHITE, "%d\n", getCurrentPid());
+        print("HELLO CACARULO, I AM THE PROCESS ", WHITE);
+        printf(WHITE, "%d", getCurrentPid());
+        printChar('\n',WHITE);
         hold(60);
     }
 }

@@ -1,2 +1,2 @@
-void divideByZero();
-void opCode();
+int divideByZero(char ** args);
+int opCode(char ** args);

@@ -1,9 +1,7 @@
-// This is a personal academic project. Dear PVS-Studio, please check it.
-// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include <userStdF.h>
 #include <user_syscalls.h>
 #include <stdint.h>
 #include <userLib.h>
+#include <userlandApps.h>
 
 #define MAX_PHYLOS 15
 #define MIN_PHYLOS 5
@@ -13,14 +11,12 @@
 #define HUNGRY      1
 #define EATING      2
 
-#define TRUE 1
-#define FALSE (!TRUE)
 
 #define MUTEX 777
 #define PRINT_MUTEX 888
 
 typedef int sem_t;
-int end = FALSE;
+int end = 0;
 
 int state[MAX_PHYLOS] = { 0 };
 sem_t s[MAX_PHYLOS] = { 0 };
@@ -41,15 +37,21 @@ void eat();
 void think();
 
 int phylo(char ** arguments) {
-    end = FALSE;
+
+    printf(WHITE, "Welcome to the dining philosophers.\n");
+    printf(WHITE, "Press A to add a philosopher.\n");
+    printf(WHITE, "Press R to remove a philosopher.\n");
+    printf(RED, "Press Q to quit.\n");
+
+    end = 0;
     currentCount = 0;
-    semDestroy("mutex");
-    semDestroy("print");
     mutexId = semCreate("mutex", 1);
     printId = semCreate("print", 1);
     sys_sem_open("mutex");
     sys_sem_open("print");
  
+    printf(WHITE, "Initializing...\n");
+    hold(10);
     for(int i = 0 ; i < MIN_PHYLOS; i++){
         addPhylo();
     }
@@ -59,30 +61,38 @@ int phylo(char ** arguments) {
         c = getChar();
         switch(c){
             case 'A':
+                printf(WHITE, "Adding a philosopher...\n");
+                hold(5);
                 addPhylo();
                 break;
             case 'R':
+                printf(WHITE, "Removing a philosopher...\n");
+                hold(5);
                 removePhylo();
                 break;
             case 'Q':
-                end = TRUE;
+                printf(WHITE, "Quiting...\n");
+                end = 1;
                 break;
         }
     }
 
-    for(int i = 0 ; i < currentCount; i++){
+    sys_waitpid(pids[0]);
+    for(int i = 1 ; i < currentCount; i++){
+        sys_kill(pids[i]);
         sys_kill(pids[i]);
         semDestroy(s[i]);
         semDestroy(safe[i]);
     }
 
-    semDestroy("mutex");
-    semDestroy("print");
-
+    semDestroy(mutexId);
+    semDestroy(printId);
+    return 0;
 }
 
 
 void addPhylo(){
+
   
     semWait(mutexId);
     if(currentCount == MAX_PHYLOS){
@@ -101,9 +111,10 @@ void addPhylo(){
 
         args[0] = (char *) (intptr_t) strcpy(args[0], string);
         args[1] = buf;
+        args[2] = NULL;
         philos = args;
         int fds[2] = {0,0};
-        pids[currentCount] = sys_create_process("phylo", philos, &philosopher, 0, fds);
+        pids[currentCount] = sys_create_process(string, philos, &philosopher, 0, fds);
         if( pids[currentCount] <= 0) {
             printf(RED, "error creating philosopher. aborting\n");
             return;
@@ -144,6 +155,7 @@ int philosopher(char ** num) {
         putForks(i);
         semPost(safe[i]);
     }
+    return 0;
 }
 
 
@@ -173,16 +185,16 @@ void test(int i) {
 }
 
 void eat() {
-    for(int i = 0; i < 5000000; i++)
-        ;
+    hold(10);
     semWait(printId);
     for(int i = 0; i < currentCount; i++) {
-        print(state[i] == EATING? "E " : ". ", 2);
+        printf(WHITE, state[i] == EATING? "E " : ". ", 2);
     }
+    printf(WHITE, "\n");
     semPost(printId);
 }
 
 void think() {
-    for(int i = 0; i < 5000000; i++)
+    for(int i = 0; i < 50000; i++)
         ;
 }

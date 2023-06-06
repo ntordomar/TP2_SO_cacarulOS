@@ -114,6 +114,7 @@ int pipeRead(pipe_t id, char *dest, unsigned int count)
         pipeArray[id].leftToRead--;
         semPost(pipeArray[id].writeSemId);
     }
+    return 0;
 }
 
 void pipeDestroy(pipe_t id)
@@ -148,7 +149,7 @@ pipe_t getPipeIdByName(int name)
 
 void sendEOFToCurrent()
 {
-    PCB *pcb = getForegroundProcess();
+    PCB *pcb = findPcbEntry(getForegroundProcess());
     if (pcb->process->fd[FD_READ] != -1)
     {
         sendEOFSignal(pcb->process->fd[FD_READ]);

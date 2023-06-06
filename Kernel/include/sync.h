@@ -1,10 +1,6 @@
 #include <scheduler.h>
 
 #include "./process.h"
-// Se abre y me uno con el nombre
-// cuando se abre un semaphore se agrega a la primer posicion del vector libre
-
-// Semaphore.h
 
 typedef int sem_t;
 
@@ -48,3 +44,5 @@ void mutexLock(mutex_t mutexID);
 void mutexUnlock(mutex_t mutexID);
 void mutexCreate(mutex_t mutexID);
 void mutexDelete(mutex_t mutexID);
+void mutexInit();
+

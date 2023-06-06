@@ -107,7 +107,7 @@ void free(void *ptr){
 
   listType *freeBuddyBlock = getBuddy(freeNode);
 
-  // si libero bloques, uno los que quedaron vacios
+  // when freeing blocks, join the empty ones
   while (freeNode->order != currentBlocks - 1 && freeBuddyBlock->order == freeNode->order && freeBuddyBlock->free)
   {
     removeNode(freeBuddyBlock);

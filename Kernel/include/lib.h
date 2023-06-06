@@ -28,7 +28,7 @@ uint64_t* createStack(uint64_t* stackStart,void * code, char ** args, void * pro
 void forceChangeOfProcess(uint64_t* RSP);
 void forceScheduler();
 void debug();
-int enterCriticalRegion(int * value);
+int enterCriticalRegion(char * value);
 #endif
 
 

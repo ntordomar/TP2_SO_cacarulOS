@@ -95,14 +95,18 @@ void print(char *buffer, int color)
     {
         if (stdout == 0)
         {
-            if ((Xpos + (charSize * LETTER_WIDTH)) >= SCREEN_WIDTH)
+            if(buffer[i] == '\n')
+            {
+                newLine();
+            }
+            else if ((Xpos + (charSize * LETTER_WIDTH)) >= SCREEN_WIDTH)
             { // If we get to the end of the screen we re-adjust x and y pos to begin a new line
                 Xpos = 0;
                 Ypos += charSize * LETTER_HEIGHT;
             }
             if ((Ypos + (charSize * LETTER_HEIGHT)) >= SCREEN_HEIGHT)
             { // 'scrolling' functionality
-                clear();
+                clear(NULL);
             }
             sys_write_char(Xpos, Ypos, buffer[i], color);
             Xpos += LETTER_WIDTH * charSize;
@@ -130,10 +134,11 @@ void backspace()
     sys_write_char(Xpos, Ypos, ' ', WHITE);
 }
 
-void clear()
+int clear(char ** args)
 {
     sys_clear_screen();
     resetTerminal();
+    return 0;
 }
 
 void newLine()
@@ -320,8 +325,8 @@ processInfo *getProcessInfo(int pid)
 
 void *malloc(int size)
 {
-    void *ptr;
-    ptr = sys_malloc(size, ptr);
+    void *ptr = NULL;
+    ptr = (void*) sys_malloc(size, ptr);
     return ptr;
 }
 

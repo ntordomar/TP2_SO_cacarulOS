@@ -23,9 +23,8 @@ void keyboardHandlerInit()
 }
 
 char nextElement()
-{ // returns the first element pushed into the buffer in cronological order
-    // if (cantElems == 0)
-    //     return -1;
+{ 
+    // returns the first element pushed into the buffer in cronological order
     semWait(semId);
     char toRet = buff[front];
     front++;
@@ -52,10 +51,10 @@ void keyHandler()
         switch (keyBoardTable[tecla])
         {
         case 'R':
-            // _snapshot_registers();
+            _snapshot_registers();
             break;
         case 'D':
-            if (getForegroundProcess()->process->fd[0] != 0)
+            if (findPcbEntry(getForegroundProcess())->process->fd[0] != 0)
                 sendEOFToCurrent();
             else
             {
@@ -74,6 +73,9 @@ void keyHandler()
             break;
         case 'C':
             killCurrentForeground(semId);
+            front = 0;
+            rear = 0;
+            cantElems = 0;
             break;
         }
         controlFlag = 0;

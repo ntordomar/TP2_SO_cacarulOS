@@ -16,27 +16,71 @@
 
 void analizeCommand();
 
-static int commandCount = 22;
+static int commandCount = 20;
 static char lineBuffer[1024] = {0};
 static int lineCantChar = 0;
 
-static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK", "MEM", "TESTPROCESS", "CAT", "FILTER", "WC","PHYLO", "TESTSEM", "TESTPRIO", "TESTMEM"};
-static int (*commandFunctions[])(char **param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block, mem, test_processes, cat, filter, wc, phylo, test_sync, test_prio, test_mem};
+static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK", "MEM", "TESTPROCESS", "CAT", "FILTER", "WC","PHYLO", "TESTSEM", "TESTPRIO", "TESTMEM"};
+static int (*commandFunctions[])(char **param) = {help, lettersize, clear, divideByZero, opCode, ps, loop, kill, nice, block, mem, test_processes, cat, filter, wc, phylo, test_sync, test_prio, test_mem};
 
 int fds[2] = {0, 0};
 
-int findAndExecProcess(char *command, char *arg1, char *arg2, char fg, int *fds)
+
+
+int createPipedProcess(char ** args) {
+    if(args[0] == NULL || args[1] == NULL) return -1;
+    int pipeFd = pipeCreateAnonymous();
+    int *fds1 = (int *)malloc(2 * sizeof(int));
+    int *fds2 = (int *)malloc(2 * sizeof(int));
+    fds2[0] = pipeFd;
+    fds2[1] = 0;
+    fds1[0] = 0;
+    fds1[1] = pipeFd;
+    int pid1 = findAndExecProcess(args[0],1,fds1);
+    int pid2 = findAndExecProcess(args[1],1,fds2);
+ 
+    sys_waitpid(pid1);
+    killProcess(pid2);
+    killProcess(pid2);
+    return 0;
+}
+
+int findAndExecProcess(char * line, char piped, int *fds)
 {
+    char isForeground = 1;
+    if(piped)
+    {
+        isForeground = 0;
+    }
+    
+    char arg1[50] = {0};
+    char arg2[50] = {0};
+
+    int i=0;
+    while(line[i] != 0)
+    {
+        i++;
+    }
+
+    if (line[i - 1] == ';')
+    {
+        isForeground = 0;
+        divideString(line, arg2, ';');
+    }
+    
+    divideString(line, arg1, ' ');
+    divideString(arg1, arg2, ' ');
+    
     for (int i = 0; i < commandCount; i++)
     {
-        if (strcmp(command, commandList[i]) == 0)
+        if (strcmp(line, commandList[i]) == 0)
         {
             char **args;
-            args = sys_malloc(3 * sizeof(char *), args);
+            args = malloc(2 * sizeof(char *));
 
             if (arg1 != NULL && arg1[0] != 0)
             {
-                args[0] = sys_malloc(50, args[0]);
+                args[0] = malloc(50);
                 strcpy(args[0], arg1);
             }
             else
@@ -44,29 +88,31 @@ int findAndExecProcess(char *command, char *arg1, char *arg2, char fg, int *fds)
 
             if (arg2 != NULL && arg2[0] != 0 )
             {
-                args[1] = sys_malloc(50, args[1]);
+                args[1] = malloc(50);
                 strcpy(args[1], arg2);
             }
             else
                 args[1] = NULL;
 
             args[2] = NULL;
-            int pid = sys_create_process(commandList[i], args, commandFunctions[i], fg, fds);
+            int pid = sys_create_process(commandList[i], args, commandFunctions[i], isForeground, fds);
 
             if (pid == -1)
             {
                 printf(WHITE, "Could not create process \n");
-            }
-            else
+            }else
             {
-                // sys_waitpid(pid);
+                if(isForeground)
+                {
+                    sys_waitpid(pid);
+                }
             }
             lineCantChar = 0;
             return pid;
         }
     }
 
-    printf(WHITE, "%s not found \n", command);
+    printf(WHITE, "%s not found \n", line);
     lineCantChar = 0;
     return 0;
 }
@@ -76,7 +122,6 @@ void analizeCommand()
     int i = 0;
     int foundPipe = 0;
     
-    char isForeground = 1;
     while (i < lineCantChar && !foundPipe)
     {
         if (lineBuffer[i] == '/')
@@ -86,76 +131,41 @@ void analizeCommand()
         i++;
     }
 
-    if (lineBuffer[lineCantChar - 1] == ';')
-    {
-        isForeground = 0;
-    }
+    int *fds = (int *) malloc(2*sizeof(int));
 
+    fds[0]= 0;
+    fds[1] = 0;
+    
     if (foundPipe)
     {
         char command1[50] = {0};
-        char command2[50] = {0};
         divideString(lineBuffer, command1, '/');
-        divideString(command1, command2, ' ');
+        char ** args = malloc(100);
+        
+        args[0] = lineBuffer;
+        args[1] = command1;
 
-        // crear el pipe
-        int pipeFd = pipeCreateAnonymous();
-        int *fds1 = (int *)malloc(2 * sizeof(int));
-        int *fds2 = (int *)malloc(2 * sizeof(int));
-        fds2[0] = pipeFd;
-        fds2[1] = 0;
-        fds1[0] = 0;
-        fds1[1] = pipeFd;
-        int pid = findAndExecProcess(lineBuffer, NULL, NULL, isForeground, fds1);
-        if (pid != -1)
-        {
-            int pid2 = findAndExecProcess(command1, NULL, NULL, isForeground, fds2);
-            if (pid2 != -1)
-            {
-                sys_waitpid(pid2);
-                sys_waitpid(pid);
-                // lineCantChar = 0;
-                // lineBuffer[lineCantChar] = 0;
-                // newLine();
-            }
-        }
+
+        int pipePid = sys_create_process("PipedProcess", args, &createPipedProcess, 1, fds);
+        sys_waitpid(pipePid);
     }
     else
     {
-        char arg1[50] = {0};
-        char arg2[50] = {0};
-        divideString(lineBuffer, arg1, ' ');
-        divideString(arg1, arg2, ' ');
-
-        if (!isForeground) {
-            divideString(lineBuffer, arg2, ';');
-        }
-
-        int pid = findAndExecProcess(lineBuffer, arg1, arg2, isForeground, fds);
-        if (pid != -1)
-        {
-            sys_waitpid(pid);
-            // lineCantChar = 0;
-            // lineBuffer[lineCantChar] = 0;
-            // newLine();
-        }
+        findAndExecProcess(lineBuffer,0,fds);
     }
-
-    // Caso 2: Existe un & en el texto
-    // Agarro el texto hasta el & y busco proc con ese nombre
 }
 
 int sh()
 {
     setCharSize(3);
     setCursorPosition(270, 250);
-    // printf(WHITE, "Welcome to cacarulOS");
-    // cacarulo(430, 400);
+    printf(WHITE, "Welcome to cacarulOS");
+    cacarulo(430, 400);
     setCharSize(1);
-    // clear();
-    // printf(WHITE, "Welcome to cacarulo's terminal. To see available commands, write HELP, followed by an enter.");
-    // hold(60);
-    clear();
+    clear(NULL);
+    printf(WHITE, "Welcome to cacarulo's terminal. To see available commands, write HELP, followed by an enter.");
+    hold(60);
+    clear(NULL);
     printf(WHITE, "root@cacarulOS $ ");
     while (1)
     {

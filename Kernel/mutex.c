@@ -1,6 +1,16 @@
 #include "./include/sync.h"
+#include <locale.h>
+#include <lib.h>
 
 mutexType mutexArray[SEM_MAX]; // we only use one mutex per semaphore
+
+void mutexInit()
+{
+    for(int i = 0; i<SEM_MAX; i++)
+    {
+        mutexArray[i].blockedProcesses = NULL;
+    }
+}
 
 void mutexLock(mutex_t mutexID)
 {
@@ -30,7 +40,7 @@ void mutexCreate(mutex_t mutexID)
     {
         return;
     }
-        
+    if(mutexArray[mutexID].blockedProcesses == NULL)
     mutexArray[mutexID].blockedProcesses = createQueue();
     mutexArray[mutexID].value = 0;
     mutexArray[mutexID].currentOwnerPID = -1;

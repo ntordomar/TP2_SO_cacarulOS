@@ -6,7 +6,6 @@
 #define OUT_OF_BOUNDS(x, y) ((x) > SCREEN_WIDTH || (x) < 0 || (y) > SCREEN_HEIGHT || (y) < 0) 
 
 void exit() {
-    clear();
     setCursorPosition(390,SCREEN_HEIGHT/2);
     printf(PINK,"THANK YOU FOR PLAYING :)");
      hold(50);
@@ -16,7 +15,7 @@ void exit() {
 }
 
 void youWin(int color, char * player){
-    clear();
+
     sys_beep(300, 18);
     setCursorPosition(440,SCREEN_HEIGHT/2 + 80);
     printf(color,"%s!!\n",player);
@@ -29,7 +28,7 @@ void youWin(int color, char * player){
 
 void tronGame(){
     
-    clear();    
+    
     setCursorPosition(375, 100);
     printf(GREEN, "WELCOME TO TRON LIGHT CYCLES\n");
     setCursorPosition(350, 400);

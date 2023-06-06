@@ -5,7 +5,7 @@
 int priorityQuantum[6] = {1, 16, 8, 4, 2, 1};
 
 PCB *currentPCB;
-PCB *foregroundProcess;
+int foregroundProcess;
 
 size_t cantProcess = 0;
 uint8_t enabled = 0;
@@ -40,11 +40,11 @@ void addProcess(processType *process)
     PCB *pcb = (PCB *)malloc(sizeof(PCB));
     pcb->priority = MAX_PRIORITY;
     pcb->process = process;
-    pcb->ticks = 0; // QUANTUM*priorityQuantum[pcb->priority];
+    pcb->ticks = 0;
 
     // Set the current foreground process
     if(pcb->process->pid != 1 && pcb->process->pid != 2 && pcb->process->foreground == 1){
-        foregroundProcess = pcb;
+        foregroundProcess = pcb->process->pid;
     }
 
     // Adding process to the max priority queue.
@@ -54,7 +54,7 @@ void addProcess(processType *process)
 
 void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
 {
-    currentPCB->process->stack->current = stackPointer; // guardo el stack pointer del proceso actual // CAMBIOS
+    currentPCB->process->stack->current = stackPointer; 
     if (currentPCB->priority == IDLE_PRIORITY)
     {
         return;
@@ -64,7 +64,7 @@ void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
         // the process used all its quantum
         if (currentPCB->priority > MIN_PRIORITY)
         {
-            changePriority(currentPCB->process->pid, currentPCB->priority - 1); // decremento su prioridad
+            changePriority(currentPCB->process->pid, currentPCB->priority - 1); // decrease its priority
         }
         else
         {
@@ -116,11 +116,11 @@ uint64_t *switchProcess(uint64_t *stackPointer, uint64_t *stackSegment)
     nextAvailableProcess = findNextAvailableProcess();
     if (currentPCB->process->status == RUNNING)
     {
-        currentPCB->process->status = READY; // el proceso actual pasa a estar ready
+        currentPCB->process->status = READY; // the process is now ready
         currentPCB->ticks = 0;
     }
-    currentPCB = nextAvailableProcess;     // el proceso actual es el que encontre.
-    currentPCB->process->status = RUNNING; // el proceso actual pasa a estar running
+    currentPCB = nextAvailableProcess;     // the actual process is the one i found
+    currentPCB->process->status = RUNNING; // the process is now running
     return currentPCB->process->stack->current;
 }
 
@@ -194,7 +194,7 @@ void removeProcess(PCB *pcb)
 
 PCB *getIdleProcessPCB()
 {
-    return peek(queues[0]); // es una lista oculta donde unicamente esta el idle process
+    return peek(queues[0]); // list with only the idle process
 }
 
 int *getPidsArray()
@@ -214,7 +214,7 @@ Queue ** getQueues(){
     return queues;
 }
 
-PCB * getForegroundProcess()
+int getForegroundProcess()
 {
     return foregroundProcess;
 }
@@ -224,5 +224,6 @@ void yield()
     currentPCB->ticks = priorityQuantum[currentPCB->priority] * QUANTUM;
     forceScheduler();
 }
+
 
 

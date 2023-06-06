@@ -32,7 +32,7 @@ void printChar(char c, int color);
 void newLine();
 void divideString(char *command, char *param, char delim);
 void backspace();
-void clear();
+int clear(char ** args);
 void setCharSize(int size);
 void resetTerminal();
 void setCursorPosition(int x, int y);

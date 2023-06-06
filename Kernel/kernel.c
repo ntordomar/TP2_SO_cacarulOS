@@ -6,10 +6,9 @@
 #include <syscalls.h>
 #include <interrupts.h>
 #include <speaker.h>
-#include <process.h>
 #include <time.h>
 #include <idle.h>
-// #include "./include/sync.h"
+#include <sync.h>
 #include <pipe.h>
 
 extern uint8_t text;
@@ -66,6 +65,7 @@ int main()
 	initScheduler();
 	semInit();
 	pipeInit();
+	
 
 	shPid = createProcess("shell", 0, 4096, 4096, shellArgs, sampleCodeModuleAddress, 1, fdDefault);
 

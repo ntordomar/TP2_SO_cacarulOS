@@ -65,7 +65,7 @@ uint64_t sys_get_regs(int *captured, int *regs)
 
 /* --- NEW SYSCALLS --- */
 
-uint64_t sys_create_process(char *name, char **args, char *code, int foreground, int *fds)
+uint64_t sys_create_process(char *name, char **args, void *code, int foreground, int *fds)
 {
     return sys_int_80((uint64_t)14, (uint64_t)name, (uint64_t)args, (uint64_t)code, (uint64_t)foreground, (uint64_t)fds);
 }

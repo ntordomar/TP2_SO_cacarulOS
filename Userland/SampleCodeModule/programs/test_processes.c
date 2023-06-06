@@ -14,7 +14,6 @@ typedef struct P_rq {
 } p_rq;
 int fdDefault[2] = {0,0};
 int test_processes(char ** args) {
-  printf(RED,args[0]);
   uint8_t rq;
   uint8_t alive = 0;
   uint8_t action;
@@ -28,7 +27,6 @@ int test_processes(char ** args) {
     
 
   if ((max_processes = satoi(args[0])) <= 0){
-    printf("%d\n",max_processes);
     printf(RED,"test_processes: ERROR: invalid argument\n");
     return -1;
   }
@@ -40,9 +38,9 @@ int test_processes(char ** args) {
 
     // Create max_processes processes
     for (rq = 0; rq < max_processes; rq++) {
-      printf(BLUE,"About to create, omg im so nervous\n");
+      for (int i = 0; i < 5000000 ; i ++){;}
       p_rqs[rq].pid = sys_create_process("endless_loop", argvAux, &endless_loop, 0,fdDefault);
-      printf(RED, "Creating process \n");
+      
       if (p_rqs[rq].pid == -1) {
         printf(RED,"test_processes: ERROR creating process\n");
         return -1;
@@ -61,14 +59,14 @@ int test_processes(char ** args) {
         switch (action) {
           case 0:
             if (p_rqs[rq].state == RUNNING || p_rqs[rq].state == BLOCKED) {
-              printf(RED, "killing process \n");
+             
               if (sys_kill(p_rqs[rq].pid) == -1) {
                 printf(RED,"test_processes: ERROR killing process\n");
                 return -1;
               }
               
               sys_kill(p_rqs[rq].pid);
-              printf(GREEN,"yuss!!!\n");
+              
               
               p_rqs[rq].state = KILLED;
               alive--;

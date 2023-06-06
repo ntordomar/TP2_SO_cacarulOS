@@ -1,7 +1,7 @@
 #include <video.h>
-// #include "../include/heap.h"
 #include "../include/lib.h"
 #include <sync.h>
+
 void freeProcess(PCB *processPCB);
 int biggerPidAvailable = 1;
 
@@ -15,7 +15,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     processType *process = (processType *)malloc(sizeof(processType));
     if (process == NULL)
     {
-        return -1; // No hay memoria para crear un nuevo proceso
+        return -1; // There is no memory to create a new process
     }
 
     process->pid = getNewPid(); 
@@ -28,19 +28,19 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     strcpy(process->name, name);
     if (parent == -1)
     {
-        process->parent = getCurrentPid(); // getCurrentPid(); // esta funcion va a estar implementada en el scheduler
+        process->parent = getCurrentPid(); 
     }
     else
     {
         process->parent = parent;
     }
 
-    process->heap = (uint64_t *)malloc(sizeof(memoryBlock));
+    process->heap = (memoryBlock *)malloc(sizeof(memoryBlock));
     if (process->heap == NULL)
     {
         return -1;
     }
-    process->heap->base = (uint64_t *)malloc(heapSize); // preguntar que onda la stack size??????? en ambos casos seria 4096
+    process->heap->base = (uint64_t *)malloc(heapSize); 
     if (process->heap->base == NULL)
     {
         return -1;
@@ -48,7 +48,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
     process->heap->size = heapSize;
     process->heap->current = (uint64_t *)process->heap->base;
 
-    process->stack = (uint64_t *)malloc(sizeof(memoryBlock));
+    process->stack = (memoryBlock *)malloc(sizeof(memoryBlock));
     if (process->stack == NULL)
     {
         return -1;
@@ -69,11 +69,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
 
     process->foreground = foreground;
 
-    // A PARTIR DE ESTE PUNTO YA PUSIMOS TODA LA INFORMACION ADENTRO DEL PROCESO.
-    // LO AGREGO A MI LISTA DE PROCESOS. ANALIZAR TODOS JUNTOS, TIPO PARA QUE QUEREMOS ESO SI YA LO TENEMOS EN EL SCHEDULER
-    // ahora deberia agregarlo a la lista en el scheduler, y tmb deberia crear toda la estructura del stack
-    // createProcessStack(code, args, (uint64_t *)process->stack->base + process->stack->size);
-    process->stack->current = createStack((char *)process->stack->base + process->stack->size, code, args, &processWrapper);
+    process->stack->current = createStack((uint64_t *)process->stack->base + process->stack->size, code, args, &processWrapper);
     process->semId = semCreateAnonymous(0);
     addProcess(process);
     return process->pid;
@@ -98,7 +94,6 @@ int killProcess(int pid)
     if (findPcbEntry(processPCB->process->parent) == NULL || processPCB->process->status == ZOMBIE)
     {
         processPCB->process->status = DEAD;
-        Queue **q = getQueues();
         removeProcess(processPCB);
         freeProcess(processPCB);
     }
@@ -120,14 +115,35 @@ int killProcess(int pid)
 
 int killCurrentForeground(int semId)
 {
-    PCB *currentPCB = getForegroundProcess();
+    PCB *currentPCB = findPcbEntry(getForegroundProcess());
     if (currentPCB == NULL)
         return -1;
-        if(currentPCB->process->status == BLOCKED){
-            semSet(semId, 1);
-        }
+
     // kill process that is running in foreground if it is not the shell
-    return killProcess(currentPCB->process->pid);
+    if(!killChildren(currentPCB->process->pid)) 
+    {
+        if(currentPCB->process->status == BLOCKED)
+            semSet(semId, 1);
+        return killProcess(currentPCB->process->pid);
+    }
+    return 0;
+    
+}
+
+int killChildren(int ppid) {
+    int count = 0;
+    Queue ** myQueues = getQueues();
+    for (int i = MIN_PRIORITY; i <= MAX_PRIORITY; i++)
+    {
+        int * killedProcesses = dequeueAllChildren(myQueues[i], ppid);
+        for (int j = 0; killedProcesses[j]!= -1 ; j++ )
+        {
+            killProcess(killedProcesses[j]);
+            count++;
+        }
+        free(killedProcesses);
+    }
+    return count;
 }
 
 int blockProcess(int pid)
@@ -170,10 +186,9 @@ int unblockProcess(int pid)
 void processWrapper(int code(char **args), char **args)
 {
     openAnonymous(getCurrentPCB()->process->semId);
-    int ret = code(args);
+    code(args);
     int pid = getCurrentPid();
     killProcess(pid);
-
 }
 
 void setFileDescriptor(int pid, int index, int value)
@@ -223,3 +238,5 @@ void freeProcess(PCB *processPCB)
     semDestroy(processPCB->process->semId);
     free(processPCB);
 }
+
+

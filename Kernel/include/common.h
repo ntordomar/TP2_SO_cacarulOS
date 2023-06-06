@@ -5,8 +5,8 @@ typedef struct {
     char * name;
     int pid;
     int parent;
-    uint64_t rsp;
-    uint64_t rbp;
+    uint64_t * rsp;
+    uint64_t * rbp;
     size_t priority;
     char foreground;
     int state;

@@ -4,7 +4,6 @@ int ps(char **args)
 {
     processInfo *p;
     int *pids = getProcesses();
-    // recorro el arreglo de pids y voy imprimiendo la informacion de los procesos
     char *status = malloc(10);
     printf(GREEN, "\n");
     printf(GREEN, "PID | Name | Parent |   RSP   |   RBP   | Priority | Foreground | State\n");

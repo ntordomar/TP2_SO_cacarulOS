@@ -1,10 +1,12 @@
 #include <exceptions.h>
 #include <userLib.h>
 #include <userStdF.h>
-void divideByZero(){
+int divideByZero(char ** args){
     divideZero();
+    return 0;
 }
 
-void opCode(){
+int opCode(char ** args){
     opCodeEx();
+    return 0;
 }

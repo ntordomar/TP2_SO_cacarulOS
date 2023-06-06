@@ -1,6 +1,6 @@
 #include <userStdF.h>
 
-void lettersize() {
+int lettersize(char ** args) {
     printf(WHITE,"CHOOSE YOUR FONT SIZE (WE RECOMMEND A NUMBER LOWER OR EQUAL TO 3)\n");
     char buff[50];
     int buffPos = 0;
@@ -17,11 +17,11 @@ void lettersize() {
                 setCharSize(atoi(buff));
                 printf(WHITE,"SIZE WAS CHANGED");
                 newLine();
-                return;
+                return 0;
             } else {
                 if(!isDigit(c)){
                     printf(WHITE,"DIGITS ONLY :( ABORTING...\n");
-                    return;
+                    return 0;
                 }
                 buff[buffPos++] = c;
                 printChar(c, WHITE);
@@ -29,4 +29,5 @@ void lettersize() {
             }
         }
     }
+    return 0;
 }
