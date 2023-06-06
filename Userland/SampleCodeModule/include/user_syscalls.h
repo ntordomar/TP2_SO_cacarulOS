@@ -41,3 +41,4 @@ uint64_t sys_pipe_create_anonymous();
 uint64_t sys_pids_array();
 uint64_t sys_get_current_stdout();
 uint64_t sys_sem_create_anonymous(int initValue);
+uint64_t sys_yield();

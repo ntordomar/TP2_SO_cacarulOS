@@ -4,13 +4,9 @@
 #include <video.h>
 
 semaphoreType *semaphores;
-int anonymousSemId = 0;
+
 int userAlreadyExists(char *name);
-
-// void dequeueForeground(sem_t semId){
-//     dequeueByData(semaphores[semId].blockedProcesses,getForegroundProcess());
-
-// }
+sem_t findMinmumFreeId();
 
     void semInit()
 {
@@ -47,14 +43,23 @@ sem_t semCreate(char *name, int initValue)
     return i;
 }
 
+sem_t findMinmumFreeId(){
+    for(int i = 0 ; i<FIRST_USER_SEM; i++){
+        if(semaphores[i].name == NULL){
+            return i;
+        }
+    }
+    return -1;
+}
+
 sem_t semCreateAnonymous(int initValue)
 {
-    semaphores[anonymousSemId].name = "CacarulOS";
-    semaphores[anonymousSemId].value = initValue;
-    semaphores[anonymousSemId].blockedProcesses = createQueue();
-    // semaphores[anonymousSemId].activeProcesses[getCurrentPid()] = 1;
-    semaphores[anonymousSemId].activeProcessCant++;
-    return anonymousSemId++;
+    sem_t auxId = findMinmumFreeId();
+    if(auxId == -1) return -1;
+    semaphores[auxId].name = "CacarulOS";
+    semaphores[auxId].value = initValue;
+    semaphores[auxId].blockedProcesses = createQueue();
+    return auxId;
 }
 
 sem_t semOpen(char *nameSem)
@@ -80,44 +85,55 @@ sem_t semOpen(char *nameSem)
     return i;
 }
 
+sem_t openAnonymous(sem_t semId){
+    if (semaphores[semId].destroying)
+    {
+        return -1;
+    }
+    semaphores[semId].activeProcesses[ getCurrentPid() ] = 1;
+    semaphores[semId].activeProcessCant++;
+    return 0;
+
+}
+
 int semClose(sem_t semId)
 {
     if (semId > SEM_MAX || semId < 0 || semaphores[semId].name == NULL || semaphores[semId].activeProcesses[getCurrentPid()] == 0)
     {
         return -1;
     }
+    return 0;
 
-    semaphores[semId].activeProcesses[getCurrentPid()] = 0;
-    semaphores[semId].activeProcessCant--;
+    // semaphores[semId].activeProcesses[ getCurrentPid() ] = 0;
+    // semaphores[semId].activeProcessCant--;
 
-    if (semaphores[semId].activeProcessCant == 0)
-    {
-        if (semaphores[semId].destroying)
-        {
-            unblockProcess(semaphores[semId].destroyerPID);
-        }
-    }
-    return 1;
+    // if (semaphores[semId].activeProcessCant == 0)
+    // {
+    //     if (semaphores[semId].destroying)
+    //     {
+    //         unblockProcess(semaphores[semId].destroyerPID);
+    //     }
+    // }
+    // return 1;
 }
 
 int semDestroy(sem_t semId)
 {
 
-    if (semaphores[semId].name == NULL || semaphores[semId].destroying)
-    {
-        return -1;
-    }
+    // if (semaphores[semId].name == NULL || semaphores[semId].destroying)
+    // {
+    //     return -1;
+    // }
 
-    semaphores[semId].destroyerPID = getCurrentPid();
-    semaphores[semId].destroying = 1;
+    // semaphores[semId].destroyerPID = getCurrentPid();
+    // semaphores[semId].destroying = 1;
 
-    if (semaphores[semId].activeProcessCant != 0)
-    {
-        blockProcess(getCurrentPid());
-    }
+    // if (semaphores[semId].activeProcessCant > 0)
+    // {
+    //     blockProcess(getCurrentPid());
+    // }
 
     // already unblocked
-    free(semaphores[semId].name);
     destroyQueue(semaphores[semId].blockedProcesses);
     cleanSemaphore(semId);
     return 0;

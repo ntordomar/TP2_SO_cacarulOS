@@ -5,7 +5,7 @@
 #define IDLE_PRIORITY 0
 #define MAX_PRIORITY 5
 #define MIN_PRIORITY 1
-#define QUANTUM 5 // 5 ticks del timer es 1 quantum
+#define QUANTUM 2 // 5 ticks del timer es 1 quantum
 
 uint8_t schedulerIsEnabled();
 void initScheduler();
@@ -22,5 +22,6 @@ PCB *getIdleProcessPCB();
 PCB *getCurrentPCB();
 Queue ** getQueues();
 void removeProcess(PCB *pcb);
+void yield();
 
 PCB * getForegroundProcess();

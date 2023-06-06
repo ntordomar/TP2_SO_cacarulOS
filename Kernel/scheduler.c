@@ -1,6 +1,7 @@
 #include "./include/scheduler.h"
 #include "heap.h"
 #include <keyBoardHandler.h>
+#include <lib.h>
 int priorityQuantum[6] = {1, 16, 8, 4, 2, 1};
 
 PCB *currentPCB;
@@ -76,7 +77,7 @@ void stopProcess(uint64_t *stackPointer, uint64_t *stackSegment)
     {
         if (currentPCB->priority < MAX_PRIORITY)
         {
-            int newPriority = currentPCB->priority + (int)(1 / (currentPCB->ticks / priorityQuantum[currentPCB->priority] * QUANTUM));
+            int newPriority = currentPCB->priority + (int)(1 / (double) (currentPCB->ticks / priorityQuantum[currentPCB->priority] * QUANTUM));
             changePriority(currentPCB->process->pid, newPriority);
         }
         else
@@ -109,11 +110,8 @@ PCB *findNextAvailableProcess()
 
 uint64_t *switchProcess(uint64_t *stackPointer, uint64_t *stackSegment)
 {
-    // if (currentPCB->priority != IDLE_PRIORITY) // Check if its the idle process.
-    // {
+   
     stopProcess(stackPointer, stackSegment);
-    // }
-
     PCB *nextAvailableProcess;
     nextAvailableProcess = findNextAvailableProcess();
     if (currentPCB->process->status == RUNNING)
@@ -121,13 +119,6 @@ uint64_t *switchProcess(uint64_t *stackPointer, uint64_t *stackSegment)
         currentPCB->process->status = READY; // el proceso actual pasa a estar ready
         currentPCB->ticks = 0;
     }
-    else if (currentPCB->process->status == DEAD)
-    {
-        dequeueByData(queues[currentPCB->priority], currentPCB->process->pid);
-        // freeProcess(currentPCB->process);
-        free(currentPCB);
-    }
-
     currentPCB = nextAvailableProcess;     // el proceso actual es el que encontre.
     currentPCB->process->status = RUNNING; // el proceso actual pasa a estar running
     return currentPCB->process->stack->current;
@@ -181,7 +172,9 @@ int changePriority(int pid, int newPriority)
 int hasMoreTicks()
 {
     if (currentPCB->process->status != RUNNING)
+    {
         return 0;
+    }
     if (currentPCB->ticks >= priorityQuantum[currentPCB->priority] * QUANTUM)
     {
         return 0;
@@ -225,3 +218,11 @@ PCB * getForegroundProcess()
 {
     return foregroundProcess;
 }
+
+void yield()
+{
+    currentPCB->ticks = priorityQuantum[currentPCB->priority] * QUANTUM;
+    forceScheduler();
+}
+
+

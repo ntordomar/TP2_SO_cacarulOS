@@ -18,7 +18,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
         return -1; // No hay memoria para crear un nuevo proceso
     }
 
-    process->pid = getNewPid(); // funcion implementada en el sheduler
+    process->pid = getNewPid(); 
 
     process->name = malloc(strlen(name) + 1);
     if (process->name == NULL)
@@ -86,7 +86,6 @@ int getNewPid()
 
 int killProcess(int pid)
 {
-
     PCB *processPCB = findPcbEntry(pid);
 
     if (processPCB == NULL || processPCB->process == NULL)
@@ -107,10 +106,13 @@ int killProcess(int pid)
     {
         processPCB->process->status = ZOMBIE;
         semPost(processPCB->process->semId);
+        semClose(processPCB->process->semId);
+
     }
 
     if (pid == getCurrentPid())
     {
+
         forceScheduler();
     }
     return 0;
@@ -167,9 +169,11 @@ int unblockProcess(int pid)
 
 void processWrapper(int code(char **args), char **args)
 {
+    openAnonymous(getCurrentPCB()->process->semId);
     int ret = code(args);
     int pid = getCurrentPid();
     killProcess(pid);
+
 }
 
 void setFileDescriptor(int pid, int index, int value)
@@ -196,13 +200,14 @@ processInfo *getProcessInfo(int pid)
 int waitpid(int pid)
 {
     PCB *processToWait = findPcbEntry(pid);
-
+ 
     if (processToWait == NULL)
     {
         return -1;
     }
     int pidRetValue = processToWait->process->pid;
     semWait(processToWait->process->semId);
+
     killProcess(processToWait->process->pid);
     return pidRetValue;
 }
@@ -215,4 +220,6 @@ void freeProcess(PCB *processPCB)
     free(processPCB->process->stack);
     free(processPCB->process->name);
     free(processPCB->process);
+    semDestroy(processPCB->process->semId);
+    free(processPCB);
 }

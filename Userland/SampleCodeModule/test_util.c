@@ -1,6 +1,7 @@
 #include <stdint.h>
-#include <stdio.h>
 #include <user_syscalls.h>
+#include <userStdF.h>
+#include <test_util.h>
 
 // Random
 static uint32_t m_z = 362436069;
@@ -28,6 +29,8 @@ uint8_t memcheck(void *start, uint8_t value, uint32_t size) {
 
   return 1;
 }
+
+
 
 // Parameters
 int64_t satoi(char *str) {
@@ -59,16 +62,16 @@ void bussy_wait(uint64_t n) {
     ;
 }
 
-void endless_loop() {
+int endless_loop(char ** args) {
   while (1)
     ;
-}
+}   
 
-void endless_loop_print(uint64_t wait) {
-  int64_t pid = sys_get_pid();
-
+int endless_loop_print(char ** args) {
+  int pid = sys_get_pid();
+  
   while (1) {
-    printf("%d ", pid);
-    bussy_wait(wait);
+    printf(BLUE, "%d ", pid);
+    bussy_wait(1000000);
   }
 }

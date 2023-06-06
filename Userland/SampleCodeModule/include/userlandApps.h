@@ -24,5 +24,8 @@ int cat(char ** args);
 int filter(char ** args);
 int wc(char **args);
 int phylo(char ** arguments);
+int test_sync(char ** args);
+int test_prio(char ** args);
+int test_mem(char ** args);
 
 #endif

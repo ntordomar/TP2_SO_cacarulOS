@@ -51,14 +51,14 @@ PCB *dequeue(Queue *queue)
         return NULL; // Valor centinela para indicar una cola vacía
     }
     Node *temp = queue->front;
-    int data = temp->data;
+    PCB * data = temp->data;
     queue->front = queue->front->next;
 
     if (queue->front == NULL)
     {
         queue->rear = NULL;
     }
-    free(temp);
+    // free(temp);
     return data;
 }
 
@@ -128,7 +128,6 @@ PCB *dequeueByData(Queue *queue, int pid)
             if (prev != NULL)
                 prev->next = current->next;
 
-            free(current);
             return deletedData;
         }
 
@@ -136,7 +135,7 @@ PCB *dequeueByData(Queue *queue, int pid)
         current = current->next;
     }
 
-    return NULL; // Valor sentinela para indicar que el proceso no fue encontrado
+    return NULL; // Valor centinela para indicar que el proceso no fue encontrado
 }
 
 int retPids(Queue *queue, int * pids)

@@ -363,9 +363,9 @@ int semWait(int semId)
     return sys_sem_wait(semId);
 }
 
-int semCreate(int semId, int value)
+int semCreate(char * semName, int value)
 {
-    return sys_sem_create(semId, value);
+    return sys_sem_create(semName, value);
 }
 
 int semCreateAnonymous(int value)
@@ -380,4 +380,9 @@ int semClose(int semId)
 int semDestroy(int semId)
 {
     return sys_sem_destroy(semId);
+}
+
+int getCurrentPid()
+{
+    return sys_get_pid();
 }

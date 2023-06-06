@@ -72,7 +72,9 @@
         "cmath": "c",
         "buddymemmanager.h": "c",
         "btree.h": "c",
-        "phylo.h": "c"
+        "phylo.h": "c",
+        "test_util.h": "c",
+        "__bit_reference": "c"
     },
     "asciidoc.previewFrontMatter": "show",
     "git.useCommitInputAsStashMessage": false,

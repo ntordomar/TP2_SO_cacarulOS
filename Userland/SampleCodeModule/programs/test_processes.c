@@ -40,8 +40,9 @@ int test_processes(char ** args) {
 
     // Create max_processes processes
     for (rq = 0; rq < max_processes; rq++) {
-      p_rqs[rq].pid = sys_create_process("endless_loop", argvAux, &endless_loop, 1,fdDefault);
-
+      printf(BLUE,"About to create, omg im so nervous\n");
+      p_rqs[rq].pid = sys_create_process("endless_loop", argvAux, &endless_loop, 0,fdDefault);
+      printf(RED, "Creating process \n");
       if (p_rqs[rq].pid == -1) {
         printf(RED,"test_processes: ERROR creating process\n");
         return -1;
@@ -60,10 +61,15 @@ int test_processes(char ** args) {
         switch (action) {
           case 0:
             if (p_rqs[rq].state == RUNNING || p_rqs[rq].state == BLOCKED) {
+              printf(RED, "killing process \n");
               if (sys_kill(p_rqs[rq].pid) == -1) {
                 printf(RED,"test_processes: ERROR killing process\n");
                 return -1;
               }
+              
+              sys_kill(p_rqs[rq].pid);
+              printf(GREEN,"yuss!!!\n");
+              
               p_rqs[rq].state = KILLED;
               alive--;
             }
@@ -91,8 +97,6 @@ int test_processes(char ** args) {
           p_rqs[rq].state = RUNNING;
         }
     }
-    for(int i = 0; i<max_processes; i++){
-      sys_kill(p_rqs[i].pid);
-    }
+
   }
 }

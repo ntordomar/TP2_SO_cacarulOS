@@ -16,12 +16,12 @@
 
 void analizeCommand();
 
-static int commandCount = 19;
+static int commandCount = 22;
 static char lineBuffer[1024] = {0};
 static int lineCantChar = 0;
 
-static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK", "MEM", "TESTPROCESS", "CAT", "FILTER", "WC","PHYLO"};
-static int (*commandFunctions[])(char **param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block, mem, test_processes, cat, filter, wc, phylo};
+static char *commandList[] = {"HELP", "LETTERSIZE", "CLEAR", "TIME", "INFOREG", "MEMORY", "DIVIDEBYZERO", "OPCODE", "PS", "LOOP", "KILL", "NICE", "BLOCK", "MEM", "TESTPROCESS", "CAT", "FILTER", "WC","PHYLO", "TESTSEM", "TESTPRIO", "TESTMEM"};
+static int (*commandFunctions[])(char **param) = {help, lettersize, clear, time, inforeg, memory, divideByZero, opCode, ps, loop, kill, nice, block, mem, test_processes, cat, filter, wc, phylo, test_sync, test_prio, test_mem};
 
 int fds[2] = {0, 0};
 
@@ -34,7 +34,7 @@ int findAndExecProcess(char *command, char *arg1, char *arg2, char fg, int *fds)
             char **args;
             args = sys_malloc(3 * sizeof(char *), args);
 
-            if (arg1 != NULL)
+            if (arg1 != NULL && arg1[0] != 0)
             {
                 args[0] = sys_malloc(50, args[0]);
                 strcpy(args[0], arg1);
@@ -42,7 +42,7 @@ int findAndExecProcess(char *command, char *arg1, char *arg2, char fg, int *fds)
             else
                 args[0] = NULL;
 
-            if (arg2 != NULL)
+            if (arg2 != NULL && arg2[0] != 0 )
             {
                 args[1] = sys_malloc(50, args[1]);
                 strcpy(args[1], arg2);
@@ -113,7 +113,7 @@ void analizeCommand()
             if (pid2 != -1)
             {
                 sys_waitpid(pid2);
-                killProcess(pid);
+                sys_waitpid(pid);
                 // lineCantChar = 0;
                 // lineBuffer[lineCantChar] = 0;
                 // newLine();
@@ -126,6 +126,11 @@ void analizeCommand()
         char arg2[50] = {0};
         divideString(lineBuffer, arg1, ' ');
         divideString(arg1, arg2, ' ');
+
+        if (!isForeground) {
+            divideString(lineBuffer, arg2, ';');
+        }
+
         int pid = findAndExecProcess(lineBuffer, arg1, arg2, isForeground, fds);
         if (pid != -1)
         {

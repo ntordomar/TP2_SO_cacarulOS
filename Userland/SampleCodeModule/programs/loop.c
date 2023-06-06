@@ -5,7 +5,8 @@ int loop(char **args)
 {
     while (1)
     {
-        print("LOOP\n", WHITE);
+        print("Hello Cacarulo, I am the process ", WHITE);
+        printf(WHITE, "%d\n", getCurrentPid());
         hold(60);
     }
 }

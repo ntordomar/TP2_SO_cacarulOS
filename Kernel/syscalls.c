@@ -16,7 +16,7 @@ static uint64_t (*sysFunctions[])(uint64_t r1, uint64_t r2, uint64_t r3, uint64_
                                                                                                       _9_set_font_size, _10_beep, _11_get_ticks, _12_get_mem, _13_get_regs, _14_create_process, _15_malloc, _16_free, _17_getpid,
                                                                                                       _18_kill, _19_exit, _20_nice, _21_block, _22_resume, _23_heap_info, _24_get_proc_info, _25_waitpid, _26_sem_open, _27_sem_close,
                                                                                                       _28_sem_destroy, _29_pipe_open, _30_pipe_destroy, _31_sem_print, _32_sem_create, _33_sem_wait, _34_sem_post, _35_pipe_create,
-                                                                                                      _36_pipe_create_anonymous, _37_pids_array, _38_get_current_stdout};
+                                                                                                      _36_pipe_create_anonymous, _37_pids_array, _38_get_current_stdout,_39_sem_create_anonymous, _40_yield};
 
 uint64_t sys_call_handler(uint64_t mode, uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
 { // pasamos todos ints, en el caso en el que sea un numero, se lee como un numero, en el caso de que esa una direccion de memoria, se castea a la que se necesita :)
@@ -33,11 +33,8 @@ uint64_t _1_write(uint64_t x, uint64_t y, uint64_t c, uint64_t len, uint64_t col
     PCB *currentProcessPCB = getCurrentPCB();
     if (currentProcessPCB->process->fd[FD_WRITE] == SHELL)
     {
-        if (currentProcessPCB->process->foreground)
-        {
-            draw_string(x, y, (char *)c, len, color, BLACK);
-            return 0;
-        }
+        draw_string(x, y, (char *)c, len, color, BLACK);
+        return 0;
     }
     else
     {
@@ -272,4 +269,9 @@ uint64_t _38_get_current_stdout(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t 
 uint64_t _39_sem_create_anonymous(uint64_t initValue, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
 {
     return semCreateAnonymous((int)initValue);
+}
+
+uint64_t _40_yield(uint64_t r1, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5){
+    yield();
+    return 0;
 }

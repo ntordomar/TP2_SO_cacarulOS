@@ -32,6 +32,7 @@ void semInit();                             // Initializes the semaphore array
 int semSet(int semId, int value);           // Sets the value of the semaphore
 sem_t semCreateAnonymous(int initValue);    // Creates an anonymous semaphore
 semInfo* semPrint(sem_t semId);
+sem_t openAnonymous(sem_t semId);
 // void dequeueForeground(sem_t semId);
 
 typedef int mutex_t;
