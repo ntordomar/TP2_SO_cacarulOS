@@ -88,6 +88,7 @@ int createProcess(char *name, int parent, size_t heapSize, size_t stackSize, cha
 
     process->stack->current = createStack((uint64_t *)process->stack->base + process->stack->size, code, args, &processWrapper);
     process->semId = semCreateAnonymous(0);
+    process->cant = 0;
     addProcess(process);
     return process->pid;
 }
@@ -112,6 +113,10 @@ int killProcess(int pid)
     {
         processPCB->process->status = DEAD;
         removeProcess(processPCB);
+        for(int i = 0; i<processPCB->process->cant; i++)
+        {
+            free(processPCB->process->myMemory[i]);
+        }
         freeProcess(processPCB);
     }
     else

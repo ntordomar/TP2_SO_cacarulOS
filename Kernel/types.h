@@ -34,6 +34,8 @@ typedef struct processType
     int fd[3];
     char foreground;
     int semId;
+    void * myMemory[10];
+    int cant;
 } processType;
 
 typedef struct PCB
