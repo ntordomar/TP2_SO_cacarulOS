@@ -5,7 +5,7 @@
 
 int ps(char **args)
 {
-    char * test = malloc(100);
+    char * test = malloc(5000);
     processInfo *p;
     int *pids = getProcesses();
     char *status = malloc(10);

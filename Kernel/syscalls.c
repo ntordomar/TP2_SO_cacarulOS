@@ -154,7 +154,14 @@ uint64_t _15_malloc(uint64_t size, uint64_t ptr, uint64_t r3, uint64_t r4, uint6
 uint64_t _16_free(uint64_t ptr, uint64_t r2, uint64_t r3, uint64_t r4, uint64_t r5)
 {
     PCB * myPCB = getCurrentPCB();
-    myPCB->process->cant--;
+    
+    for(int i = 0; i<= myPCB->process->cant; i++)
+    {
+        if(myPCB->process->myMemory[i] == (void*)ptr)
+        {
+            myPCB->process->myMemory[i] = myPCB->process->myMemory[--myPCB->process->cant];
+        }
+    }
     free((void *)ptr);
     return 0;
 }
